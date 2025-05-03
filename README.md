@@ -9,31 +9,31 @@ A port of fire game Balatro to the nintendo DS made using MicroLUA, based of Hay
 
 ## Contains:
 1. 15 Jokers with art
-2. LArge number of jokers without art
-3. Most tarot cards
+2. Large number of jokers without art including legendary jokers
+3. 21/22 tarot cards
 4. tarots planet and spectral work in consumable slot
 5. All packs added
-6. 14 vouchers
-7. 13 skip tags
-8. 5/8 different stakes
-9. All different decks + 1 additional mainly for testing
-10. 12 spectral cards
+6. All vouchers apart from omen
+7. All skip tags--with some slight differences
+8. All different stakes
+9. All different base decks + 1 additional mainly for testing
+10. 17/18 spectral cards
 11. Improved calculations
 12. Endless implemented but not tested
 13. ability to move cards and jokers
 14. ability to sell jokers and consumables
-15. Pause menu--see deck, look at hands,look at enhancements, music volume, retire run
+15. Pause menu--see deck, look at hands, look at enhancements, music volume, retire run
 16. music plays but sounds bad
-17. some card enhancements
+17. card enhancements and stickers minus red seal
 18. Seeded runs
+19. Improved number of Boss Blinds including some finisher blinds (not tested)
 ## Missing:
 1. remaining jokers
-2. cost manipultion
-3. remaining stakes require stickers
-4. remaining tags
-5. remaining enhancements i.e red seal, purple seal, negative
-6. stone and wild cards
-7. SFX
-8. Animations
-9. artwork
-10. Improve deck/card tracker
+2. remaining boss blinds flipping cards and debuf jokers
+3. retriggering
+4. wild cards
+5. SFX
+6. Animations
+7. artwork
+8. Improve deck/card tracker
+9. Challenge decks
