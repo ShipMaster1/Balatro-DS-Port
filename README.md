@@ -1,5 +1,6 @@
 # Balatro DS Port
 A port of fire game Balatro to the nintendo DS made using MicroLUA, based of Haynster's original port.
+Currntly broken due to removing or adding jokers this i think is due to indexing a non-existent element/reference I am trying to fix
 
 ## How to Install
 1. Get MicroLUA from https://www.gamebrew.org/wiki/Micro_Lua_DS
@@ -16,7 +17,7 @@ A port of fire game Balatro to the nintendo DS made using MicroLUA, based of Hay
 6. All vouchers apart from omen
 7. All skip tags--with some slight differences
 8. All different stakes
-9. All different base decks + 1 additional mainly for testing
+9. All different base decks + 1 additional mainly for testing + Some challenge decsk
 10. 17/18 spectral cards
 11. Improved calculations
 12. Endless implemented but not tested
@@ -36,4 +37,4 @@ A port of fire game Balatro to the nintendo DS made using MicroLUA, based of Hay
 6. Animations
 7. artwork
 8. Improve deck/card tracker
-9. Challenge decks
+9. Challenge Decks
