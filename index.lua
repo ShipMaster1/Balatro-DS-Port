@@ -1,9 +1,11 @@
-scene = "menu"--need to add how to add enhancement to deck table.insert(full_deck,{},i),table.insert(full_deck[i],"blueSeal")
-enhancement_kind = 1--menu init
+scene = "menu"
 index_menu = 1
-deck_able = {"Red Deck", "Blue Deck", "Yellow Deck", "Green Deck", "Black Deck", "Magic Deck", "Nebula Deck", "Ghost Deck", "Abandoned Deck", "Checkered Deck", "Zodiac Deck", "Painted Deck", "Anaglyph Deck", "Plasma Deck", "Erratic Deck", "Rainbow Deck"}--need achievements for locked
-challenge_decks = {"The Omlette", "Rich get Richer", "On a Knife's Edge", "Luxury Tax", "Non-Perishable", "Medusa", "Typecast", "Bram Poker", "Monolith", "Blast Off", "5 Card Draw", "Golden Needle", "Cruelty"}
-total_deck = {deck_able,challenge_decks}
+enhancement_kind = 1--menu init
+speed_init = 2
+speed_details = {[0] = "Off", [1] = "Fast", [2] = "Normal", [3] = "Slow"}
+deck_able = {"Red Deck", "Blue Deck", "Yellow Deck", "Green Deck", "Black Deck", "Magic Deck", "Nebula Deck", "Ghost Deck", "Abandoned Deck", "Checkered Deck", "Zodiac Deck", "Painted Deck", "Anaglyph Deck", "Plasma Deck", "Erratic Deck"}--need achievements for locked
+challenge_decks = {"The Omlette", "15 Minute City", "Rich get Richer", "On a Knife's Edge", "X-ray Vision", "Mad World", "Luxury Tax", "Non Perishable", "Medusa", "Typecast", "Inflation", "Bram Poker", "Fragile","Monolith", "Blast Off", "5 Card Draw", "Golden Needle", "Cruelty","Jokerless"}
+total_deck = {[1]=deck_able,[2]=challenge_decks}
 deck_details = {
     ["Red Deck"] = "Start with 1 additional discard",
     ["Blue Deck"] = "Start with 1 additional hand",
@@ -22,22 +24,25 @@ deck_details = {
     ["Erratic Deck"] = "All ranks and suits are randomized",
     ["Rainbow Deck"] = "All cards start with 1 enhancement",
     ["The Omlette"] = "All Blinds give no rewards, Extra Hands no longer earn money, Earn no Interest at end of round. Start with 5 Eggs",
-    ["15 Minute City"] = "Start with an eternal Ride the Bus and an eternal Shortcut",--shorcut N/I
+    ["15 Minute City"] = "Start with an eternal Ride the Bus and an eternal Shortcut",
     ["Rich get Richer"] = "Chips cannot exceed Cash, Start with $100, Seed Money and Money Tree",
     ["On a Knife's Edge"] = "Start with an eternal Ceremonial Dagger pinned in the leftmost joker slot",
-    ["Mad World"] = "Extra Hands earn no money, Earn no interest. Start with Eternal Business Card and an eternal, negative Pareidoilia",--Pareidoilia N/I
+    ["X-ray Vision"] = "1 in 4 chance for cards to be drawn face down",
+    ["Mad World"] = "Extra Hands earn no money, Earn no interest. Start with Eternal Business Card and an eternal, negative Pareidolia",
     ["Luxury Tax"] = "Hand size is 10, -1 for every $5",
-    ["Non-Perishable"] = "All Jokers are eternal",
+    ["Non Perishable"] = "All Jokers are eternal",
     ["Medusa"] = "Start with an eternal Marble Joker",
+    ["Double or Nothing"] = "Cards are debuffed after scoring, all cards have a red seal",
     ["Typecast"] = "When Ante 5 is reached Jokers become eternal, joker size is fixed to this amount",
     ["Inflation"] = "Raise prices by $1 for every purchase",--N/I
     ["Bram Poker"] = "Jokers no longer appear in the shop. Start with eternal Vampire, magic trick and illusion vouchers",
+    ["Fragile"] = "All cards are glass, start with 2 Oops! All 6s",
     ["Monolith"] = "Eternal Obelisk and Eternal, Negative Marble Joker",
     ["Blast Off"] = "2 Hands per round, 2 Discards per round, 4 joker slots",
     ["5 Card Draw"] = "6 Discards per round, Hand size is 5, 7 joker slots. Start with Card Sharp and Joker",
     ["Golden Needle"] = "6 Discards per round, 1 Hand per round, Discards cost $1. Start with Credit Card",
     ["Cruelty"] = "Small and Big Blind give no reward, 3 Joker Slots",
-    ["Jokerless"] = "Jokerless"--N/I remove the cards that spawn jokers
+    ["Jokerless"] = "Jokerless"
 } 
 stakes = {"White", "Red", "Green", "Black", "Blue", "Purple","Orange", "Gold"}
 
@@ -59,7 +64,8 @@ standard_deck = { --used for generating random cards
     "2c", "3c", "4c", "5c", "6c", "7c", "8c", "9c", "tc", "jc", "qc", "kc", "ac",
 }
 
-non_perishable = {"Gros Michel", "Cavendish", "Ice Cream", "Turtle Bean", "Ramen", "Diet Cola", "Seltzer", "Popcorn", "Mr Bones", "Invisible Joker", "Luchador"}--cant get eternal or perishable
+non_eternal_sticker = {"Gros Michel", "Cavendish", "Ice Cream", "Turtle Bean", "Ramen", "Diet Cola", "Seltzer", "Popcorn", "Mr Bones", "Invisible Joker", "Luchador"}--cant get eternal or perishable
+non_perishable_sticker = {"Castle", "Ceremonial Dagger", "Constellation", "Flash Card", "Glass Joker", "Green Joker", "Hologram", "Lucky Cat", "Madness", "Obelisk", "Red Card", "Ride the Bus", "Rocket", "Runner", "Spare Trousers", "Square Joker", "Vampire", "Wee Joker"}
 card_size = {19,28}--x,y of sprites
 hud_width = 80--width of lhs bar
 colours = {Color.new(31,31,31),Color.new256(153,0,204), Color.new256(102,0,102),Color.new256(0,50,170) ,Color.new256(153,76,0)}--cards, shop_jokers, jokers, packs,consumable
@@ -69,8 +75,6 @@ blind_multis = {1, 1.5, 2} --used for minimumscore
 
 normal_blind = {{"Small Blind", Color.new256(62, 125, 201)}, {"Big Blind", Color.new256(236, 50, 62)}}
 
-boss_blind = { "The Psychic", "The Hook", "The Manacle", "The Club", "The Goad", "The Window", "The Head"}
-boss_blind_locked = {"The Wall", "The Needle","The Arm", "The Water","The Flint", "The Mouth","The Eye", "The Tooth", "The Plant","The Serpent","The Ox"}
 boss_blind_description = {
     ["The Psychic"] = {Color.new256(239, 192, 60),"Must Play 5 Cards",1},
     ["The Hook"] = {Color.new256(168, 64, 36),"Discards 2 Cards Every Hand",1},
@@ -79,6 +83,10 @@ boss_blind_description = {
     ["The Goad"] = {Color.new256(185, 92, 150),"All Spades are Debuffed",1}, 
     ["The Window"] = {Color.new256(169, 162, 149),"All Diamonds are Debuffed",1},
     ["The Head"] = {Color.new256(172, 157, 180),"All Hearts are Debuffed",1},
+    ["The House"] = {Color.new256(122,164,189),"First Hand is drawn face down",2},
+    ["The Wheel"] = {Color.new256(102,255,102),"Cards have 1 in 7 chance of being drawn face down",2},
+    ["The Fish"] = {Color.new256(102,178,255),"Cards drawn face down after each hand played",2},
+    ["The Mark"] = {Color.new256(144,61,61),"Face cards are drawn face down",2},
     ["The Water"] = {Color.new256(153,255,255),"Start with 0 discards",2},
     ["The Arm"] = {Color.new256(102,0,204),"Decrease level of poker hand before scoring",2},
     ["The Mouth"] = {Color.new256(174, 113, 142),"Only 1 Hand Type Can Be Played",2}, 
@@ -90,142 +98,11 @@ boss_blind_description = {
     ["The Plant"] = {Color.new256(112, 146, 132),"All Face Cards are Debuffed",4},
     ["The Serpent"] = {Color.new256(0,102,0),"After Play or Discard draw 3 cards",5},
     ["The Ox"] = {Color.new256(153,76,0),"Playing most played poker hand sets money to $0",6},
-    ["Amber Acorn"] = {Color.new256(255,255,255),"Flips and shuffles all jokers",99},--99 = never add to boss_blind
-    ["Verdent Leaf"] = {Color.new256(255,255,255),"All cards debuffed until 1 Joker sold",99},
-    ["Violet Vessel"] = {Color.new256(255,255,255),"Extra Large Blind",99},--3X boss value
-    ["Crimson Heart"] = {Color.new256(255,255,255),"One random Joker disabled every hand",99},--not done
-    ["Cerulean Bell"] = {Color.new256(255,255,255),"1 card is always selected",99}
-}
-finisher_blinds = {"Amber Acorn","Verdent Leaf","Violet Vessel","Cerulean Bell"}
-missing_finisher = {"Crimson Heart",}
-
-common_joker = {--missing hanging chad
-    "Joker",
-    "Greedy Joker",
-    "Lusty Joker",
-    "Wrathful Joker",
-    "Gluttonous Joker",
-    "Jolly Joker", 
-    "Zany Joker",
-    "Mad Joker", 
-    "Crazy Joker",
-    "Droll Joker",
-    "Sly Joker",
-    "Willy Joker",
-    "Clever Joker",
-    "Devious Joker",
-    "Crafty Joker",
-    "Half Joker",
-    "Credit Card",
-    "Banner",
-    "Mystic Summit",
-    "8 Ball",
-    "Misprint",
-    "Raised Fist",
-    "Chaos the Clown",
-    "Scary Face",
-    "Abstract Joker",
-    "Delayed Gratification",
-    "Gros Michel",
-    "Even Steven",
-    "Odd Todd",
-    "Scholar",
-    "Business Card",
-    "Supernova",
-    "Ride the Bus",
-    "Egg",
-    "Runner",
-    "Ice Cream",
-    "Blue Joker",
-    "Faceless Joker",
-    "Green Joker",
-    "Superposition",
-    "To do List",
-    "Red Card",
-    "Square Joker",
-    "Riff-Raff",
-    "Photograph",
-    "Reserved Parking",
-    "Mail in Rebate",
-    "Hallucination",
-    "Fortune Teller",
-    "Juggler",
-    "Drunkard",
-    "Golden Joker",
-    "Popcorn",
-    "Walkie Talkie",
-    "Smiley Face",
-    "Golden Ticket",
-    "Swashbuckler",
-    "Shoot the Moon"
-}
-uncommon_joker = {
-    "Joker Stencil",
-    "Ceremonial Dagger",
-    "Marble Joker",
-    "Loyalty Card",
-    "Fibonacci",
-    "Steel Joker",
-    "Space Joker",
-    "Burglar",
-    "Blackboard",
-    "Sixth Sense",
-    "Constellation",
-    "Card Sharp",
-    "Madness",
-    "Seance",
-    "Vampire",
-    "Cloud 9",
-    "Rocket",
-    "Midas Mask",
-    "Gift Card",
-    "Turtle Bean",
-    "Erosion",
-    "To the Moon",
-    "Stone Joker",
-    "Bull",
-    "Diet Cola",
-    "Trading Card",
-    "Spare Trousers",
-    "Ramen",
-    "Castle",
-    "Mr Bones",
-    "Acrobat",
-    "Troubadour",
-    "Certificate",
-    "Throwback",
-    "Rough Gem",
-    "Bloodstone",
-    "Arrowhead",
-    "Onyx Agate",
-    "Flower Pot",
-    "Merry Andy",
-    "The Idol",
-    "Seeing Double",
-    "Cartomancer",
-    "Bootstraps",
-}
-
-rare_joker = {--"Baseball Card",
-    "DNA",
-    "Vagabond",
-    "Baron",
-    "Obelisk",
-    "Ancient Joker",
-    "Campfire",
-    "Blueprint",
-    "Wee Joker",
-    "Hit the Road",
-    "The Duo",
-    "The Trio",
-    "The Family",
-    "The Order",
-    "The Tribe",
-    "Stuntman",
-    "Invisible Joker",
-    "Brainstorm",
-    "Driver's License",
-    "Burnt Joker"
+    ["Amber Acorn"] = {Color.new256(0,0,0),"Flips and shuffles all jokers",99},--99 = never add to boss_blind
+    ["Verdent Leaf"] = {Color.new256(0,0,0),"All cards debuffed until 1 Joker sold",99},
+    ["Violet Vessel"] = {Color.new256(0,0,0),"Extra Large Blind",99},--3X boss value
+    ["Crimson Heart"] = {Color.new256(0,0,0),"One random Joker disabled every hand",99},--not done
+    ["Cerulean Bell"] = {Color.new256(0,0,0),"1 card is always selected",99}
 }
 
 legendary_joker ={
@@ -235,147 +112,183 @@ legendary_joker ={
     "Chicot",
     "Perkeo"
 }
+
 joker_info = {
-["Joker"] = {2, "+4 Mult",1},
-["Greedy Joker"] = {5, "+3 Mult for Diamond Cards",2},
-["Gluttonous Joker"] = {5, "+3 Mult for Club Cards",3},
-["Wrathful Joker"] = {5, "+3 Mult for Spade Cards",4},
-["Lusty Joker"] = {5, "+3 Multi for Heart Cards",5},
-["Jolly Joker"] = {3, "+8 Mult if hand contains Pair",6},
-["Zany Joker"] = {4, "+12 Mult if hand contains Three Kind",7},
-["Mad Joker"] = {4, "+10 Mult if hand contains Two Pair",8},
-["Crazy Joker"] = {4, "+12 Mult if hand contains Straight",9},
-["Droll Joker"] = {4, "+10 Mult if hand contains Flush",10},
-["Sly Joker"] = {3, "+50 Chips if hand contains Pair",11},
-["Clever Joker"] = {4, "+80 Chips if hand contains Two Pair",12},
-["Half Joker"] = {5, "+20 Mult if hand is 3 or less cards",13},
-["Joker Stencil"] = {8, "x1 Mult for all empty joker slots",14},--uncommon
-["Banner"] = {5, "+30 Chips for each discard left",15},
-["Willy Joker"] = {4, "+100 Chips if played hand contains a Three of a Kind",99},--99 means no image
-["Devious Joker"] = {4,"+100 Chips if played hand contains a Straight",99},
-["Crafty Joker"] = {4,"+80 Chips if played hand contains a Flush",99},
-["Mystic Summit"] = {5,"+15 Mult when 0 discards remaining",99},
-["Misprint"] = {4,"+0-23 Mult",99},
-["Blue Joker"] = {5,"+2 Chips for each card remaining in Deck",99},
-["Abstract Joker"] = {4, "+3 Mult for each Joker", 99},
-["Business Card"] = {4, "Played face cards have a 1 in 2 chance to give $2 when scored",99},
-["8 Ball"] = {5,"1 in 4 chance for each played 8 to create a Tarot card when scored",99},
-["Credit Card"] = {1,"Can go up to $20 in debt",99},
-["Raised Fist"] = {5,"Add 2x the lowest ranked card in hand to mult",99},
-["Chaos the Clown"] = {4,"1 free reroll per shop",99},
-["Delayed Gratification"] = {4,"Earn $2 per discard if no sicards used by end of the round",99},
-["Gros Michel"] = {5,"+15 Mult, 1 in 6 chance to be destroyed at the end of round",99},
-["Even Steven"] = {4,"Scored even ranked cards give +4 mult",99},
-["Odd Todd"] = {4,"Scored odd ranked cards give +31 chips",99},
-["Scholar"] = {4,"Played Aces give +20 chips and +4 mult when scored",99},
-["Supernova"] = {5, "Adds number of times played poker hand has been played to Mult",99},
-["Ride the Bus"] = {6,"This Joker gains +1 Mult per consecutive hand played without a scoring face card",99},
-["Egg"] = {4,"Gains $3 of sell value at end of round",99},
-["Runner"] = {5, "Gains +15 chips if played hand contans a straight",99},
-["Ice Cream"] = {5, "+100 Chips, -5 Chips per hand played",99},
-["Faceless Joker"] = {4,"Earn $5 if 3 or more face cards are discarded at the same time", 99},
-["Green Joker"] = {4,"+1 Mult per hand played, -1 Mult per discard",99},
-["Superposition"] = {4,"Create a Tarot card if poker hand contains an Ace and a Straight",99},
-["To do List"] = {4,"Earn $4 if poker hand is ",99},
-["Cavendish"] = {4,"x3 Mult, 1 in 1000 chance to be destroyed at end of round",99},
-["Red Card"] = {5, "Gains +3 Mult when a booster pack is skipped",99},
-["Square Joker"] = {4,"Gains +4 Mult if played hand has exactly 4 cards",99},
-["Riff-Raff"] = {6,"When Blind selected create 2 random common jokers",99},
-["Photograph"] = {5,"First played face card gives X2 Mult when scored",99},
-["Reserved Parking"] = {6, "Each face card held in hand has a 1 in 2 chance to give $1",99},
-["Mail in Rebate"] = {4, "Earn $5 for each discarded ",99},
-["Hallucination"] = {4, "1 in 2 chance to create a tarot card when booster pack is opened",99},
-["Fortune Teller"] = {6, "+1 Mult per tarot card used this run",99},
-["Juggler"] = {4,"+1 hand size",99},
-["Drunkard"] = {4,"+1 discard",99},
-["Golden Joker"] = {6, "Earn $4 at end of round",99},
-["Popcorn"] = {5,"+20 Mult,-4 Mult per round",99},
-["Walkie Talkie"] = {4,"Each played 10 or 4 gives +10 Chips and +4 Mult when scored",99},
-["Smiley Face"] = {4, "Played face cards give +5 Mult when scored",99},
-["Scary Face"] = {4,"Played face cards give +30 chips when scored",99},
-["Golden Ticket"] = {5,"Played Gold cards give $4 when scored",99},
-["Swashbuckler"] = {4,"Adds the sell value of all other owned Jokers to Mult",99},
-["Shoot the Moon"] = {5,"Each queen held in hand gives +13 Mult",99},
-["Ceremonial Dagger"] = {6,"When Blind is selected, destroy Joker to the right and permanently add double its sell value to this Mult",99},
-["Marble Joker"] = {6,"When Blind is selected, add a stone card to your deck",99},--not adding on first selection
-["Loyalty Card"] = {5,"X4 Mult every 6 hands played",99},
-["Fibonacci"] = {8,"Each played Ace, 2, 3, 5, or 8 gives +8 Mult when scored",99},
-["Steel Joker"] = {7,"Gives X0.2 Mult for each Steel Card in your full deck",99},
-["Space Joker"] = {5,"1 in 4 chance to upgrade level of played poker hand",99},
-["Burglar"] = {6,"When Blind selected, gain +3 hands and lose all discards",99},
-["Blackboard"] = {6,"X3 Mult if all cards held in hand are spades or clubs",99},
-["Sixth Sense"] = {6,"If first hand of round is a single 6, destroy it and create a Spectral card",99},
-["Constellation"] = {6,"Gain X0.1 Mult everytime a planet card is used, Min X1 is retroactive",99},--had it nonretro at first but bit confusing with how stuff was displayed
-["Card Sharp"] = {6,"X3 Mult is played poker hand has already been played this round",99},
-["Madness"] = {7,"When Small Blind or Big Blind is selected, gain X0.5 Mult and destroy a random Joker",99},
-["Seance"] = {6, "If poker hand is a straight flush create a random Spectral card",99},
-["Vampire"] = {7,"This Joker gains X0.1 Mult per scoring Enhanced card played, removes card Enhancement",99},
-["Cloud 9"] = {7,"Earn $1 for each 9 in your full deck at end of round",99},
-["Rocket"] = {6, "Earn $1 at end of round. Payout increases by $2 when Boss Blind is defeated",99},
-["Midas Mask"] = {7, "All played face cards become gold cards when scored",99},
-["Gift Card"] = {6, "Jokers gain $1 of sell value at round end",99},
-["Turtle Bean"] = {6,"+5 hand size reduces by 1 each round",99},
-["Erosion"] = {6, "+4 Mult for each card below the starting number of cards",99},
-["To the Moon"] = {5,"Earn an extra $1 of interest for every $5 you have at end of round",99},
-["Stone Joker"] = {6,"Gives +25 Chips for each Stone Card in your full deck",99},
-["Lucky Cat"] = {6,"Gain X0.25 Mult every time a glass card is destroyed",99},
-["Bull"] = {6,"+2 chips for each $1",99},
-["Diet Cola"] = {6,"Gain a Double tag when this is sold",99},
-["Trading Card"] = {6,"If first discard of round has only 1 card, destroy it and earn $3",99},
-["Spare Trousers"] = {6,"Gain +2 Mult if played hand contains a Two Pair",99},
-["Ramen"] = {6,"X2 Mult, loses X0.01 per card discarded",99},
-["Castle"] = {6,"Gain +3 chips for each discarded ",99},
-["Mr Bones"] = {5,"Prevent Death if score at least 25% of minimum score",99},
-["Acrobat"] = {6,"X2 Mult on final hand of round",99},
-["Troubadour"] = {6,"+2 hand size, -1 hand",99},
-["Certificate"] = {6,"When round begins, add a random playing card with a random seal to your hand",99},
-["Throwback"] = {6,"Additional X0.25 Mult for every blind skipped starts at X1 is retroactive",99},
-["Rough Gem"] = {7, "Scoring Diamond give $1",99},
-["Bloodstone"] = {7,"1 in 2 chance for scoring Hearts to give X1.5 Mult",99},
-["Arrowhead"] = {7,"Scoring Spades give +50 chips",99},
-["Onyx Agate"] = {7,"Scoring Clubs give +7 Mult",99},
-["Glass Joker"] = {6,"Gains X0.75 Mult for every glass card destroyed, Min X1",99},
-["Flower Pot"] = {6,"X3 Mult if poker hand contains a  Diamond card,  Club card,  Heart card, and  Spade card",99},
-["Merry Andy"] = {7, "+3 discards, -1 hand size",99},
-["The Idol"] = {6,"X2 Mult when scoring card is ",99},
-["Seeing Double"] = {6,"X2 Mult if played hand has a scoring  Club card and a scoring card of any other suit",99},
-["Cartomancer"] = {6,"Create a Tarot card whenBlind is selected",99},
-["Satellite"] = {6, "Earn $1 for every unique planet card used",99},
-["Bootstraps"] = {7,"+2 Mult for every $5",99},
-["DNA"] = {8,"If first hand of round has only 1 card, add a permanent copy to deck and draw it to hand",99},
-["Vagabond"] = {8,"Create a Tarot card if hand is played with $4 or less",99},
-["Baron"] = {8,"Each King held in hand gives X1.5 Mult",99},
-["Obelisk"] = {8,"This Joker gains X0.2 Mult per consecutive hand played without playing your most played poker hand",99},
-["Ancient Joker"] = {8,"X1.5 Mult for scoring cards with suit",99},
-["Campfire"] = {9,"This Joker gains X0.25 Mult for each card sold, resets when Boss Blind is defeated",99},
-["Blueprint"] = {10,"Copies ablity of joker to the right",99},
-["Wee Joker"] = {8,"This Joker gains +8 Chips when each played 2 is scored",99},
-["Hit the Road"] = {8,"This Joker gains X0.5 Mult for every Jack discarded",99},
-["The Duo"] = {8, "X2 Mult if played hand contains a pair",99},
-["The Trio"] = {8,"X3 Mult if played hand contains a Three of a Kind",99},
-["The Family"] = {8,"X4 Mult if played hand contains a Four of a Kind",99},
-["The Order"] = {8,"X3 Mult if played hand contains a Straight",99},
-["The Tribe"] = {8,"X2 Mult if played hand contains a Flush",99},
-["Stuntman"] = {7,"+250 Chips, -2 hand Size",99},
-["Invisible Joker"] = {8,"After 2 rounds, sell this card to Duplicate a random Joker",99},
-["Brainstorm"] = {10,"Copies ability of leftmost joker",99},
-["Driver's License"] = {7,"X3 Mult if aleast 16 enhanced cards in full deck",99},
-["Burnt Joker"] = {8,"Upgrade the level of the first discarded poker hand of the round",99},
-["Canio"] = {20,"Gains X1 Mult when a Face card is destroyed",99},
-["Triboulet"] = {20,"Played Kings and Queens give X2 mult when scored",99},
-["Yorick"] = {20,"Gains X1 Mult every 23 cards discarded",99},
-["Perkeo"] = {20,"At the end of shop, add a negative copy of a random consumable",99},
-["Chicot"] = {20,"Disable Boss Blind ability",99}
+["Joker"]={2,"+4 Mult",1,"Common"},
+["Greedy Joker"]={5,"+3 Mult for Diamond Cards",2,"Common"},
+["Lusty Joker"]={5,"+3 Multi for Heart Cards",5,"Common"},
+["Wrathful Joker"]={5,"+3 Mult for Spade Cards",4,"Common"},
+["Gluttonous Joker"]={5,"+3 Mult for Club Cards",3,"Common"},
+["Jolly Joker"]={3,"+8 Mult if hand contains Pair",6,"Common"},
+["Zany Joker"]={4,"+12 Mult if hand contains Three Kind",7,"Common"},
+["Mad Joker"]={4,"+10 Mult if hand contains Two Pair",8,"Common"},
+["Crazy Joker"]={4,"+12 Mult if hand contains Straight",9,"Common"},
+["Droll Joker"]={4,"+10 Mult if hand contains Flush",10,"Common"},
+["Sly Joker"]={3,"+50 Chips if hand contains Pair",11,"Common"},
+["Willy Joker"]={4,"+100 Chips if played hand contains a Three of a Kind",99,"Common"},
+["Clever Joker"]={4,"+80 Chips if hand contains Two Pair",12,"Common"},
+["Devious Joker"]={4,"+100 Chips if played hand contains a Straight",99,"Common"},
+["Crafty Joker"]={4,"+80 Chips if played hand contains a Flush",99,"Common"},
+["Half Joker"]={5,"+20 Mult if hand is 3 or less cards",13,"Common"},
+["Credit Card"]={1,"Can go up to $20 in debt",99,"Common"},
+["Banner"]={5,"+30 Chips for each discard left",15,"Common"},
+["Mystic Summit"]={5,"+15 Mult when 0 discards remaining",99,"Common"},
+["8 Ball"]={5,"1 in 4 chance for each played 8 to create a Tarot card when scored",99,"Common"},
+["Misprint"]={4,"+0-23 Mult",99,"Common"},
+["Raised Fist"]={5,"Add 2x the lowest ranked card in hand to mult",99,"Common"},
+["Chaos the Clown"]={4,"1 free reroll per shop",99,"Common"},
+["Scary Face"]={4,"Played face cards give +30 chips when scored",99,"Common"},
+["Abstract Joker"]={4,"+3 Mult for each Joker",99,"Common"},
+["Delayed Gratification"]={4,"Earn $2 per discard if no sicards used by end of the round",99,"Common"},
+["Gros Michel"]={5,"+15 Mult, 1 in 6 chance to be destroyed at the end of round",99,"Common"},
+["Even Steven"]={4,"Scored even ranked cards give +4 mult",99,"Common"},
+["Odd Todd"]={4,"Scored odd ranked cards give +31 chips",99,"Common"},
+["Scholar"]={4,"Played Aces give +20 chips and +4 mult when scored",99,"Common"},
+["Business Card"]={4,"Played face cards have a 1 in 2 chance to give $2 when scored",99,"Common"},
+["Supernova"]={5,"Adds number of times played poker hand has been played to Mult",99,"Common"},
+["Ride the Bus"]={6,"This Joker gains +1 Mult per consecutive hand played without a scoring face card",99,"Common"},
+["Egg"]={4,"Gains $3 of sell value at end of round",99,"Common"},
+["Runner"]={5,"Gains +15 chips if played hand contans a straight",99,"Common"},
+["Ice Cream"]={5,"+100 Chips, -5 Chips per hand played",99,"Common"},
+["Splash"]={3,"All played cards count in scoring",99,"Common"},
+["Blue Joker"]={5,"+2 Chips for each card remaining in Deck",99,"Common"},
+["Faceless Joker"]={4,"Earn $5 if 3 or more face cards are discarded at the same time",99,"Common"},
+["Green Joker"]={4,"+1 Mult per hand played, -1 Mult per discard",99,"Common"},
+["Superposition"]={4,"Create a Tarot card if poker hand contains an Ace and a Straight",99,"Common"},
+["To do List"]={4,"Earn $4 if poker hand is ",99,"Common"},
+["Cavendish"] = {4,"x3 Mult, 1 in 1000 chance to be destroyed at end of round",99,"Common"},
+["Red Card"]={5,"Gains +3 Mult when a booster pack is skipped",99,"Common"},
+["Square Joker"]={4,"Gains +4 Mult if played hand has exactly 4 cards",99,"Common"},
+["Riff-Raff"]={6,"When Blind selected create 2 random common jokers",99,"Common"},
+["Photograph"]={5,"First played face card gives X2 Mult when scored",99,"Common"},
+["Reserved Parking"]={6,"Each face card held in hand has a 1 in 2 chance to give $1",99,"Common"},
+["Mail in Rebate"]={4,"Earn $5 for each discarded ",99,"Common"},
+["Hallucination"]={4,"1 in 2 chance to create a tarot card when booster pack is opened",99,"Common"},
+["Fortune Teller"]={6,"+1 Mult per tarot card used this run",99,"Common"},
+["Juggler"]={4,"+1 hand size",99,"Common"},
+["Drunkard"]={4,"+1 discard",99,"Common"},
+["Golden Joker"]={6,"Earn $4 at end of round",99,"Common"},
+["Popcorn"]={5,"+20 Mult,-4 Mult per round",99,"Common"},
+["Walkie Talkie"]={4,"Each played 10 or 4 gives +10 Chips and +4 Mult when scored",99,"Common"},
+["Smiley Face"]={4,"Played face cards give +5 Mult when scored",99,"Common"},
+["Golden Ticket"]={5,"Played Gold cards give $4 when scored",99,"Common"},
+["Swashbuckler"]={4,"Adds the sell value of all other owned Jokers to Mult",99,"Common"},
+["Hanging Chad"]={4,"Retrigger first played card used in scoring 2 additional times",99,"Common"},
+["Shoot the Moon"]={5,"Each queen held in hand gives +13 Mult",99,"Common"},
+["Joker Stencil"]={8,"x1 Mult for all empty joker slots",14,"Uncommon"},
+["Four Fingers"]={7,"Straights and Flushes can be made with 4 cards",99,"Uncommon"},
+["Mime"]={5,"Retrigger all card held in hand ablilities",99,"Uncommon"},
+["Ceremonial Dagger"]={6,"When Blind is selected, destroy Joker to the right and permanently add double its sell value to this Mult",99,"Uncommon"},
+["Marble Joker"]={6,"When Blind is selected, add a stone card to your deck",99,"Uncommon"},
+["Loyalty Card"]={5,"X4 Mult every 6 hands played",99,"Uncommon"},
+["Dusk"]={5,"Retrigger all scored cards final hand of round",99,"Uncommon"},
+["Fibonacci"]={8,"Each played Ace, 2, 3, 5, or 8 gives +8 Mult when scored",99,"Uncommon"},
+["Steel Joker"]={7,"Gives X0.2 Mult for each Steel Card in your full deck",99,"Uncommon"},
+["Hack"]={6,"Retrigger each played 2, 3, 4, or 5",99,"Uncommon"},
+["Pareidolia"]={5,"All cards count as face cards",99,"Uncommon"},
+["Space Joker"]={5,"1 in 4 chance to upgrade level of played poker hand",99,"Uncommon"},
+["Burglar"]={6,"When Blind selected, gain +3 hands and lose all discards",99,"Uncommon"},
+["Blackboard"]={6,"X3 Mult if all cards held in hand are spades or clubs",99,"Uncommon"},
+["Sixth Sense"]={6,"If first hand of round is a single 6, destroy it and create a Spectral card",99,"Uncommon"},
+["Constellation"]={6,"Gain X0.1 Mult everytime a planet card is used, Min X1 is retroactive",99,"Uncommon"},
+["Hiker"]={5,"Every played card permanently gains +5 Chips when scored",99,"Uncommon"},
+["Card Sharp"]={6,"X3 Mult is played poker hand has already been played this round",99,"Uncommon"},
+["Madness"]={7,"When Small Blind or Big Blind is selected, gain X0.5 Mult and destroy a random Joker",99,"Uncommon"},
+["Seance"]={6,"If poker hand is a straight flush create a random Spectral card",99,"Uncommon"},
+["Vampire"]={7,"This Joker gains X0.1 Mult per scoring Enhanced card played, removes card Enhancement",99,"Uncommon"},
+["Shortcut"]={7,"Straights can be made with gaps of 1",99,"Uncommon"},
+["Hologram"]={7,"Gains X0.25 Mult whenever a card is added to deck, Min X1",99,"Uncommon"},
+["Cloud 9"]={7,"Earn $1 for each 9 in your full deck at end of round",99,"Uncommon"},
+["Rocket"]={6,"Earn $1 at end of round. Payout increases by $2 when Boss Blind is defeated",99,"Uncommon"},
+["Midas Mask"]={7,"All played face cards become gold cards when scored",99,"Uncommon"},
+["Luchador"]={5,"Sell this to disable current boss blind",99,"Uncommon"},
+["Gift Card"]={6,"Jokers gain $1 of sell value at round end",99,"Uncommon"},
+["Turtle Bean"]={6,"+5 hand size reduces by 1 each round",99,"Uncommon"},
+["Erosion"]={6,"+4 Mult for each card below the starting number of cards",99,"Uncommon"},
+["To the Moon"]={5,"Earn an extra $1 of interest for every $5 you have at end of round",99,"Uncommon"},
+["Stone Joker"]={6,"Gives +25 Chips for each Stone Card in your full deck",99,"Uncommon"},
+["Lucky Cat"]={6,"Gain X0.25 Mult every time a glass card is destroyed",99,"Uncommon"},
+["Bull"]={6,"+2 chips for each $1",99,"Uncommon"},
+["Diet Cola"]={6,"Gain a Double tag when this is sold",99,"Uncommon"},
+["Trading Card"]={6,"If first discard of round has only 1 card, destroy it and earn $3",99,"Uncommon"},
+["Flash Card"]={5,"Gains 2 Mult when shop is rerolled",99,"Uncommon"},
+["Spare Trousers"]={6,"Gain +2 Mult if played hand contains a Two Pair",99,"Uncommon"},
+["Ramen"]={6,"X2 Mult, loses X0.01 per card discarded",99,"Uncommon"},
+["Seltzer"]={6,"Retrigger all cards played for the next 10 hands",99,"Uncommon"},
+["Castle"]={6,"Gain +3 chips for each discarded ",99,"Uncommon"},
+["Mr Bones"]={5,"Prevent Death if score at least 25% of minimum score",99,"Uncommon"},
+["Acrobat"]={6,"X2 Mult on final hand of round",99,"Uncommon"},
+["Sock and Buskin"]={6,"Retrigger all played face cards",99,"Uncommon"},
+["Troubadour"]={6,"+2 hand size, -1 hand",99,"Uncommon"},
+["Certificate"]={6,"When round begins, add a random playing card with a random seal to your hand",99,"Uncommon"},
+["Smeared Joker"]={7,"Hearts and Diamonds count as the same suit, Spades and Clubs count as the same suit",99,"Uncommon"},
+["Throwback"]={6,"Additional X0.25 Mult for every blind skipped starts at X1 is retroactive",99,"Uncommon"},
+["Rough Gem"]={7,"Scoring Diamond give $1",99,"Uncommon"},
+["Bloodstone"]={7,"1 in 2 chance for scoring Hearts to give X1.5 Mult",99,"Uncommon"},
+["Arrowhead"]={7,"Scoring Spades give +50 chips",99,"Uncommon"},
+["Onyx Agate"]={7,"Scoring Clubs give +7 Mult",99,"Uncommon"},
+["Glass Joker"]={6,"Gains X0.75 Mult for every glass card destroyed, Min X1",99,"Uncommon"},
+["Showman"]={5,"Joker, Tarot, Planet and Spectral cards may appear multiple times",99,"Uncommon"},
+["Flower Pot"]={6,"X3 Mult if poker hand contains a  Diamond card, Club card, Heart card, and Spade card",99,"Uncommon"},
+["Merry Andy"]={7,"+3 discards, -1 hand size",99,"Uncommon"},
+["Oops! All 6s"]={4,"Doubles all listed probabilities",99,"Uncommon"},
+["The Idol"]={6,"X2 Mult when scoring card is ",99,"Uncommon"},
+["Seeing Double"]={6,"X2 Mult if played hand has a scoring  Club card and a scoring card of any other suit",99,"Uncommon"},
+["Matador"]={7,"Gives $8 if played hand triggers boss ability",99,"Uncommon"},
+["Satellite"]={6,"Earn $1 for every unique planet card used",99,"Uncommon"},
+["Cartomancer"]={6,"Create a Tarot card whenBlind is selected",99,"Uncommon"},
+["Astronomer"] = {8, "All planet cards and celestial packs are free",99,"Uncommon"},
+["Bootstraps"]={7,"+2 Mult for every $5",99,"Uncommon"},
+["DNA"] = {8,"If first hand of round has only 1 card, add a permanent copy to deck and draw it to hand",99,"Rare"},
+["Vagabond"] = {8,"Create a Tarot card if hand is played with $4 or less",99,"Rare"},
+["Baron"] = {8,"Each King held in hand gives X1.5 Mult",99,"Rare"},
+["Obelisk"] = {8,"This Joker gains X0.2 Mult per consecutive hand played without playing your most played poker hand",99,"Rare"},
+["Baseball Card"] = {8, "Each uncommon joker give an additional X1.5 Mult",99,"Rare"},
+["Ancient Joker"] = {8,"X1.5 Mult for scoring cards with suit",99,"Rare"},
+["Campfire"] = {9,"This Joker gains X0.25 Mult for each card sold, resets when Boss Blind is defeated",99,"Rare"},
+["Blueprint"] = {10,"Copies ablity of joker to the right",99,"Rare"},
+["Wee Joker"] = {8,"This Joker gains +8 Chips when each played 2 is scored",99,"Rare"},
+["Hit the Road"] = {8,"This Joker gains X0.5 Mult for every Jack discarded",99,"Rare"},
+["The Duo"] = {8, "X2 Mult if played hand contains a pair",99,"Rare"},
+["The Trio"] = {8,"X3 Mult if played hand contains a Three of a Kind",99,"Rare"},
+["The Family"] = {8,"X4 Mult if played hand contains a Four of a Kind",99,"Rare"},
+["The Order"] = {8,"X3 Mult if played hand contains a Straight",99,"Rare"},
+["The Tribe"] = {8,"X2 Mult if played hand contains a Flush",99,"Rare"},
+["Stuntman"] = {7,"+250 Chips, -2 hand Size",99,"Rare"},
+["Invisible Joker"] = {8,"After 2 rounds, sell this card to Duplicate a random Joker",99,"Rare"},
+["Brainstorm"] = {10,"Copies ability of leftmost joker",99,"Rare"},
+["Driver's License"] = {7,"X3 Mult if aleast 16 enhanced cards in full deck",99,"Rare"},
+["Burnt Joker"] = {8,"Upgrade the level of the first discarded poker hand of the round",99,"Rare"},
+["Canio"] = {20,"Gains X1 Mult when a Face card is destroyed",99,"Legendary"},
+["Triboulet"] = {20,"Played Kings and Queens give X2 mult when scored",99,"Legendary"},
+["Yorick"] = {20,"Gains X1 Mult every 23 cards discarded",99,"Legendary"},
+["Perkeo"] = {20,"At the end of shop, add a negative copy of a random consumable",99,"Legendary"},
+["Chicot"] = {20,"Disable Boss Blind ability",99,"Legendary"}
 }
+smear_link = {["h"] = "d", ["d"] = "h", ["s"] = "c", ["c"] = "d"}
 
 shop_costs = {1,3,3,4,{4,6,8},10}--playing cards,tarots,planets,spectral,packs,vouchers
 
-planets_deck = {"","Pluto", "Mercury", "Uranus", "Venus", "Saturn", "Jupiter", "Earth", "Mars", "Neptune"}
-full_planets = {"","Pluto", "Mercury", "Uranus", "Venus", "Saturn", "Jupiter", "Earth", "Mars", "Neptune"}--used for reset
-locked_planets = {--unlocked when played not tested
-    ["5 of a Kind"]="Planet X",
-    ["Flush House"]="Ceres",
-    ["Flush Five"]="Eris"
+min_hand_multipliers = {
+    [""] = {0,0},
+    ["High Card"] = {5, 1},
+    ["Pair"] = {10, 2},
+    ["Two Pair"] = {20, 2},
+    ["3 of a Kind"] = {30, 3},
+    ["Straight"] = {30, 4},
+    ["Flush"] = {35, 4,},
+    ["Full House"] = {40, 4},
+    ["4 of a Kind"] = {60, 7},
+    ["Straight Flush"] = {100, 8},
+    ["5 of a Kind"] = {120, 12},
+    ["Flush House"] = {140, 14},
+    ["Flush Five"] = {160, 16}
+}
+
+pack_size = {
+    [1] = "normal, Choose 1 card to be used immediately",
+    [2] = "jumbo, Choose 1 card to be used immediately",
+    [3] = "mega, Choose 2 cards to be used immediately"
 }
 
 planets_info = {
@@ -394,90 +307,60 @@ planets_info = {
     ["Eris"] = {50,3,"Flush Five"}
 }
 
-min_hand_multipliers = {
-    [""] = {0,0},
-    ["High Card"] = {5, 1},
-    ["Pair"] = {10, 2},
-    ["Two Pair"] = {20, 2},
-    ["3 of a Kind"] = {30, 3},
-    ["Straight"] = {30, 4},
-    ["Flush"] = {35, 4,},
-    ["Full House"] = {40, 4},
-    ["4 of a Kind"] = {60, 7},
-    ["Straight Flush"] = {100, 8},
-    ["5 of a Kind"] = {120, 12},
-    ["Flush House"] = {140, 14},
-    ["Flush Five"] = {160, 16}
-}
-type_base_prob = {20/3,20/3,20/3,2,1}--standard,tarot, planet, bufoon,spectral
-size_base_prob = {4,2,1}--small,mid,large pack
-type_tot_prob = 0
-for i,v in ipairs(type_base_prob) do 
-    type_tot_prob = type_tot_prob + v
-end
-size_tot_prob = 0
-for i,v in ipairs(size_base_prob) do
-    size_tot_prob = size_tot_prob + v
-end
-for i,v in ipairs(type_base_prob) do
-    type_base_prob[i] = v/type_tot_prob
-end
-for i,v in ipairs(size_base_prob) do
-    size_base_prob[i] = v/size_tot_prob
-end
-pack_type = {"standard", "arcana", "celestial", "bufoon", "spectral"}
-pack_size = {
-    [1] = "normal, Choose 1 card to be used immediately",
-    [2] = "jumbo, Choose 1 card to be used immediately",
-    [3] = "mega, Choose 2 cards to be used immediately"}
+consumable_deck = {
+    ["The Fool"] = {"Creates the last Tarot or Planet card used during this run","Tarot"},
+    ["The Magician"] = {"Convert up to 2 cards to Lucky cards","Tarot"},
+    ["The High Priestess"] = {"Creates up to 2 planet cards","Tarot"},
+    ["The Empress"] = {"Convert up to 2 cards to Mult cards","Tarot"},
+    ["The Emperor"] = {"Creates up to 2 tarot cards","Tarot"},
+    ["The Heirophant"] = {"Converts up to 2 cards to Bonus cards","Tarot"},
+    ["The Lovers"] = {"Convert 1 card to a Wild card","Tarot"},
+    ["The Chariot"] = {"Convert 1 card into a Steel card","Tarot"},
+    ["Justice"] = {"Convert 1 card into a Glass card","Tarot"},
+    ["The Hermit"] = {"Double money (max $20)","Tarot"},
+    ["The Wheel of Fortune"] = {"1 in 4 cahnce to give a random joker Foil, Holographic or Polychrome","Tarot"},
+    ["Strength"] = {"Increase the rank on up to 2 cards by 1","Tarot"},
+    ["The Hanged Man"] = {"Destroy up to 2 Cards","Tarot"},
+    ["Death"] = {"Convert the left card into the right card","Tarot"},
+    ["Temperence"] = {"Gives total sell value of all jokers (max $50)","Tarot"},
+    ["The Tower"] = {"Convert 1 card to a Stone card (+50 chips, always scores)","Tarot"},
+    ["The Devil"] = {"Convert 1 card into a Gold card","Tarot"},
+    ["The Star"] = {"Convert up to 3 cards to Diamonds","Tarot"},
+    ["The Moon"] = {"Convert up to 3 cards to Clubs","Tarot"},
+    ["The Sun"] = {"Convert up to 3 cards to Hearts","Tarot"},
+    ["Judgement"] = {"creates a random joker (must have room)","Tarot"},
+    ["The World"] = {"Convert up to 3 cards to Spades","Tarot"},
+    ["Pluto"] = {"High Card","Planet"}, 
+    ["Mercury"] = {"Pair","Planet"}, 
+    ["Uranus"] = {"Two Pair","Planet"}, 
+    ["Venus"] = {"3 of a Kind","Planet"}, 
+    ["Saturn"] = {"Straight","Planet"}, 
+    ["Jupiter"] = {"Flush","Planet"}, 
+    ["Earth"] = {"Full House","Planet"}, 
+    ["Mars"] = {"4 of a Kind","Planet"}, 
+    ["Neptune"] = {"Straight Flush","Planet"}, 
+    ["Planet X"] = {"5 of a Kind","Planet"}, 
+    ["Ceres"] = {"Flush House","Planet"}, 
+    ["Eris"] = {"Flush Five","Planet"},
+    ["Familiar"] = {"Destroy 1 random card in hand but add 3 random enchanted face cards","Spectral"},
+    ["Grim"] = {"Destroy 1 random card in hand but add 2 random enchanted ace cards","Spectral"},
+    ["Incantation"] = {"Destroy 1 random card in hand but add 4 random numbered cards","Spectral"},
+    ["Aura"] = {"Add Foil, Holographic or Polychrome to a selected card in hand","Spectral"},
+    ["Wraith"] = {"Create a random rare joker, set money to $0","Spectral"},
+    ["Sigil"] = {"Convert all cards in hand to a single random suit","Spectral"},
+    ["Ouija"] = {"Convert all cards in hand to a single random rank but -1 hand size","Spectral"},
+    ["Ectoplasm"] = {"Add Negative to a random joker, but -1 hand size, plus another -1 hand size for each time Ectoplasm has been used this run","Spectral"},
+    ["Immolate"] = {"Destroy 5 random cards in hand, gain $20","Spectral"},
+    ["Ankh"] = {"Creates an exact copy of 1 of your Jokers at random, then destroys the others","Spectral"},
+    ["Deja Vu"] = {"Add a Red-Seal to a selected card","Spectral"},
+    ["Hex"] = {"Add Polychrome to a random joker but destroys the rest","Spectral"},
+    ["Trance"] = {"Add a blue seal to a selected card","Spectral"},
+    ["Medium"] = {"Add a Purple Seal to a selected card","Spectral"},
+    ["Cryptid"] = {"Create 2 exact copies of a selected card","Spectral"},
+    ["The Soul"] = {"Create a legendary Joker","Spectral"},--0.3% chance
+    ["Black Hole"] = {"Increase all poker hands by 1 level","Spectral"},--0.3% chance
 
-tarots_deck = {"The Fool","The Magician", "The High Priestess", "The Empress", "The Emperor", "The Heirophant", "The Chariot","Justice", "The Hermit", "The Wheel of Fortune", "Strength", "The Hanged Man", "Death", "Temperence", "The Tower", "The Devil", "The Star", "The Moon", "The Sun", "Judgement", "The World"}
-tarots_info = {--missing wild cards
-    ["The Fool"] = "Creates the last Tarot or Planet card used during this run",
-    ["The Magician"] = "convert up to 2 cards to Lucky cards",
-    ["The High Priestess"] = "Creates up to 2 planet cards",
-    ["The Empress"] = "Convert up to 2 cards to Mult cards",
-    ["The Emperor"] = "Creates up to 2 tarot cards",
-    ["The Heirophant"] = "Converts up to 2 cards to Bonus cards",
-    ["The Chariot"] = "Convert 1 card into a Steel card",
-    ["Justice"] = "Convert 1 card into a Glass card",
-    ["The Hermit"] = "Double money (max $20)",
-    ["The Wheel of Fortune"] = "1 in 4 cahnce to give a random joker Foil, Holographic or Polychrome",
-    ["Strength"] = "Increase the rank on up to 2 cards by 1",
-    ["The Hanged Man"] = "Destroy up to 2 Cards",
-    ["Death"] = "Convert the left card into the right card",
-    ["Temperence"] = "Gives total sell value of all jokers (max $50)",
-    ["The Tower"] = "Convert 1 card to a Stone card (+50 chips, always scores)",
-    ["The Devil"] = "Convert 1 card into a Gold card",
-    ["The Star"] = "Convert up to 3 cards to Diamonds",
-    ["The Moon"] = "Convert up to 3 cards to Clubs",
-    ["The Sun"] = "Convert up to 3 cards to Hearts",
-    ["Judgement"] = "creates a random joker (must have room)",
-    ["The World"] = "Convert up to 3 cards to Spades"
 }
-
-spectral_deck = {"Familiar","Grim", "Incantation", "Aura", "Sigil", "Ouija", "Ectoplasm","Immolate", "Ankh", "Hex", "Trance", "Medium", "Cryptid"}--dejavu
-spectral_info = {
-    ["Familiar"] = "Destroy 1 random card in hand but add 3 random enchanted face cards",
-    ["Grim"] = "Destroy 1 random card in hand but add 2 random enchanted ace cards",
-    ["Incantation"] = "Destroy 1 random card in hand but add 4 random numbered cards",
-    ["Aura"] = "Add Foil, Holographic or Polychrome to a selected card in hand",
-    ["Wraith"] = "Create a random rare joker, set money to $0",
-    ["Sigil"] = "Convert all cards in hand to a single random suit",
-    ["Ouija"] = "Convert all cards in hand to a single random rank but -1 hand size",
-    ["Ectoplasm"] = "Add Negative to a random joker, but -1 hand size, plus another -1 hand size for each time Ectoplasm has been used this run",
-    ["Immolate"] = "Destroy 5 random cards in hand, gain $20",
-    ["Ankh"] = "Creates an exact copy of 1 of your Jokers at random, then destroys the others",
-    ["Deja Vu"] = "Add a Red Seal to a selected card",
-    ["Hex"] = "Add Polychrome to a random joker but destroys the rest",
-    ["Trance"] = "Add a blue seal to a selected card",
-    ["Medium"] = "Add a Purple Seal to a selected card",
-    ["Cryptid"] = "Create 2 exact copies of a selected card",
-    ["The Soul"] = "Create a legendary Joker",--0.3% chance
-    ["Black Hole"] = "Increase all poker hands by 1 level"--0.3% chance
-}
-
-consumable_deck = {tarots_info,planets_info,spectral_info}
 
 vouchers_info = {
     ["Overstock"] = "Up to 3 Card slots in shop",
@@ -513,8 +396,6 @@ vouchers_info = {
     ["Illusion"] = "Standard cards in the shop can have enchancements"
 }
 
-tag_deck = {"Economy", "Speed", "D6", "Juggle", "Double","Charm","Boss", "Voucher", "Investment","Rare","Uncommon","Foil","Holographic","Polychrome","Coupon"}
-tag_unlock_2 = {"Standard", "Meteor", "Bufoon","Handy","Garbage", "Ethereal","Top-Up", "Orbital","Negative"}
 tag_info = {
     ["Foil"] = "Next Base edition joker is Foil and free",
     ["Holographic"] = "Next Base edition joker is Holographic and free",
@@ -542,9 +423,9 @@ tag_info = {
     ["Orbital"] = "Upgrade a most played Poker Hand by 3 levels"--i know this isnt what it is but is very awkward to get to work and display
 }
 
-card_enhancement = {"Gold","Steel","Glass","Lucky","Mult"}
+card_enhancement = {"Gold","Steel","Glass","Lucky","Mult","Wild"}--stone excluded
 editions = {"Polychrome", "Holographic","Foil"}--negative, excluded
-seals = {"Gold-Seal", "Blue-Seal", "Purple-Seal"}
+seals = {"Gold-Seal", "Blue-Seal", "Purple-Seal", "Red-Seal"}
 
 enhancement_info = {
     ["Gold"] = {"Gain $3 if held at round end","Enhancement"},
@@ -552,6 +433,7 @@ enhancement_info = {
     ["Glass"] = {"x2 mult and 25% chance to break when played","Enhancement"},
     ["Mult"] = {"+4 mult","Enhancement"},
     ["Lucky"] = {"x1.5 mult: 1 in 5 chance, $20: 1 in 15 chance when played","Enhancement"},
+    ["Wild"] = {"Counts as any suit","Enhancement"},
     ["Stone"] = {"+50 Chips, always scores no rank or suit","Enhancement"},
     ["Foil"] = {"+50 chips","Edition"},
     ["Polychrome"] = {"x1.5 mult","Edition"},
@@ -560,16 +442,17 @@ enhancement_info = {
     ["Gold-Seal"] = {"$3 when scoring", "Seal"},
     ["Blue-Seal"] = {"Planet card of winning hand added to consumable slot if held in hand","Seal"},
     ["Purple-Seal"] = {"When discarded create a tarot card","Seal"},--not setup with The Hook
+    ["Red-Seal"] = {"Retrigger this acrd 1 additional time"},
     ["Eternal"] = {"Joker cannot be sold or destroyed","Sticker"},
-    ["Perishable"] = {"Joker self destructs in 5 rounds","Sticker"},--not exctly but not worked out debuffed jokers
+    ["Perishable"] = {"Joker disabled in 5 rounds","Sticker"},
     ["Rental"] = {"Cost $1, lose $3 at end of round","Sticker"}
 }
 
 rank_graphics = {["t"] = Image.load("sprites/cards/1.png", VRAM), ["2"] = Image.load("sprites/cards/2.png", VRAM), ["3"] = Image.load("sprites/cards/3.png", VRAM), ["4"] = Image.load("sprites/cards/4.png", VRAM), ["5"] = Image.load("sprites/cards/5.png", VRAM), ["6"] = Image.load("sprites/cards/6.png", VRAM), ["7"] = Image.load("sprites/cards/7.png", VRAM), ["8"] = Image.load("sprites/cards/8.png", VRAM), ["9"] = Image.load("sprites/cards/9.png", VRAM), ["j"] = Image.load("sprites/cards/j.png", VRAM), ["k"] = Image.load("sprites/cards/k.png", VRAM), ["q"] = Image.load("sprites/cards/q.png", VRAM), ["a"] = Image.load("sprites/cards/a.png", VRAM),}
 suit_graphics = {["d"] = Image.load("sprites/cards/d.png", VRAM), ["c"] = Image.load("sprites/cards/c.png", VRAM), ["s"] = Image.load("sprites/cards/s.png", VRAM), ["h"] = Image.load("sprites/cards/h.png", VRAM),}
 joker_graphics = Image.load("sprites/cards/jokers.png", VRAM)
-
-hudbg = Image.load("sprites/ui/hudbackground.png", VRAM) 
+--joker_graphics_table = {["Common"] = Image.load("sprites/cards/common_jokers.png", VRAM), ["Uncommon"] = Image.load("sprites/cards/uncommon_jokers.png", VRAM), ["Rare"] = Image.load("sprites/cards/rare_jokers.png", VRAM), ["Legendary"] = Image.load("sprites/cards/legendary_jokers.png", VRAM) }
+hudbg = Image.load("sprites/ui/hudbackground.png", VRAM)
 hud = Image.load("sprites/ui/hud.png", VRAM)
 blind_ui = Image.load("sprites/ui/blindui.png", VRAM)
 blind_ui_box = Image.load("sprites/ui/blinduibox.png", VRAM)
@@ -582,11 +465,12 @@ img_packs = Image.load("sprites/cards/packs.png", VRAM)
 
 Sound.loadBank("soundbanks/soundbank.bin") 
 Sound.loadMod(0)
---Sound.loadSFX(0)
---Sound.loadSFX(1)
-Sound.setModVolume(600)
---Sound.setSFXVolume(0,255)
---Sound.setSFXVolume(1,255)
+Sound.loadSFX(0)
+Sound.loadSFX(1)
+MOD_max=300
+Sound.setModVolume(MOD_max)
+Sound.setSFXVolume(0,255)
+Sound.setSFXVolume(1,255)
 Sound.startMod(0, PLAY_LOOP) -- sounds bad
 MOD_volume = 1
 SFX_volume = 1
@@ -596,6 +480,7 @@ function hard_reset()--done when resetting run
     round = 0
     blind = 1--up to 3, 3 is boss
     ante = 1--up to 8 then endless
+    boss_blind = {"The Psychic", "The Hook", "The Manacle", "The Club", "The Goad", "The Window", "The Head"}
     minimumscore = {}--small,big,boss
     tag_select = {}
     blind_tags = {}
@@ -612,7 +497,8 @@ function hard_reset()--done when resetting run
     packs = {}
     consumable = {}
     consumable_enhancement = {}--only used for perkeo
-    general_tarot = false
+    planets_deck = {"","Pluto", "Mercury", "Uranus", "Venus", "Saturn", "Jupiter", "Earth", "Mars", "Neptune"}--used for reset
+    general_used = false
     total_consumable = 0
     total_planets = 0
     jokers = {}
@@ -620,7 +506,7 @@ function hard_reset()--done when resetting run
     last_played_hand = ""
     logo_bop = -120
     kind = 1
-    boss_reroll = false
+    boss_reroll, omen_globe = false, false
     boss_reroll_num = 0
     joker_size = 5
     max_hands = 4
@@ -638,6 +524,10 @@ function hard_reset()--done when resetting run
     no_discards_used = 0
     num_bought = 0
     boss_active = true
+    showman_active = false
+    do_ignore, contains_shortcut, contains_fingers, smeared = true, false, false, false--splash, shorcut, four fingers, smeared joker
+    all_face = false
+    dice_prob = 1--oops all 6s
     hand_multipliers = {
         [""] = {0, 0, 0, ""},--chips, mult, times played, planet
         ["High Card"] = {5, 1, 0, "Pluto"},
@@ -659,14 +549,23 @@ function hard_reset()--done when resetting run
     shop_cards_enhancement_weight = {0.4,0.08,0.2}--enhancement,edition,seal
     cards_edition_prob = {0.15,0.5,1}--Cumilative poly,holo, foil for cards
     reset_shop_weights()
+    reset_challenge()
+    reset_pack_prob()
     ante_bases = {300, 800, 2000, 5000, 11000, 20000, 35000, 50000, 110000, 560000, 72e5, 3e8, 47e9, 2.9e13, 7.7e16, 8.6e20, 4,2e25, 9.2e30, 9.2e36, 4.3e43, 9.7e50, 1e59, 5.8e67, 1.6e77, 2.4e87,1.9e98, 8.4e109, 2e122, 2.7e135, 2.1e149, 9.9e163, 2.7e179, 4.4e195, 4.4e212, 2.8e230, 1.1e249, 2.7e268,4.5e288, 4.8e309}
     telescope, observatory, shop_enhanced = false, false, false
     vouchers = {"Overstock", "Clearence Sale", "Reroll Surplus", "Crystal Ball", "Grabber", "Wasteful", "Seed Money", "Heiroglyph", "Director's Cut", "Paint Brush", "Tarot Merchant", "Planet Merchant", "Telescope", "Magic Trick","Blank","Hone"}--all cost $10
     full_deck_enhancement = {}
     stickers = {}--insert when deck selected
+    pack_interior = {}
+    pack_interior_enhancement = {}
+    pack_cards = {}
+    pack_cards_enhancements = {}
+    active = {}
+    active_enhancement = {}
 end
 
 function soft_reset()--done when increasing blind/ante
+    kind = 2
     round_score = 0
     hand = {}
     hand_enhancement = {}
@@ -707,9 +606,203 @@ function reset_shop_weights()
     end
 end
 
+function reset_challenge()--certain challenge decks require alterations to loaded elements
+    boss_blind_locked = {"The House","The Wall", "The Wheel","The Fish", "The Mark", "The Needle","The Arm", "The Water","The Flint", "The Mouth","The Eye", "The Tooth", "The Plant","The Serpent","The Ox"}
+    finisher_blinds = {"Amber Acorn","Verdent Leaf","Violet Vessel","Crimson Heart","Cerulean Bell"}
+    common_joker = {
+        "Joker",
+        "Greedy Joker",
+        "Lusty Joker",
+        "Wrathful Joker",
+        "Gluttonous Joker",
+        "Jolly Joker", 
+        "Zany Joker",
+        "Mad Joker", 
+        "Crazy Joker",
+        "Droll Joker",
+        "Sly Joker",
+        "Willy Joker",
+        "Clever Joker",
+        "Devious Joker",
+        "Crafty Joker",
+        "Half Joker",
+        "Credit Card",
+        "Banner",
+        "Mystic Summit",
+        "8 Ball",
+        "Misprint",
+        "Raised Fist",
+        "Chaos the Clown",
+        "Scary Face",
+        "Abstract Joker",
+        "Delayed Gratification",
+        "Gros Michel",
+        "Even Steven",
+        "Odd Todd",
+        "Scholar",
+        "Business Card",
+        "Supernova",
+        "Ride the Bus",
+        "Egg",
+        "Runner",
+        "Ice Cream",
+        "Splash",
+        "Blue Joker",
+        "Faceless Joker",
+        "Green Joker",
+        "Superposition",
+        "To do List",
+        "Red Card",
+        "Square Joker",
+        "Riff-Raff",
+        "Photograph",
+        "Reserved Parking",
+        "Mail in Rebate",
+        "Hallucination",
+        "Fortune Teller",
+        "Juggler",
+        "Drunkard",
+        "Golden Joker",
+        "Popcorn",
+        "Walkie Talkie",
+        "Smiley Face",
+        "Golden Ticket",
+        "Swashbuckler",
+        "Hanging Chad",
+        "Shoot the Moon"
+    }
+    uncommon_joker = {
+        "Joker Stencil",
+        "Four Fingers",
+        "Mime",
+        "Ceremonial Dagger",
+        "Marble Joker",
+        "Loyalty Card",
+        "Dusk",
+        "Fibonacci",
+        "Steel Joker",
+        "Hack",
+        "Pareidolia",
+        "Space Joker",
+        "Burglar",
+        "Blackboard",
+        "Sixth Sense",
+        "Constellation",
+        "Hiker",
+        "Card Sharp",
+        "Madness",
+        "Seance",
+        "Vampire",
+        "Shortcut",
+        "Hologram",
+        "Cloud 9",
+        "Rocket",
+        "Midas Mask",
+        "Luchador",
+        "Gift Card",
+        "Turtle Bean",
+        "Erosion",
+        "To the Moon",
+        "Stone Joker",
+        "Lucky Cat",
+        "Bull",
+        "Diet Cola",
+        "Trading Card",
+        "Flash Card",
+        "Spare Trousers",
+        "Ramen",
+        "Seltzer",
+        "Castle",
+        "Mr Bones",
+        "Acrobat",
+        "Sock and Buskin",
+        "Troubadour",
+        "Certificate",
+        "Smeared Joker",
+        "Throwback",
+        "Rough Gem",
+        "Bloodstone",
+        "Arrowhead",
+        "Onyx Agate",
+        "Glass Joker",
+        "Showman",
+        "Flower Pot",
+        "Merry Andy",
+        "Oops! All 6s",
+        "The Idol",
+        "Seeing Double",
+        "Matador",
+        "Satellite",
+        "Cartomancer",
+        "Astronomer",
+        "Bootstraps",
+    }
+    rare_joker = {
+        "DNA",
+        "Vagabond",
+        "Baron",
+        "Obelisk",
+        "Baseball Card",
+        "Ancient Joker",
+        "Campfire",
+        "Blueprint",
+        "Wee Joker",
+        "Hit the Road",
+        "The Duo",
+        "The Trio",
+        "The Family",
+        "The Order",
+        "The Tribe",
+        "Stuntman",
+        "Invisible Joker",
+        "Brainstorm",
+        "Driver's License",
+        "Burnt Joker"
+    }
+    tarots_deck = {"The Fool","The Magician", "The High Priestess", "The Empress", "The Emperor", "The Heirophant", "The Lovers", "The Chariot","Justice", "The Hermit", "The Wheel of Fortune", "Strength", "The Hanged Man", "Death", "Temperence", "The Tower", "The Devil", "The Star", "The Moon", "The Sun", "Judgement", "The World"}
+    spectral_deck = {"Familiar","Grim", "Incantation", "Aura", "Sigil", "Ouija", "Ectoplasm","Immolate", "Ankh", "Deja Vu", "Hex", "Trance", "Medium", "Cryptid"}--dejavu
+    pack_type = {"standard", "arcana", "celestial", "bufoon", "spectral"}
+
+    tag_deck = {"Economy", "Speed", "D6", "Juggle", "Double","Charm","Boss", "Voucher", "Investment","Rare","Uncommon","Foil","Holographic","Polychrome","Coupon"}
+    tag_unlock_2 = {"Standard", "Meteor", "Bufoon","Handy","Garbage", "Ethereal","Top-Up", "Orbital","Negative"}
+    type_base_prob = {20/3,20/3,20/3,2,1}--standard,tarot, planet, bufoon,spectral
+    size_base_prob = {4,2,1}--small,mid,large pack
+end
+
+function challenge_removal(rm_from, to_rm)--table to remove from, table of things to remove
+    for i=#rm_from,1,-1 do
+        for j=#to_rm,1,-1 do
+            if to_rm[j] == rm_from[i] then
+                table.remove(rm_from,i)
+                table.remove(to_rm,j)
+                break
+            end
+        end
+    end
+end
+
+function reset_pack_prob()
+    local type_tot_prob = 0
+    local size_tot_prob = 0
+    size_active_prob = {}
+    type_active_prob = {}
+    for i,v in ipairs(type_base_prob) do 
+        type_tot_prob = type_tot_prob + v
+    end
+    for i,v in ipairs(size_base_prob) do
+        size_tot_prob = size_tot_prob + v
+    end
+    for i,v in ipairs(type_base_prob) do
+        type_active_prob[i] = v/type_tot_prob
+    end
+    for i,v in ipairs(size_base_prob) do
+        size_active_prob[i] = v/size_tot_prob
+    end
+end
+
 function reset_deck()
     deck = {}
-    deck_enhancement = {}
+    deck_enhancement = {}--chips, card_enhancement
     for i, v in ipairs(full_deck) do
         table.insert(deck,v)
     end
@@ -719,6 +812,9 @@ function reset_deck()
 end
 
 function get_deck_adjust(deck_name)
+    if deck_kind == 2 then
+        cash =4
+    end
     if deck_name == "Red Deck" then
         max_discards = max_discards + 1
     elseif deck_name == "Blue Deck" then
@@ -768,14 +864,12 @@ function get_deck_adjust(deck_name)
         end
         max_interest = 0
         hand_cash = 0
-        for i,v in ipairs(vouchers) do
-            if v == "Seed Money" then
-                table.remove(vouchers,i)
-                break
-            end
-        end
+        challenge_removal(vouchers,{"Seed Money"})
+        challenge_removal(uncommon_joker,{"To the Moon", "Rocket", "Satellite"})
+        challenge_removal(common_joker,{"Golden Joker"})
     elseif deck_name == "15 Minute City" then
         add_jokers_to_selection("Ride the Bus",{"","Eternal"})
+        add_jokers_to_selection("Shortcut",{"","Eternal"})
     elseif deck_name == "Rich get Richer" then
         use_vouchers("Seed Money")
         use_vouchers("Money Tree")
@@ -786,16 +880,24 @@ function get_deck_adjust(deck_name)
         hand_cash=0
         max_interest=0
         add_jokers_to_selection("Business Card", {"","Eternal"})
+        add_jokers_to_selection("Pareidolia", {"","Eternal","Negative"})
+        challenge_removal(boss_blind_locked,{"The Plant"})
     elseif deck_name == "Luxury Tax" then
         max_hand_size=10
     elseif deck_name == "Non-Perishable" then
         if selected_stake<4 then
             table.insert(stickers,"Eternal")
         end
+        challenge_removal(common_joker,non_eternal_sticker)
+        challenge_removal(uncommon_joker,non_eternal_sticker)
+        challenge_removal(finisher_blinds,{"Verdent Leaf"})
     elseif deck_name == "Medusa" then
         add_jokers_to_selection("Marble Joker",{"","Eternal"})
+    elseif deck_name == "Typecast" then
+        challenge_removal(finisher_blinds,{"Verdent Leaf"})
     elseif deck_name == "Inflation" then
         add_jokers_to_selection("Credit Card",{})
+        challenge_removal(vouchers,{"Clearence Sale"})
     elseif deck_name == "Bram Poker" then
         for i,v in ipairs(shop_weights) do
             if v[2] == "Jokers" then
@@ -812,6 +914,18 @@ function get_deck_adjust(deck_name)
     elseif deck_name == "Fragile" then
         add_jokers_to_selection("Oops! All 6s",{"","Eternal", "Negative"})
         add_jokers_to_selection("Oops! All 6s",{"","Eternal", "Negative"})
+        challenge_removal(vouchers,{"Magic Trick"})
+        challenge_removal(tag_unlock_2, {"Standard"})
+        challenge_removal(spectral_deck,{"Incantation", "Familiar", "Grim"})
+        challenge_removal(tarots_deck, {"The Magician","The Empress", "The Heirophant", "The Lovers","The Chariot","The Tower", "The Devil"})
+        challenge_removal(uncommon_joker, {"Marble Joker","Vampire", "Midas Mask", "Certificate"})
+        for i,v in ipairs(pack_type) do
+            if v == "standard" then
+                table.remove(pack_type,i)
+                table.remove(type_base_prob,i)
+                break
+            end
+        end
     elseif deck_name == "Monolith" then
         add_jokers_to_selection("Obelisk",{"","Eternal"})
         add_jokers_to_selection("Marble Joker",{"","Eternal","Negative"})
@@ -823,17 +937,23 @@ function get_deck_adjust(deck_name)
         use_vouchers("Planet Tycoon")
         add_jokers_to_selection("Rocket",{"","Eternal"})
         add_jokers_to_selection("Constellation",{"","Eternal"})
+        challenge_removal(vouchers,{"Grabber"})
+        challenge_removal(uncommon_joker, {"Burglar"})
     elseif deck_name == "5 Card Draw" then
         max_discards = 6
         max_hand_size=5
         joker_size=7
         add_jokers_to_selection("Joker",{})
         add_jokers_to_selection("Card Sharp",{})
+        challenge_removal(common_joker,{"Juggler"})
+        challenge_removal(uncommon_joker,{"Troubadour","Turtle Bean"})
     elseif deck_name == "Golden Needle" then
         max_hands = 1
         max_discards = 6
         cash = 10
         add_jokers_to_selection("Credit Card",{})
+        challenge_removal(vouchers,{"Grabber"})
+        challenge_removal(uncommon_joker, {"Burglar"})
     elseif deck_name == "Cruelty" then
         joker_size = 3
         blind_payouts[1] = 0
@@ -847,6 +967,19 @@ function get_deck_adjust(deck_name)
                 break
             end
         end
+        challenge_removal(tag_deck,{"Uncommon","Polychrome","Rare","Foil","Holographic"})
+        challenge_removal(tag_unlock_2,{"Negative","Bufoon","Top-Up"})
+        for i,v in ipairs(pack_type) do
+            if v == "bufoon" then
+                table.remove(pack_type,i)
+                table.remove(type_base_prob,i)
+                break
+            end
+        end
+        reset_pack_prob()
+        challenge_removal(spectral_deck,{"Wraith"})
+        challenge_removal(tarots_deck,{"Judgement"})
+        challenge_removal(finisher_blinds,{"Crimson Heart", "Amber Acorn", "Verdent Leaf"})
     end
     if selected_stake > 3 then
         table.insert(stickers,"Eternal")
@@ -912,16 +1045,18 @@ function get_deck(deck_name)
     full_deck_enhancement = {}
     for i,v in ipairs(full_deck) do
         local rank  = string.sub(v,1,1)
-        table.insert(full_deck_enhancement,{convert_rank_to_num(rank)})
-    end
-    if deck_name == "Rainbow Deck" then
-        for i=1,#full_deck do
-            local addition = get_random_enhance()
-            table.insert(full_deck_enhancement[i],addition)
+        table.insert(full_deck_enhancement,{convert_rank_to_num(rank),"","",""})--chips,enhancement,editions,seal
+        if v == "st" then
+            full_deck_enhancement[i][2] = "Stone"
         end
-    elseif deck_name == "Fragile" then
+    end
+    if deck_name == "Fragile" then
         for i=1,#full_deck do
-            table.insert(full_deck_enhancement[i],"Glass")
+            full_deck_enhancement[i][2] = "Glass"
+        end
+    elseif deck_name == "Double or Nothing" then
+        for i=1,#full_deck do
+            full_deck_enhancement[i][4] = "Red-Seal"
         end
     end
     deck_size = #full_deck
@@ -929,17 +1064,20 @@ end
 
 function get_random_enhance()
     local index = math.random(#card_enhancement+#editions+#seals)
-    local addition
+    local addition,pos
     if index < #card_enhancement+1 then
         addition = card_enhancement[index]
+        pos = 2
     elseif index > #card_enhancement+#editions then
         index = index-(#card_enhancement+#editions)
         addition = seals[index]
+        pos = 3
     else
         index = index-(#card_enhancement)
         addition = editions[index]
+        pos = 4
     end
-    return addition
+    return addition,pos
 end
 
 function stake_begin(stake_name)
@@ -966,13 +1104,6 @@ function stake_begin(stake_name)
             end
         end
     end 
-end
-
-function reset_planets()
-    planets_deck = {}
-    for i, v in ipairs(full_planets) do
-        table.insert(planets_deck,v)
-    end
 end
 
 function position(rank)
@@ -1084,18 +1215,128 @@ function hand_ignore(handplay, unique,rank_dupe,card_count,do_ignore)--i dont re
     local count = 0
     local i = 1
     local count_ignore = {}
-    while count<#handplay-card_count do
-        if handplay[i] ~= "st" then
-            if rank_dupe[position(string.sub(handplay[i],1,1))] < unique[#unique] then
-                count = count + 1
-                table.insert(count_ignore,count,handplay[i])
+    if do_ignore then
+        while count<#handplay-card_count do
+            if handplay[i] ~= "st" then
+                if rank_dupe[position(string.sub(handplay[i],1,1))] < unique[#unique] then
+                    count = count + 1
+                    table.insert(count_ignore,count,i)
+                end
+            else
+                count = count +1
+            end
+            i = i+1
+        end
+        return count_ignore
+    else
+        return {}
+    end
+end
+
+function is_straight(ranked)--this is a mess
+    local min_cards = 5
+    if contains_fingers then
+        min_cards = 4
+    end
+    if ranked[#ranked]==14 and ranked[min_cards-1] < 8 then 
+        ranked[#ranked] = 1
+        table.sort(ranked)
+    end
+    local gaps = 1
+    if contains_shortcut then
+        gaps = 2
+    end
+    local potential_ignore={}
+    local current_straight = {ranked[1]}
+    for i=2,#ranked do
+        if ranked[i] - ranked[i-1]<gaps+1 and ranked[i] ~= ranked[i-1] then
+            table.insert(current_straight,i)
+        else
+            if contains_fingers and #potential_ignore <2 then
+                if i == 2 then
+                    table.insert(potential_ignore,ranked[i-1])
+                    current_straight = {}
+                else
+                    table.insert(potential_ignore,ranked[i])
+                end
+            else
+                return {}
+            end
+        end
+    end
+    if #current_straight >= min_cards then
+        straight = true
+        card_count = #current_straight
+    end
+    return potential_ignore
+end
+
+function is_flush(suited)
+    local potential_ignore = {}
+    if contains_fingers then--doing quick checks
+        if suited[1] == suited[4] then
+            flush = true
+            if #suited == 5 and suited[5] ~= suited[4] then
+                table.insert(potential_ignore,suited[5])
             end
         else
-            count = count +1
+            if #suited == 5 and suited[2] == suited[5] then
+                table.insert(potential_ignore,suited[1])
+                flush = true
+            end
         end
-        i = i+1
+    else
+        if suited[1] == suited[#suited] and #suited == 5 then
+            flush = true
+        end
     end
-    return count_ignore
+    if flush then
+        return potential_ignore
+    else
+        local min_cards =5
+        if contains_fingers then
+            min_cards = 4 
+        end
+        local suit_table = {["h"] = 0, ["d"] = 0, ["s"] = 0, ["c"] = 0, ["w"] = 0}
+        local current = {suited[1],1}
+        for i =1, #suited do
+            local v = string.sub(hand[i],2,2)
+            if hand_enhancement[i][2] ~= "Wild" and hand_enhancement[i][2] ~= "Stone" then
+                suit_table[v] = suit_table[v] +1
+                if current[2]<suit_table[v] then
+                    current[1] = v
+                    current[2] = suit_table[v]
+                end
+            elseif hand_enhancement[i][2] == "Wild" then
+                suit_table["w"] = suit_table["w"] + 1
+            end
+        end
+        if smeared then
+            suit_table["h"] = suit_table["h"] + suit_table["d"]
+            suit_table["s"] = suit_table["s"] + suit_table["c"]
+            if current[2] < math.max(suit_table["s"],suit_table["h"]) then
+                current[2] = math.max(suit_table["s"],suit_table["h"])
+                if suit_table["s"]>suit_table["h"] then
+                    current[1] = "s"
+                else
+                    current[1] = "h"
+                end
+            end
+        end
+        if current[2]+suit_table["w"]>min_cards-1 then
+            flush = true
+            for k,v in pairs(suit_table) do
+                if v~=0 and k~= current[1] and k ~= "w" then
+                    if smeared and k == smear_link[current[1]] then
+                        goto continue
+                    end
+                    table.insert(potential_ignore,k)
+                end
+                ::continue::
+            end
+        end
+        return potential_ignore
+    end
 end
 
 function get_hand_type(hand_play)
@@ -1110,6 +1351,7 @@ function get_hand_type(hand_play)
     local ranked = {}
     local suited = {}
     local card_count
+    local potential_ignore_s, potential_ignore_f
     ignore = {}
     for i,v in ipairs(hand_play) do
         suited[i] = string.sub(v,2,2)
@@ -1122,13 +1364,20 @@ function get_hand_type(hand_play)
             end
         end
     end
-
+    for i,v in ipairs(jokers) do-- issue
+        if v =="Splash" then
+            do_ignore = false
+        elseif v == "Shortcut" then
+            contains_shortcut = true
+        elseif v == "Four Fingers" then
+            contains_fingers = true
+        end
+    end
     table.sort(ranked)
-    table.sort(suited)
+    table.sort(suited)-- dont need to be fancy here just checking if 1st and last element
     local range = ranked[#ranked] - ranked[1]
     local unique = dic_size(rank_dupe,ranked) --values from dictionary
     table.sort(unique) --sort low to high
-
     if unique[#unique] == 5 then
         contains_5 = true
         contains_4 = true
@@ -1151,24 +1400,41 @@ function get_hand_type(hand_play)
         end
     end
 
-    if rank_dupe[14] == 1 and rank_dupe[2] == 1 and rank_dupe[3] == 1 and rank_dupe[4] == 1 and rank_dupe[5] == 1 then
-        straight = true
-    elseif #unique == 5 and range == 4 then --range condition will have to change to successive check when adding in ways to alter deck
-        straight = true
-        card_count = 5
+    if #hand_play >3 then
+        potential_ignore_s = is_straight(ranked)
+        potential_ignore_f = is_flush(suited)
     end
-
-    if suited[1] == suited[#suited] and #hand_play == 5 then
-        flush = true
-        card_count = 5
-    end
-
     
     if straight == true and flush == true then
+        if #potential_ignore_s ==1 and #potential_ignore_f == 1 and do_ignore then
+            local card_aim = potential_ignore_s[1]..potential_ignore_f[1]
+            for i=#hand_play,1,-1 do--only length 1 potential atm
+                if hand_play[i] == card_aim and hand_enhancement[i][2] ~= "Wild" then
+                    table.insert(ignore,i)
+                    break
+                end
+            end
+        end
         return "Straight Flush"
     elseif straight == true and flush == false then
+        if do_ignore then
+            for i=#hand_play,1,-1 do--only length 1 potential atm
+                if string.sub(hand_play[i],1,1) == potential_ignore_s[1] then
+                    table.insert(ignore,i)
+                    break
+                end
+            end
+        end
         return "Straight"
     elseif straight == false and flush == true then
+        if do_ignore then
+            for i=#hand_play,1,-1 do--only length 1 potential atm
+                if string.sub(hand_play[i],2,2) == potential_ignore_f[1] then
+                    table.insert(ignore,i)
+                    break
+                end
+            end
+        end
         return "Flush"
     end
 
@@ -1194,7 +1460,7 @@ function get_hand_type(hand_play)
         return "4 of a Kind"
     elseif #unique == 2 and unique[2] == 4 then
         card_count = 4
-        ignore = hand_ignore(hand_play,unique,rank_dupe,card_count)
+        ignore = hand_ignore(hand_play,unique,rank_dupe,card_count,do_ignore)
         return "4 of a Kind"
     end
 
@@ -1203,20 +1469,20 @@ function get_hand_type(hand_play)
         return "3 of a Kind"
     elseif #unique == 2 and unique[2] == 3 then
         card_count = 3
-        ignore = hand_ignore(hand_play,unique,rank_dupe,card_count)
+        ignore = hand_ignore(hand_play,unique,rank_dupe,card_count,do_ignore)
         return "3 of a Kind"
     elseif #unique == 3 and unique[3] == 3 then
         card_count = 3
-        ignore = hand_ignore(hand_play,unique,rank_dupe,card_count)
+        ignore = hand_ignore(hand_play,unique,rank_dupe,card_count,do_ignore)
         return "3 of a Kind"
     end
 
-    if  #unique == 2 and unique[1] == unique[2] and unique[2] == 2 then
+    if #unique == 2 and unique[1] == unique[2] and unique[2] == 2 then
         card_count = 4
         return "Two Pair"
     elseif #unique == 3 and unique[2] == unique[3] and unique[3] == 2 then
         card_count = 4
-        ignore = hand_ignore(hand_play,unique,rank_dupe,card_count)
+        ignore = hand_ignore(hand_play,unique,rank_dupe,card_count,do_ignore)
         return "Two Pair"
     end
 
@@ -1225,15 +1491,15 @@ function get_hand_type(hand_play)
         return "Pair"
     elseif #unique == 2 and unique[2] == 2 then
         card_count = 2
-        ignore = hand_ignore(hand_play,unique,rank_dupe,card_count)
+        ignore = hand_ignore(hand_play,unique,rank_dupe,card_count,do_ignore)
         return "Pair"
     elseif #unique == 3 and unique[3] == 2 then
         card_count = 2
-        ignore = hand_ignore(hand_play,unique,rank_dupe,card_count)
+        ignore = hand_ignore(hand_play,unique,rank_dupe,card_count,do_ignore)
         return "Pair"
     elseif #unique == 4 and unique[4] == 2 then
         card_count = 2
-        ignore = hand_ignore(hand_play,unique,rank_dupe,card_count)
+        ignore = hand_ignore(hand_play,unique,rank_dupe,card_count,do_ignore)
         return "Pair"
     end
 
@@ -1244,9 +1510,11 @@ function get_hand_type(hand_play)
             count = count +1
         end
     end
-    for i,v in ipairs(hand_play) do
-        if position(string.sub(v,1,1)) ~= ranked[#ranked-count] and v ~= "st" then
-            table.insert(ignore,v)
+    if do_ignore then
+        for i,v in ipairs(hand_play) do
+            if position(string.sub(v,1,1)) ~= ranked[#ranked-count] and v ~= "st" then
+                table.insert(ignore,v)
+            end
         end
     end
     return "High Card"
@@ -1259,29 +1527,17 @@ function on_play_jokers(joker,joker_index)
         end
     elseif joker == "Midas Mask" then
         for j,k in ipairs(hand) do
-            if string.sub(k,1,1) == "k" or string.sub(k,1,1) == "q" or string.sub(k,1,1) == "j" then
+            if string.sub(k,1,1) == "k" or string.sub(k,1,1) == "q" or string.sub(k,1,1) == "j" or all_face == true then
                 local index = find_matching(j,hand,hand_enhancement)
-                for i=2,#hand_enhancement[j] do
-                    if enhancement_info[hand_enhancement[j][i]][2] == "Enhancement" and i<#hand_enhancement[j] then
-                        table.remove(hand_enhancement[j],i)
-                        table.remove(full_deck_enhancement[index],i)
-                        break
-                    end
-                end
-                table.insert(full_deck_enhancement[index],"Gold")
-                --table.insert(hand_enhancement[j],"Gold")
+                full_deck_enhancement[index][2] = "Gold"
             end
         end
     elseif joker == "Space Joker" then
         local rand = math.random()
-        if rand < 0.25 then
-            for k,v in pairs(planets_info) do
-                if v[3] == hand_type then
-                    hand_multipliers[v[3]][1] = hand_multipliers[v[3]][1] + v[1]
-                    hand_multipliers[v[3]][2] = hand_multipliers[v[3]][2] + v[2]
-                    break
-                end
-            end
+        if rand < 0.25*dice_prob then
+            local planet = hand_multipliers[hand_type][4]
+            hand_multipliers[hand_type][1] = hand_multipliers[hand_type][1] + planets_info[planet][1]
+            hand_multipliers[hand_type][2] = hand_multipliers[hand_type][2] + planets_info[planet][2]
         end
     elseif joker == "DNA" then
         if #hand==1 and hands == max_hands -1 then
@@ -1289,6 +1545,9 @@ function on_play_jokers(joker,joker_index)
             table.insert(full_deck_enhancement,hand_enhancement[1])
             table.insert(dealt,hand[1])
             table.insert(dealt,hand_enhancement[1])
+            for j,k in ipairs(jokers) do
+                added_to_deck_jokers(k,j)
+            end
         end
     elseif joker == "Blueprint" then
         if joker_index ~= #jokers then
@@ -1299,36 +1558,55 @@ function on_play_jokers(joker,joker_index)
             on_play_jokers(jokers[1],1)
         end
     end
+    if joker_info[joker][#joker_info[joker]] == "Uncommon" then
+        for i,v in ipairs(jokers) do
+            if v == "Baseball Card" then
+                multiplier = multiplier*1.5
+            end
+        end
+    end
 end
 
 function per_card_joker(joker,joker_index, card, card_index)
+    local wild_card = false
+    if hand_enhancement[card_index][2] == "Wild" then
+        wild_card = true
+    end
     if joker == "Wrathful Joker" then
-        if string.sub(card, 2, 2) == "s" then
+        if string.sub(card, 2, 2) == "s" or wild_card then
+            multiplier = multiplier + 3
+        elseif smeared and smear_link[string.sub(card, 2, 2)] == "s" then
             multiplier = multiplier + 3
         end
     elseif joker == "Greedy Joker" then
-        if string.sub(card, 2, 2) == "d" then
+        if string.sub(card, 2, 2) == "d" or wild_card then
+            multiplier = multiplier + 3
+        elseif smeared and smear_link[string.sub(card, 2, 2)] == "d" then
             multiplier = multiplier + 3
         end
     elseif joker == "Lusty Joker" then
-        if string.sub(card, 2, 2) == "h" then
+        if string.sub(card, 2, 2) == "h" or wild_card then
+            multiplier = multiplier + 3
+        elseif smeared and smear_link[string.sub(card, 2, 2)] == "h" then
             multiplier = multiplier + 3
         end
     elseif joker == "Gluttonous Joker" then
-        if string.sub(card, 2, 2) == "c" then
+        if string.sub(card, 2, 2) == "c" or wild_card then
+            multiplier = multiplier + 3
+        elseif smeared and smear_link[string.sub(card, 2, 2)] == "c" then
             multiplier = multiplier + 3
         end
     elseif joker == "Business Card" then
-        if string.sub(card,1,1) == "j" or string.sub(card,1,1) == "q" or string.sub(card,1,1) == "k" then
+        if string.sub(card,1,1) == "j" or string.sub(card,1,1) == "q" or string.sub(card,1,1) == "k" or all_face == true then
             local rand = math.random()
-            if rand <0.5 then
+            if rand < 0.5*dice_prob then
                 cash = cash + 2
             end
         end
     elseif joker == "8 ball" then
         if string.sub(card,1,1) == "8" then
             local rand = math.random()
-            if rand < 0.25 and #consumable < consumable_size then
+            if rand < 0.25*dice_prob and #consumable < consumable_size then
                 local rand_tarot = math.random(#tarots_deck)
                 table.insert(consumable,tarots_deck[rand_tarot])
                 table.insert(consumable_enhancement," ")
@@ -1340,11 +1618,11 @@ function per_card_joker(joker,joker_index, card, card_index)
             multiplier = multiplier + 4
         end
     elseif joker == "Scary Face" then
-        if string.sub(card,1,1) == "j" or string.sub(card,1,1) == "q" or string.sub(card,1,1) == "k" then
+        if string.sub(card,1,1) == "j" or string.sub(card,1,1) == "q" or string.sub(card,1,1) == "k" or all_face == true then
             chips = chips + 30
         end
     elseif joker == "Smiley Face" then
-        if string.sub(card,1,1) == "j" or string.sub(card,1,1) == "q" or string.sub(card,1,1) == "k" then
+        if string.sub(card,1,1) == "j" or string.sub(card,1,1) == "q" or string.sub(card,1,1) == "k" or all_face == true then
             multiplier = multiplier + 5
         end
     elseif joker == "Walkie Talkie" then
@@ -1365,12 +1643,12 @@ function per_card_joker(joker,joker_index, card, card_index)
             chips = chips + 31
         end
     elseif joker == "Photograph" then
-        if string.sub(card,1,1) == "j" or string.sub(card,1,1) == "q" or string.sub(card,1,1) == "k" then
+        if string.sub(card,1,1) == "j" or string.sub(card,1,1) == "q" or string.sub(card,1,1) == "k" or all_face == true then
             if card_index == 1 then
                 multiplier = multiplier*2
             else
                 for i=1, card_index-1 do
-                    if string.sub(hand[i],1,1) == "j" or string.sub(hand[i],1,1) == "q" or string.sub(hand[i],1,1) == "k" then
+                    if string.sub(hand[i],1,1) == "j" or string.sub(hand[i],1,1) == "q" or string.sub(hand[i],1,1) == "k" or all_face == true then
                         break
                     end
                     if i == card_index-1 then
@@ -1380,53 +1658,67 @@ function per_card_joker(joker,joker_index, card, card_index)
             end
         end
     elseif joker == "Golden Ticket" then
-        for j=2,#hand_enhancement[card_index] do
-            if v[j] == "Gold" then
-                cash = cash + 4
-            end
+        if hand_enhancement[card_index][3] == "Gold" then
+            cash = cash + 4
         end
     elseif joker == "Fibonacci" then
         if string.sub(card,1,1) == "a" or string.sub(card,1,1) == "2" or string.sub(card,1,1) == "3" or string.sub(card,1,1) == "5" or string.sub(card,1,1) == "8" then
             multiplier = multiplier + 8
         end
     elseif joker == "Vampire" then
-        for i=2, #hand_enhancement[card_index] do
-            local v = hand_enhancement[card_index][#hand_enhancement[card_index]+2-i]--doing from top down
-            jokers_enhancement[joker_index][1] = jokers_enhancement[joker_index][1] + 0.1
-            if v == "Stone" then
-                local new_card = standard_deck[math.random(#standard_deck)]
-                hand_enhancement[card_index][1] = hand_enhancement[card_index][1] - convert_rank_to_num(string.sub(card,1,1)) + convert_rank_to_num(string.sub(new_card,1,1))
-                hand[#hand_enhancement[card_index]+2-i] = new_card
-                table.remove(hand,card_index)
+        for i=#hand_enhancement[card_index],2,-1 do
+            local v = hand_enhancement[card_index][i]--doing from top down
+            if v ~= "" then
+                jokers_enhancement[joker_index][1] = jokers_enhancement[joker_index][1] + 0.1
+                if v == "Stone" then
+                    local new_card = standard_deck[math.random(#standard_deck)]
+                    hand_enhancement[card_index][1] = hand_enhancement[card_index][1] - convert_rank_to_num(string.sub(card,1,1)) + convert_rank_to_num(string.sub(new_card,1,1))
+                    hand[card_index] = new_card
+                end
+                hand_enhancement[card_index][i]=""
             end
-            table.remove(hand_enhancement[card_index],#hand_enhancement[card_index]+2-i)
         end
     elseif joker == "The Idol" then
         if card == jokers_enhancement[joker_index][1] then
             multiplier = multiplier*2
+        elseif string.sub(card, 1,1) == string.sub(jokers_enhancement[joker_index][1], 1, 1) and smeared and smear_link[string.sub(card, 2, 2)] == string.sub(jokers_enhancement[joker_index][1],2,2) then
+            multiplier = multiplier*2
         end
     elseif joker == "Onyx Agate" then
-        if string.sub(card,2,2) == "c" then
+        if string.sub(card,2,2) == "c" or wild_card then
+            multiplier = multiplier + 7
+        elseif smeared and smear_link[string.sub(card, 2, 2)] == "c" then
             multiplier = multiplier + 7
         end
     elseif joker == "Arrowhead" then
-        if string.sub(card,2,2) == "s" then
+        if string.sub(card,2,2) == "s" or wild_card then
             chips = chips + 50
+        elseif smeared and smear_link[string.sub(card, 2, 2)] == "s" then
+            multiplier = multiplier + 50
         end
     elseif joker == "Bloodstone" then
-        if string.sub(card,2,2) == "g" then
+        if string.sub(card,2,2) == "h" or wild_card then
+            local rand = math.random()
+            if rand<0.5*dice_prob then
+                multiplier = multiplier*1.5
+            end
+        elseif smeared and smear_link[string.sub(card, 2, 2)] == "h" then
             local rand = math.random()
             if rand<0.5 then
                 multiplier = multiplier*1.5
             end
         end
     elseif joker == "Rough Gem" then
-        if string.sub(card,2,2) == "d" then
+        if string.sub(card,2,2) == "d" or wild_card then
+            cash = cash +1
+        elseif smeared and smear_link[string.sub(card, 2, 2)] == "d" then
             cash = cash +1
         end
     elseif joker == "Ancient Joker" then
-        if string.sub(card,2,2) == jokers_enhancement[joker_index][1] then
-            mult = mult *1.5
+        if string.sub(card,2,2) == jokers_enhancement[joker_index][1] or wild_card then
+            multiplier = multiplier*1.5
+        elseif smeared and smear_link[string.sub(card, 2, 2)] == jokers_enhancement[joker_index][1] then
+            multiplier = multiplier*1.5
         end
     elseif joker == "Wee Joker" then
         if string.sub(card,1,1) == "2" then
@@ -1436,6 +1728,8 @@ function per_card_joker(joker,joker_index, card, card_index)
         if string.sub(card,1,1) == "k" or string.sub(card,1,1) == "q" then
             multiplier = multiplier*2
         end
+    elseif joker == "Hiker" then
+            hand_enhancement[card_index][1] = hand_enhancement[card_index][1] + 5
     elseif joker == "Blueprint" then
         if joker_index ~= #jokers then
             per_card_joker(jokers[joker_index+1],joker_index+1,card,card_index)
@@ -1443,6 +1737,13 @@ function per_card_joker(joker,joker_index, card, card_index)
     elseif joker == "Brainstorm" then
         if joker_index ~=1 then
             per_card_joker(jokers[1],1,card,card_index)
+        end
+    end
+    if joker_info[joker][#joker_info[joker]] == "Uncommon" then
+        for i,v in ipairs(jokers) do
+            if v == "Baseball Card" then
+                multiplier = multiplier*1.5
+            end
         end
     end
 end
@@ -1499,6 +1800,15 @@ function final_jokers(joker,joker_index,played)
         end
     elseif joker == "Misprint" then
         multiplier = multiplier + math.random(0,23)
+    elseif joker == "Raised Fist" then
+        local lowest = convert_rank_to_num(string.sub(dealt[1],1,1))
+        for i=2, #dealt do
+            local current = convert_rank_to_num(string.sub(dealt[i],1,1))
+            if current<lowest then
+                lowest = current
+            end
+        end
+        multiplier = multiplier + 2*lowest
     elseif joker == "Devious Joker" then
         if straight == true then
             chips = chips +100
@@ -1559,6 +1869,7 @@ function final_jokers(joker,joker_index,played)
             removal_joker(joker,joker_index)
         end
     elseif joker == "Ride the Bus" then
+        if all_face == false then
             local count = 0
             for i,v in ipairs(played) do
                 if string.sub(v,1,1) ~= "k" and string.sub(v,1,1) ~= "q" and string.sub(v,1,1) ~= "j" then
@@ -1570,6 +1881,9 @@ function final_jokers(joker,joker_index,played)
             else
                 jokers_enhancement[joker_index][1] = 0
             end
+        else
+            jokers_enhancement[joker_index][1] = 0
+        end
         multiplier = multiplier + jokers_enhancement[joker_index][1]
     elseif joker == "Loyalty Card" then
         jokers_enhancement[joker_index][1] = jokers_enhancement[joker_index][1]-1
@@ -1614,7 +1928,11 @@ function final_jokers(joker,joker_index,played)
     elseif joker == "Blackboard" then
         local count = 0
         for i,v in ipairs(dealt) do
-            if string.sub(v,2,2) == "s" or string.sub(v,2,2) == "c" then
+            local wild_card = false
+            if v[2] == "Wild" then
+                wild_card = true
+            end
+            if string.sub(v,2,2) == "s" or string.sub(v,2,2) == "c" or wild_card then
                 count = count +1
             end
         end
@@ -1640,8 +1958,10 @@ function final_jokers(joker,joker_index,played)
                 table.insert(consumable_enhancement," ")
             end
         end
+    elseif joker == "Hologram" then
+        multiplier = multiplier*(jokers_enhancement[joker_index][1])
     elseif joker == "Vampire" then
-        multiplier = multiplier*(1+jokers_enhancement[joker_index][1])
+        multiplier = multiplier*(jokers_enhancement[joker_index][1])
     elseif joker == "Erosion" then
         if #full_deck>deck_size then
             multiplier = multiplier+4*(#full_deck-deck_size)
@@ -1652,13 +1972,35 @@ function final_jokers(joker,joker_index,played)
         multiplier = multiplier+2*math.floor(cash/5)
     elseif joker == "Seeing Double" then
         local has_club = false
+        local num_wild = 0
         local has_other = false
         for i,v in ipairs(played) do
-            if string.sub(v,2,2) == "c" then
-                has_club = true
-            elseif string.sub(v,2,2) == "h" or string.sub(v,2,2) == "d" or string.sub(v,2,2) == "s" then
-                has_other = true
+            if hand_enhancement[i][2] == "Wild" then
+                num_wild = num_wild + 1
+            else
+                if string.sub(v,2,2) == "c" then
+                    if has_club == false then
+                        has_club = true
+                    else
+                        if smeared and has_other == false then
+                            has_other = true
+                        end
+                    end
+                elseif string.sub(v,2,2) == "h" or string.sub(v,2,2) == "d" or string.sub(v,2,2) == "s" then
+                    if has_other == false then
+                        has_other = true
+                    else
+                        if smeared and string.sub(v,2,2) == "s" and has_club == false then
+                            has_club = true
+                        end
+                    end
+                end
             end
+        end
+        if num_wild >1 then
+            has_club, has_other = true, true
+        elseif num_wild == 1 and #played>1 then
+            has_club, has_other = true, true
         end
         if has_club and has_other then
             multiplier = multiplier*2
@@ -1667,22 +2009,28 @@ function final_jokers(joker,joker_index,played)
         multiplier = multiplier*(1+jokers_enhancement[joker_index][1])
     elseif joker == "Flower Pot" then
         if #played >3 then
-            local clubs = false
-            local spades = false
-            local diamonds = false
-            local hearts = false
+            local suit_table = {["h"] = false, ["d"] = false, ["s"] = false, ["c"] = false}
+            local num_wild = 0
             for i, v in ipairs(played) do
-                if string.sub(v,2,2) == "h" then
-                    hearts = true
-                elseif string.sub(v,2,2) == "d" then
-                    diamonds = true
-                elseif string.sub(v,2,2) == "s" then
-                    spades = true
-                elseif string.sub(v,2,2) == "c" then
-                    clubs = true
+                if hand_enhancement[i][2] == "Wild" then
+                    num_wild = num_wild + 1
+                else
+                    if string.sub(v,2,2) ~= "t" then--not stone
+                        if suit_table[string.sub(v,2,2)] == false then
+                            suit_table[string.sub(v,2,2)] = true
+                        elseif suit_table[string.sub(v,2,2)] == true and smeared then
+                            suit_table[smear_link[string.sub(v,2,2)]] = true
+                        end
+                    end
                 end
             end
-            if hearts and diamonds and spades and clubs then
+            for k,v in pairs(suit_table) do
+                if v == false and num_wild >0 then
+                    suit_table[k] = true
+                    num_wild = num_wild-1
+                end
+            end
+            if suit_table["h"] == true and suit_table["d"] == true and suit_table["s"] == true and suit_table["c"] == true then
                 multiplier = multiplier*3
             end
         end
@@ -1698,6 +2046,8 @@ function final_jokers(joker,joker_index,played)
         if contains_2pair then
             jokers_enhancement[joker_index][1] =jokers_enhancement[joker_index][1]+2
         end
+        multiplier = multiplier+jokers_enhancement[joker_index][1]
+    elseif joker == "Flash Card" then
         multiplier = multiplier+jokers_enhancement[joker_index][1]
     elseif joker == "The Duo" then
         if conatins_pair then
@@ -1724,8 +2074,11 @@ function final_jokers(joker,joker_index,played)
     elseif joker == "Driver's License" then
         local count = 0
         for i,v in ipairs(full_deck_enhancement) do
-            if type(v) == "string" and string.len(v)>0 then
-                count = count +1
+            for j = 2,#v do
+                if string.len(v[j]) > 0 then
+                    count = count +1
+                    break
+                end
             end
         end
         if count >15 then
@@ -1749,10 +2102,7 @@ function final_jokers(joker,joker_index,played)
             end
         end
         if max_hand == false then
-            jokers_enhancement[joker_index][2] = jokers_enhancement[joker_index][2] +0.2
-            jokers_enhancement[joker_index][1] = jokers_enhancement[joker_index][1] + jokers_enhancement[joker_index][2]
-        else
-            jokers_enhancement[joker_index][2] = 0
+            jokers_enhancement[joker_index][1] = jokers_enhancement[joker_index][1] +0.2
         end
     elseif joker == "Hit the Road" then
         multiplier = multiplier*jokers_enhancement[joker_index][1]
@@ -1769,38 +2119,30 @@ function final_jokers(joker,joker_index,played)
             final_jokers(jokers[1],1)
         end
     end
-end
-
-function held_jokers(joker,joker_index)
-    if joker == "Raised Fist" then
-        local lowest = convert_rank_to_num(string.sub(dealt[1],1,1))
-        for i=2, #dealt do
-            local current = convert_rank_to_num(string.sub(dealt[i],1,1))
-            if current<lowest then
-                lowest = current
+    if joker_info[joker][#joker_info[joker]] == "Uncommon" then
+        for i,v in ipairs(jokers) do
+            if v == "Baseball Card" then
+                multiplier = multiplier*1.5
             end
         end
-        multiplier = multiplier + 2*lowest
-    elseif joker == "Reserved Parking" then
-        for i,v in ipairs(dealt) do
-            if string.sub(v,1,1) == "j" or string.sub(v,1,1) == "q" or string.sub(v,1,1) == "k" then
-                local rand = math.random()
-                if rand <0.5 then
-                    cash =cash +1
-                end
+    end
+end
+
+function held_jokers(joker,joker_index,card)
+    if joker == "Reserved Parking" then
+        if string.sub(card,1,1) == "j" or string.sub(card,1,1) == "q" or string.sub(card,1,1) == "k" or all_face == true then
+            local rand = math.random()
+            if rand <0.5*dice_prob then
+                cash =cash +1
             end
         end
     elseif joker == "Shoot the Moon" then
-        for i,v in ipairs(dealt) do
-            if string.sub(v,1,1) == "q" then
-                multiplier = multiplier + 13
-            end
+        if string.sub(card,1,1) == "q" then
+            multiplier = multiplier + 13
         end
     elseif joker == "Baron" then
-        for i,v in ipairs(dealt) do
-            if string.sub(v,1,1) == "k" then
-                multiplier = multiplier*1.5
-            end
+        if string.sub(card,1,1) == "k" then
+            multiplier = multiplier*1.5
         end
     elseif joker == "Blueprint" then
         if joker_index ~= #jokers then
@@ -1811,6 +2153,56 @@ function held_jokers(joker,joker_index)
             held_jokers(jokers[1],1)
         end
     end
+    if joker_info[joker][#joker_info[joker]] == "Uncommon" then
+        for i,v in ipairs(jokers) do
+            if v == "Baseball Card" then
+                multiplier = multiplier*1.5
+            end
+        end
+    end
+end
+
+function retrigger_joker(joker,joker_index,card,card_index,card_type,max_loop)
+    if card_type == "played" then
+        if joker == "Hanging Chad" then
+            if card_index == 1 then
+                max_loop = max_loop+2
+            end
+        elseif joker == "Dusk" then
+            if hands == 0 then
+                max_loop = max_loop +1
+            end
+        elseif joker == "Hack" then
+            if string.sub(card,1,1) == "2" or string.sub(card,1,1) == "3" or string.sub(card,1,1) == "4" or string.sub(card,1,1) == "5" then
+                max_loop = max_loop +1
+            end
+        elseif joker == "Seltzer" then
+            max_loop = max_loop +1
+            if card_index == 1 then--only want this to trigger once
+                jokers_enhancement[joker_index][1] = jokers_enhancement[joker_index][1] - 1
+                if jokers_enhancement[joker_index][1] == 0 then
+                    removal_joker("Seltzer",joker_index)
+                end
+            end
+        elseif joker == "Sock and Buskin" then
+            if string.sub(card,1,1) == "k" or string.sub(card,1,1) == "q" or string.sub(card,1,1) == "j" or all_face == true then
+                max_loop = max_loop+1
+            end
+        elseif joker == "Blueprint" then
+            max_loop = retrigger_joker(jokers[joker_index+1],joker_index+1,card,card_index,card_type,max_loop)
+        elseif joker == "Brainstorm" then
+            max_loop = retrigger_joker(jokers[1],1,card,card_index,card_type,max_loop)
+        end
+    elseif card_type == "hand" then
+        if joker == "Mime" then
+            max_loop = max_loop + 1
+        elseif joker == "Blueprint" then
+            max_loop = retrigger_joker(joker,joker_index,card,card_index,card_type,max_loop)
+        elseif joker == "Brainstorm" then
+            max_loop = retrigger_joker(jokers[1],1,card,card_index,card_type,max_loop)
+        end
+    end
+    return max_loop
 end
 
 function round_end_jokers(joker,index)
@@ -1830,14 +2222,20 @@ function round_end_jokers(joker,index)
             cash = cash + 2*max_discards
         end
     elseif joker == "Gros Michel" then
-        local rand = math.random(6)
-        if rand == 1 then
+        local rand = math.random()
+        if rand < dice_prob*1/6 then
             table.remove(jokers,index)
+            for i =1,#common_joker do
+                if common_joker[i] == joker then
+                    table.remove(common_joker,i)
+                    break
+                end
+            end
             table.insert(common_joker,"Cavendish")
         end
     elseif joker == "Cavendish" then
         local rand = math.random()
-        if rand < 0.001 then
+        if rand < 0.001*ice_prob then
             table.remove(jokers,index)
         end
     elseif joker == "To do List" then
@@ -1892,12 +2290,14 @@ function round_end_jokers(joker,index)
         cash = cash + count
     end
 
-    for i,v in ipairs(jokers_enhancement[index]) do
+    for i=#jokers_enhancement[index],1,-1 do
+        local v = jokers_enhancement[index][i]
         if type(v) == "table" then
             if v[1] == "Perishable" then
                 jokers_enhancement[index][i][2] = v[2] -1
                 if jokers_enhancement[index][i][2] == 0 then
-                    removal_joker(joker,index)
+                    table.insert(jokers_enhancement[index],3,"Disabled by perishable")
+                    table.remove(jokers_enhancement[index],i)
                 end
             end
         else
@@ -1931,7 +2331,7 @@ function discard_jokers(joker,joker_index)
     if joker == "Faceless Joker" then
         local count = 0 
         for i,v in ipairs(hand) do
-            if string.sub(v,1,1) == "j" or string.sub(v,1,1) == "q" or string.sub(v,1,1) == "k" then
+            if string.sub(v,1,1) == "j" or string.sub(v,1,1) == "q" or string.sub(v,1,1) == "k" or all_face then
                 count = count +1
             end
         end
@@ -1944,13 +2344,15 @@ function discard_jokers(joker,joker_index)
         end
     elseif joker == "Mail in Rebate" then
         for i,v in ipairs(hand) do
-            if string.sub(v,1,1) == jokers_enhancement[joker_index][1] then-- not always working
+            if string.sub(v,1,1) == jokers_enhancement[joker_index][1] then
                 cash = cash + 5
             end
         end
     elseif joker == "Castle" then
         for i,v in ipairs(hand) do
             if string.sub(v,2,2) == jokers_enhancement[joker_index][1][1] then
+                jokers_enhancement[joker_index][1][2] = jokers_enhancement[joker_index][1][2] +3
+            elseif smeared and smear_link[string.sub(v,2,2)] == jokers_enhancement[joker_index][1][1] then
                 jokers_enhancement[joker_index][1][2] = jokers_enhancement[joker_index][1][2] +3
             end
         end
@@ -2009,10 +2411,15 @@ function selected_blind_jokers(joker,index)
     if joker == "Riff-Raff" then
         local rand
         for i=1,2 do
-            repeat
-                rand = math.random(#common_joker)
-            until common_joker[rand] ~= "Riff-Raff"--not possible to get itself
             if #jokers<joker_size then
+                rand = math.random(#common_joker)
+                if showman_active == false then
+                    local repeated = showman_ability(common_joker[rand])
+                    while repeated == true do
+                        rand = math.random(#common_joker)
+                        repeated = showman_ability(common_joker[rand])
+                    end
+                end
                 local addition = {}
                 for j,k in ipairs(stickers) do
                     addition = add_stickers(k,addition)
@@ -2022,7 +2429,10 @@ function selected_blind_jokers(joker,index)
         end
     elseif joker == "Marble Joker" then
         table.insert(full_deck,"st")
-        table.insert(full_deck_enhancement,{50,"Stone"})
+        table.insert(full_deck_enhancement,{50,"Stone","",""})
+        for j,k in ipairs(jokers) do
+            added_to_deck_jokers(k,j)
+        end
         reset_deck()
     elseif joker == "Burglar" then
         hands = hands+3
@@ -2057,12 +2467,6 @@ function selected_blind_jokers(joker,index)
                 jokers_enhancement[index][1] = jokers_enhancement[index][1] +0.5
             end
         end
-    elseif joker == "Certificate" then
-        local playing_card = standard_deck[math.random(#standard_deck)]
-        local rand_seal = seals[math.random(#seals)]
-        local num = convert_rank_to_num(string.sub(playing_card,1,1))
-        table.insert(dealt,playing_card)
-        table.insert(dealt_enhancement,{num,rand_seal})
     elseif joker == "Cartomancer" then
         if #consumable<consumable_size then
             table.insert(consumable,tarots_deck[math.random(#tarots_deck)])
@@ -2076,6 +2480,76 @@ function selected_blind_jokers(joker,index)
         if index ~=1 then
             selected_blind_jokers(jokers[1],1)
         end
+    end
+end
+
+function selected_blind_after_dealt_jokers(joker,index)
+    if joker == "Certificate" then
+        local playing_card = standard_deck[math.random(#standard_deck)]
+        local rand_seal = seals[math.random(#seals)]
+        local num = convert_rank_to_num(string.sub(playing_card,1,1))
+        table.insert(dealt,playing_card)
+        table.insert(dealt_enhancement,{num,"","",rand_seal})
+        table.insert(full_deck,playing_card)
+        table.insert(full_deck_enhancement,{num,"","",rand_seal})
+        face_down_blinds(dealt[#dealt],#dealt)
+        for j,k in ipairs(jokers) do
+            added_to_deck_jokers(k,j)
+        end
+    elseif joker == "Blueprint" then
+        if index ~= #jokers then
+            selected_blind_after_dealt_jokers(jokers[index+1],index+1)
+        end
+    elseif joker == "Brainstorm" then
+        if index ~=1 then
+            selected_blind_after_dealt_jokers(jokers[1],1)
+        end
+    end
+end
+
+function reroll_jokers(joker,joker_index)
+    if joker == "Chaos the Clown" and reroll_price == 0 then
+        reroll_price = min_reroll
+    elseif joker == "Flash Card" then
+        jokers_enhancement[joker_index][1] = jokers_enhancement[joker_index][1] + 2
+    elseif joker == "Blueprint" then
+        reroll_jokers(jokers[joker_index+1],joker_index+1)
+    elseif joker == "Brainstorm" then
+        reroll_jokers(jokers[1],1)
+    end
+end
+
+function pack_skip_jokers(joker,joker_index)
+    if joker == "Red Card" then
+        jokers_enhancement[joker_index][1] = jokers_enhancement[joker_index][1] + 3
+    elseif joker == "Blueprint" then
+        pack_skip_jokers(jokers[joker_index+1],joker_index+1)
+    elseif joker == "Brainstorm" then
+        pack_skip_jokers(jokers[1],1)
+    end
+end
+
+function open_pack_jokers(joker,joker_index)
+    if joker == "Hallucination" then
+        local rand = math.random()
+        if rand<0.5*dice_prob and #consumable<consumable_size then
+            table.insert(consumable,tarots_deck[math.random(#tarots_deck)])
+            table.insert(consumable_enhancement," ")
+        end
+    elseif joker == "Blueprint" then
+        open_pack_jokers(jokers[joker_index+1],joker_index+1)
+    elseif joker == "Brainstorm" then
+        open_pack_jokers(jokers[1],1)
+    end
+end
+
+function added_to_deck_jokers(joker,joker_index)--wish i could think of a better way, maybe with reset_deck
+    if joker == "Hologram" then
+        jokers_enhancement[joker_index][1] = jokers_enhancement[joker_index][1] + 0.25
+    elseif joker == "Blueprint" then
+        added_to_deck_jokers(jokers[joker_index+1],joker_index+1)
+    elseif joker == "Brainstorm" then
+        added_to_deck_jokers(jokers[1],1)
     end
 end
 
@@ -2126,7 +2600,13 @@ function sell_jokers(joker,index)
                 elseif jokers[rand] == "Stuntman" then
                     max_hand_size = max_hand_size-2
                     hand_size = hand_size-2
+                elseif jokers[rand] == "Oops! All 6s" then
+                    dice_prob = dice_prob*2
                 end
+            end
+        elseif joker == "Luchador" then
+            if gameplay_phase == 2 and blind == 3 then
+                boss_active = false
             end
         end
         cash = cash + jokers_enhancement[index][2]
@@ -2168,18 +2648,80 @@ function removal_joker(joker,index)--done for stuff like dagger/madness
     elseif joker == "Turtle Bean" then
         max_hand_size = max_hand_size-jokers_enhancement[index][1]
         hand_size = hand_size-jokers_enhancement[index][1]
+    elseif joker == "Oops! All 6s" then
+        dice_prob = dice_prob/2
     elseif joker == "Stuntman" then
         max_hand_size = max_hand_size+2
         hand_size = hand_size+2
+    elseif joker == "Showman" then
+        local count = 0
+        for i,v in ipairs(jokers) do
+            if v == joker then
+                count = count +1
+            end
+        end
+        if count == 1 then
+            showman_active = false
+        end
     elseif joker == "Chicot" then
         local count = 0
         for i,v in ipairs(jokers) do
-            if v == "Chicot" then
+            if v == joker then
                 count = count +1
             end
         end
         if count == 1 then
             boss_active = false
+        end
+    elseif joker == "Splash" then
+        local count = 0
+        for i,v in ipairs(jokers) do
+            if v == joker then
+                count = count +1
+            end
+        end
+        if count == 1 then
+            do_ignore = true
+        end
+    elseif joker == "Four Fingers" then
+        local count = 0
+        for i,v in ipairs(jokers) do
+            if v == joker then
+                count = count +1
+            end
+        end
+        if count == 1 then
+            contains_fingers = false
+        end
+    elseif joker == "Shortcut" then
+        local count = 0
+        for i,v in ipairs(jokers) do
+            if v == joker then
+                count = count +1
+            end
+        end
+        if count == 1 then
+            contains_shortcut = false
+        end
+    elseif joker == "Pareidolia" then
+        local count = 0
+        for i,v in ipairs(jokers) do
+            if v == joker then
+                count = count +1
+            end
+        end
+        if count == 1 then
+            all_face = false
+        end
+    elseif joker == "Smeared Joker" then
+        local count = 0
+        for i,v in ipairs(jokers) do
+            if v == joker then
+                count = count +1
+            end
+        end
+        if count == 1 then
+            smeared = false
         end
     end
     for i,v in ipairs(jokers_enhancement[index]) do
@@ -2223,7 +2765,7 @@ function add_jokers_to_selection(initial,initial_enhancement)--adding needed val
     elseif initial == "Green Joker" then
         table.insert(addition,0)
     elseif initial == "Vampire" then
-        table.insert(addition,0)
+        table.insert(addition,1)
     elseif initial == "Mail in Rebate" then
         local rank = convert_num_to_rank(math.random(2,14))
         table.insert(addition,rank)
@@ -2244,13 +2786,20 @@ function add_jokers_to_selection(initial,initial_enhancement)--adding needed val
         table.insert(addition,0)
     elseif initial == "Spare Trousers" then
         table.insert(addition,0)
+    elseif initial == "Flash Card" then
+        table.insert(addition,0)
     elseif initial == "Ramen" then
         table.insert(addition,2)
+    elseif initial == "Seltzer" then
+        table.insert(addition,10)
     elseif initial == "Castle" then
         local rand_suit = string.sub(standard_deck[math.random(#standard_deck)],2,2)
         table.insert(addition,{rand_suit,0})
     elseif initial == "Glass Joker" then
         table.insert(addition,0)
+    elseif initial == "Showman" then
+        showman_active=true
+        table.insert(addition,"")
     elseif initial == "The Idol" then
         local rand_card = full_deck[math.random(#full_deck)]
         table.insert(addition,rand_card)
@@ -2263,7 +2812,7 @@ function add_jokers_to_selection(initial,initial_enhancement)--adding needed val
         max_hand_size = max_hand_size+2
         max_hands = max_hands-1
     elseif initial == "Obelisk" then
-        table.insert(addition,{1,0})
+        table.insert(addition,1)
     elseif initial == "Campfire" then
         table.insert(addition,{1,0})
     elseif initial == "Wee Joker" then
@@ -2282,6 +2831,42 @@ function add_jokers_to_selection(initial,initial_enhancement)--adding needed val
     elseif initial == "Chicot" then
         table.insert(addition,"")
         boss_active = false
+    elseif initial == "Splash" then
+        table.insert(addition,"")
+        do_ignore = false
+    elseif initial == "Four Fingers" then
+        table.insert(addition,"")
+        contains_fingers = true
+    elseif initial == "Shortcut" then
+        table.insert(addition,"")
+        contains_shorcut = true
+    elseif initial == "Pareidolia" then
+        table.insert(addition,"")
+        all_face = true
+    elseif initial == "Smeared Joker" then
+        table.insert(addition,"")
+        smeared = true
+    elseif initial == "Oops! All 6s" then
+        table.insert(addition,"")
+        dice_prob = dice_prob*2
+    elseif initial == "Hologram" then
+        table.insert(addition,1)
+    elseif initial == "Astronomer" then
+        table.insert(addition,"")
+        if gameplay_phase == 4 or gameplay_phase == 4.5 then
+            for i= 1, #shop_jokers do
+                if consumable_deck[shop_jokers[i]] ~= nil then
+                    if consumable_deck[shop_jokers[i]][2] == "Planet" then
+                        shop_jokers_enhancement[i][1] = 0
+                    end
+                end
+            end
+            for i=1, #packs do
+                if packs[i][1] == "celestial" then
+                    packs[i][4] = 0
+                end
+            end
+        end
     else
         table.insert(addition," ")
     end
@@ -2302,11 +2887,11 @@ function add_jokers_to_selection(initial,initial_enhancement)--adding needed val
     table.insert(jokers_enhancement,addition)
 end
 
-function card_destroyed(joker, joker_index,card,card_enhancement)
+function card_destroyed(joker,joker_index,card,card_enhancement)
     local rank = string.sub(card,1,1)
     local suit = string.sub(card,2,2)
     if joker == "Canio" then
-        if rank == "k" or rank =="q" or rank == "j" then
+        if rank == "k" or rank =="q" or rank == "j" or all_face == true then
             jokers_enhancement[joker_index][1] = jokers_enhancement[joker_index][1] +1
         end
     elseif joker == "Glass Joker" then
@@ -2443,23 +3028,30 @@ function add_to_dealt()
     end
     while cards_added < goal and #deck >0 do
         local randomvalue = math.random(#deck)
-        table.insert(dealt, deck[randomvalue])
+        table.insert(dealt, deck[randomvalue])-- need to decouple
         table.insert(dealt_enhancement, deck_enhancement[randomvalue])
         table.insert(used_cards, deck[randomvalue])
+        face_down_blinds(dealt[#dealt],#dealt)
         table.remove(deck, randomvalue)
         table.remove(deck_enhancement, randomvalue)
         cards_added = cards_added + 1
+        if deck_name == "X-ray Vision" then
+            if #used_cards%math.max(1,4/dice_prob) == 0 then
+                table.insert(dealt_enhancement[#dealt_enhancement],true)
+            end
+        end
     end
 end
 
 function do_boss_debuff(played,held_in_hand_enhanced)
-    local num = ante/8
-    if math.floor(num) ~= num then
+    local boss_activated = false
+    if ante%0 ~= 0 then
         if boss_blind[boss_num] == "The Club" then
             for i,v in ipairs(played) do
                 if string.sub(v,2,2) == "c" then
                     table.remove(played,i)
                     table.remove(hand_enhancement,i)
+                    boss_activated = true
                 end
             end
         elseif boss_blind[boss_num] == "The Goad" then
@@ -2467,6 +3059,7 @@ function do_boss_debuff(played,held_in_hand_enhanced)
                 if string.sub(v,2,2) == "s" then
                     table.remove(played,i)
                     table.remove(hand_enhancement,i)
+                    boss_activated = true
                 end
             end
         elseif boss_blind[boss_num] == "The Window" then
@@ -2474,6 +3067,7 @@ function do_boss_debuff(played,held_in_hand_enhanced)
                 if string.sub(v,2,2) == "d" then
                     table.remove(played,i)
                     table.remove(hand_enhancement,i)
+                    boss_activated = true
                 end
             end
         elseif boss_blind[boss_num] == "The Head" then
@@ -2481,24 +3075,29 @@ function do_boss_debuff(played,held_in_hand_enhanced)
                 if string.sub(v,2,2) == "h" then
                     table.remove(played,i)
                     table.remove(hand_enhancement,i)
+                    boss_activated = true
                 end
             end
         elseif boss_blind[boss_num] == "The Plant" then
             for i,v in ipairs(played) do
-                if string.sub(v,1,1) == "k" or string.sub(v,1,1) == "q" or string.sub(v,1,1) == "j" then
+                if string.sub(v,1,1) == "k" or string.sub(v,1,1) == "q" or string.sub(v,1,1) == "j" or all_face then
                     table.remove(played,i)
                     table.remove(hand_enhancement,i)
+                    boss_activated = true
                 end
             end
         elseif boss_blind[boss_num] == "The Hook" then--some boss_blind stuff
             for i=1, 2 do
                 table.remove(dealt, math.random(#dealt))--discard 2 cards
+                boss_activated = true
             end
         elseif boss_blind[boss_num] == "The Tooth" then
             cash = cash - 1
+            boss_activated = true
         elseif boss_blind[boss_num] == "The Flint" then
             chips = chips/2
             multiplier = multiplier/2
+            boss_activated = true
         elseif boss_blind[boss_num] == "The Ox" then
             local maximum = hand_multipliers[hand_type][3]
             local max_hand = true
@@ -2509,23 +3108,31 @@ function do_boss_debuff(played,held_in_hand_enhanced)
             end
             if max_hand then
                 cash = 0
+                boss_activated = true
             end
         elseif boss_blind[boss_num] == "The Arm" then
-            for i,v in ipairs(planets_info) do
-                if v[3] == hand_type and hand_multipliers[hand_type][1] > min_hand_multipliers[hand_type][1] then
-                    hand_multipliers[hand_type][1] = hand_multipliers[hand_type][1] - v[1]
-                    hand_multipliers[hand_type][2] = hand_multipliers[hand_type][2] - v[2]
-                    break
-                end
+            if hand_multipliers[hand_type][1] > min_hand_multipliers[hand_type][1] then
+                local planet = hand_multipliers[hand_type][4]
+                hand_multipliers[hand_type][1] = hand_multipliers[hand_type][1] - planets_info[planets][1]
+                hand_multipliers[hand_type][2] = hand_multipliers[hand_type][2] - planets_info[planets][2]
+                chips = hand_multipliers[hand_type][1]
+                multiplier = hand_multipliers[hand_type][2]
+                boss_activated = true
             end
-            chips = hand_multipliers[hand_type][1]
-            multiplier = hand_multipliers[hand_type][2]
         end
     else
-        if finisher_blinds[boss_num] == "Verdent Leaf" then--only played debuff atm
+        if finisher_blinds[boss_num] == "Verdent Leaf" then
             if joker_sale == false then
                 played = {}
                 held_in_hand_enhanced = {}
+                boss_activated = true
+            end
+        end
+    end
+    if boss_activated then
+        for i,v in ipairs(jokers) do
+            if v == "Matador" then
+                cash = cash + 8
             end
         end
     end
@@ -2540,16 +3147,10 @@ function calculate_total_score(hand)
     local held_in_hand_enhanced = dealt_enhancement
     for j,k in ipairs(jokers) do
         on_play_jokers(k,j)
-        if k == "Hiker" then
-            for i,v in ipairs(played) do
-                hand_enhancement[i][1] = hand_enhancement[i][1] + 5
-            end
-        end
     end
     for i=#played,1,-1 do
-        local v = played[i]
         for j=1, #ignore do
-            if v == ignore[j] then
+            if i == ignore[j] then
                 table.remove(played,i)
                 table.remove(hand_enhancement,i)
             end
@@ -2558,21 +3159,69 @@ function calculate_total_score(hand)
     if blind == 3 and boss_active == true then
         played,held_in_hand_enhanced = do_boss_debuff(played,held_in_hand_enhanced)
     end
+    local begin_chips = chips
+    local begin_mult = multiplier
     for i, v in ipairs(played) do--chips from cards and conditional jokers
-        chips = chips + hand_enhancement[i][1]--chips from card
-        played_enhancement(hand_enhancement[i])
-        for j,k in ipairs(jokers) do 
-            per_card_joker(k,j,v,i)--chips and mult from jokers
-        end
+        local current_loop = 0
+        local max_loop = 1
+        repeat
+            chips = chips + hand_enhancement[i][1]--chips from card
+            Sound.startSFX(0)
+            Sound.stopSFX(1)
+            local delay = Timer.new(0)
+            delay:start()
+            while delay:getTime()<100*speed_init/2 do 
+            end
+            Sound.startSFX(1)
+            Sound.stopSFX(1)
+            played_enhancement(hand_enhancement[i])
+            for j,k in ipairs(jokers) do
+                if jokers_enhancement[j][3] ~= "Disabled" then 
+                    per_card_joker(k,j,v,i)--chips and mult from jokers
+                end
+            end
+            while delay:getTime()<200*speed_init/2 do 
+            end
+            if current_loop == 0 then
+                for j,k in ipairs(jokers) do
+                    if jokers_enhancement[j][3] ~= "Disabled" then 
+                        max_loop = retrigger_joker(k,j,v,i,"played",max_loop)
+                    end
+                end
+                if hand_enhancement[i][4] == "Red-Seal" then
+                    max_loop = max_loop+1
+                end
+            end
+            current_loop = current_loop+1
+        until current_loop==max_loop
     end
     for i,v in ipairs(jokers) do
-        final_jokers(v,i,played)
+        if jokers_enhancement[i][3] ~= "Disabled" then 
+            final_jokers(v,i,played)
+        end
     end
     for i,v in ipairs(held_in_hand_enhanced) do
-        for j,k in ipairs(jokers) do
-            held_jokers(k,j)
-        end
-        held_enhancement(v)
+        local current_loop = 0
+        local max_loop = 1
+        repeat
+            held_enhancement(v)
+            for j,k in ipairs(jokers) do
+                if jokers_enhancement[j][3] ~= "Disabled" then 
+                    held_jokers(k,j,dealt[i])
+                end
+            end
+            if current_loop == 0 then
+                for j,k in ipairs(jokers) do
+                    if jokers_enhancement[j][3] ~= "Disabled" then 
+                        max_loop = retrigger_joker(k,j,dealt[i],i,"hand",max_loop)
+                    end
+                end
+                if v[4] == "Red-Seal" then
+                    max_loop = max_loop+1
+                end
+            end
+            current_loop = current_loop+1
+        until current_loop==max_loop
     end
     for i,v in ipairs(jokers_enhancement) do
         played_enhancement(v)
@@ -2587,17 +3236,15 @@ function calculate_total_score(hand)
         end
     end
     for i,v in ipairs(hand_enhancement) do--may revisit
-        for j,k in ipairs(v) do
-            if k == "Glass" then
-                local broken = math.random()
-                if broken <0.25 then
-                    local index = find_matching(i,hand,hand_enhancement)
-                    for a,b in ipairs(jokers) do
-                        card_destroyed(b,a,hand[i],v)
-                    end
-                    table.remove(full_deck,index)
-                    table.remove(full_deck_enhancement,index)
+        if v[2] == "Glass" then
+            local broken = math.random()
+            if broken <0.25 then
+                local index = find_matching(i,hand,hand_enhancement)
+                for a,b in ipairs(jokers) do
+                    card_destroyed(b,a,hand[i],v)
                 end
+                table.remove(full_deck,index)
+                table.remove(full_deck_enhancement,index)
             end
         end
     end
@@ -2629,7 +3276,7 @@ end
 function add_stickers(sticker,addition,joker)
     local rand = math.random()
     if sticker == "Eternal" then-- to not do for food jokers
-        for i,v in ipairs(non_perishable) do
+        for i,v in ipairs(non_eternal_sticker) do
             if v == joker then
                 return addition
             end
@@ -2642,17 +3289,17 @@ function add_stickers(sticker,addition,joker)
             end
         end
     elseif sticker == "Perishable" then
-        for i,v in ipairs(non_perishable) do
-            if v == joker then
-                return addition
-            end
-        end
-        for i,v in ipairs(addition) do
-            if v == "Eternal" then
-                return addition
-            end
-        end
         if rand< 0.3 then
+            for i,v in ipairs(non_perishable_sticker) do
+                if v == joker then
+                    return addition
+                end
+            end
+            for i,v in ipairs(addition) do
+                if v == "Eternal" then
+                    return addition
+                end
+            end
             table.insert(addition,"Perishable")
         end
     elseif sticker == "Rental" then--keep an eye on this
@@ -2685,6 +3332,12 @@ function add_to_shop()
                 rarity = uncommon_joker
             end
             local randomvalue = math.random(#rarity)
+            if showman_active == false then
+                repeat
+                    randomvalue = math.random(#rarity)
+                    local same = showman_ability(rarity[randomvalue])
+                until same == false
+            end
             table.insert(shop_jokers, rarity[randomvalue])
             local cost = math.floor(joker_info[rarity[randomvalue]][1]*discount_percent)
             local addition = {cost}
@@ -2706,11 +3359,23 @@ function add_to_shop()
             table.insert(shop_jokers_enhancement,addition)
         elseif shop_weights[shop_count][2] == "Tarots" then--tarots
             local randomvalue = math.random(#tarots_deck)
+            if showman_active == false then
+                repeat
+                    randomvalue = math.random(#tarots_deck)
+                    local same = showman_ability(tarots_deck[randomvalue])
+                until same == false
+            end
             local cost = math.floor(shop_costs[2]*discount_percent)
             table.insert(shop_jokers, tarots_deck[randomvalue])
             table.insert(shop_jokers_enhancement,{cost})
         elseif shop_weights[shop_count][2] == "Planets" then--planets
             local randomvalue = math.random(2,#planets_deck)
+            if showman_active == false then
+                repeat
+                    randomvalue = math.random(2,#planets_deck)
+                    local same = showman_ability(planets_deck[randomvalue])
+                until same == false
+            end
             local cost = math.floor(shop_costs[3]*discount_percent)
             table.insert(shop_jokers, planets_deck[randomvalue])
             table.insert(shop_jokers_enhancement,{cost})
@@ -2719,26 +3384,26 @@ function add_to_shop()
             local cost = shop_costs[1]--always cost 1
             table.insert(shop_jokers, standard_deck[randomvalue])
             local num = convert_rank_to_num(string.sub(standard_deck[randomvalue],1,1))
-            local addition = {cost,num}
+            local addition = {cost,num,"","",""}
             if shop_enhanced then
                 local rand = math.random()
                 for i,v in ipairs(shop_cards_enhancement_weight) do
                     if rand<v then
                         if i ==1 then
                             local j = math.random(#card_enhancement)
-                            table.insert(addition,card_enhancement[j])
+                            addition[3]=card_enhancement[j]
                             break
                         elseif i == 2 then
                             local rand2 = math.random()
                             for j,k in ipairs(cards_edition_prob) do
                                 if rand2 < k then
-                                    table.insert(addition,editions[j])
+                                    addition[4]=editions[j]
                                     break
                                 end
                             end
                         elseif i == 3 then
                             local j = math.random(#seals)
-                            table.insert(addition,seals[j])
+                            addition[5]=seals[j]
                             break
                         end
                     end
@@ -2747,6 +3412,12 @@ function add_to_shop()
             table.insert(shop_jokers_enhancement,addition)
         elseif shop_weights[shop_count][2] == "Spectral" then--spectral
             local randomvalue = math.random(#spectral_deck)
+            if showman_active == false then
+                repeat
+                    randomvalue = math.random(#spectral_deck)
+                    local same = showman_ability(spectral_deck[randomvalue])
+                until same == false
+            end
             local cost = math.floor(shop_costs[4]*discount_percent)
             table.insert(shop_jokers, spectral_deck[randomvalue])
             table.insert(shop_jokers_enhancement,{cost})
@@ -2775,7 +3446,10 @@ function draw_title_screen()
     screen.print(SCREEN_DOWN, 0, 15, "Up/Down: Select Seed")
     screen.print(SCREEN_DOWN, 115, 5, "Left/Right: Select Deck")
     screen.print(SCREEN_DOWN, 150, 15, "X/B: Select Stake")
-    screen.print(SCREEN_DOWN, 0, 65, total_deck[deck_kind][selected_deck])
+    local deck_name = text_width(total_deck[deck_kind][selected_deck],hud_width/6)
+    for i=1,#deck_name do
+        screen.print(SCREEN_DOWN, 0, 65+10*(i-1), deck_name[i])
+    end
     local deck_text = text_width(deck_details[total_deck[deck_kind][selected_deck]],(SCREEN_WIDTH-(hud_width+10))/6)
     for i,v in ipairs(deck_text) do 
         screen.print(SCREEN_DOWN, hud_width+10, 65+10*(i-1), v)
@@ -2798,79 +3472,84 @@ function draw_blind_menu()
     local offset = 4
     local x = 1 --the left position of the small blind
     local x_width = 84
-    local x_max = SCREEN_WIDTH
-    local y_max = SCREEN_HEIGHT
-    local y = y_max/3
+    local y = SCREEN_HEIGHT/2 - 10
     Image.setTint(blind_ui, Color.new256(241, 184, 91))--tint box behind name
     tutorial_graphics = Sprite.new(tutorial_sheet, 96, 16, VRAM)
     for i =1, 2 do
         screen.setAlpha(70)
-        screen.drawFillRect(SCREEN_DOWN, i*(x + x_width)-x_width, y, i*(x + x_width), y_max, normal_blind[i][2])--small blind colour big box
+        screen.drawFillRect(SCREEN_DOWN, i*(x + x_width)-x_width, y, i*(x + x_width), SCREEN_HEIGHT, normal_blind[i][2])--small blind colour big box
         screen.setAlpha(100)
         screen.blit(SCREEN_DOWN, i*(x+x_width) + 4 - x_width, y + 3, blind_ui)--"box behind name"
         screen.print(SCREEN_DOWN, i*(x+x_width) + 6 - x_width, y + 8, normal_blind[i][1], normal_blind[i][2])--Text "small blind"
         screen.blit(SCREEN_DOWN, i*(x+x_width) + 4 - x_width, y + 21 + offset, blind_ui_box)--grey box
         tutorial_graphics:drawFrame(SCREEN_DOWN, i*(x+x_width) + 5 - x_width, y + 23 + offset,5)--"score at least:" 
         screen.print(SCREEN_DOWN, i*(x+x_width) + 6 - x_width, y + 40, minimumscore[i], Color.new256(255, 255, 255))--score needed
-        screen.print(SCREEN_DOWN, i*(x+x_width) + 6 - x_width, y_max - 50, "Skip Reward:", Color.new256(255, 255, 255))
-        screen.print(SCREEN_DOWN, i*(x+x_width) + 6 - x_width, y_max - 35, blind_tags[i], Color.new256(255, 255, 255))
+        screen.print(SCREEN_DOWN, i*(x+x_width) + 6 - x_width, y +  21 + offset + 46 + 3 , "Skip Reward:", Color.new256(255, 255, 255))
+        screen.print(SCREEN_DOWN, i*(x+x_width) + 6 - x_width, y +  21 + offset + 46 +13, blind_tags[i], Color.new256(255, 255, 255))
     end
-    if blind < 3 then
-        screen.print(SCREEN_UP, hud_width + 10, 70, "Blind Tag:"..blind_tags[blind], Color.new256(255, 255, 255))
-        local tag_details = text_width(tag_info[blind_tags[blind]],(SCREEN_WIDTH-(hud_width+10))/6)
-        for i,v in ipairs(tag_details) do
-            screen.print(SCREEN_UP, hud_width + 10, 70+10*(i), v) 
-        end
-    end
-    screen.print(SCREEN_UP,hud_width+10,20 + 10*#boss_info,"Tags owned:")
-    local display_tag = ""
+    local display_tag = "Tags owned: "
     for i, v in ipairs(tag_select) do
         display_tag=display_tag..v..", "
     end
     local display_width = text_width(display_tag,(SCREEN_WIDTH-(hud_width+10))/6)
     for i,v in ipairs(display_width) do
-        screen.print(SCREEN_UP,hud_width+10,20 + 10*#boss_info+10*i,v)
+        screen.print(SCREEN_DOWN, (SCREEN_WIDTH - 6*string.len(v))/2 ,5+10*i,v)
     end
-    screen.print(SCREEN_DOWN, SCREEN_WIDTH/3, 5, "A: Progress")
-    screen.print(SCREEN_DOWN, SCREEN_WIDTH/3, 15, "X: Reroll Boss Blind ($10)")
-    screen.print(SCREEN_DOWN, SCREEN_WIDTH/3, 25, "Y: SKip Blind")
-end
+    if blind < 3 then
+        screen.print(SCREEN_DOWN, (SCREEN_WIDTH - 6*string.len("Blind Tag:"..blind_tags[blind]))/2, 5+10*#display_width+20, "Blind Tag:"..blind_tags[blind], Color.new256(255, 255, 255))
+        local tag_details = text_width(tag_info[blind_tags[blind]],SCREEN_WIDTH/6)
+        for i,v in ipairs(tag_details) do
+            screen.print(SCREEN_DOWN, (SCREEN_WIDTH - 6*string.len(v))/2 , 5+10*#display_width+20 +10*(i), v) 
+        end
+    end
 
-function draw_boss_menu()
-    local offset = 4
-    local x = 1 --the left position of the small blind
-    local x_width = 84
-    local x_max = SCREEN_WIDTH
-    local y_max = SCREEN_HEIGHT
-    local y = y_max/3
-    screen.setAlpha(100)
-    screen.drawFillRect(SCREEN_DOWN, 3*x + 2*x_width, y, 3*(x + x_width), y_max, boss_col)--boss blind colour big box
-    screen.blit(SCREEN_DOWN, x + 4 + 2*x_width, y + 3, blind_ui)--"box behind name"
+    if boss_reroll then
+        screen.print(SCREEN_DOWN, SCREEN_WIDTH/2 - string.len("X: Reroll Boss Blind ($10)")*3, 5, "X: Reroll Boss Blind ($10)")
+    end
+
+    screen.drawFillRect(SCREEN_DOWN, 3*x + 2*x_width, y, 3*(x + x_width), SCREEN_HEIGHT, boss_col)--boss blind colour big box
+    screen.blit(SCREEN_DOWN, 3*x + 4 + 2*x_width, y + 3, blind_ui)--"box behind name"
     if ante%8 == 0 then
-        screen.print(SCREEN_DOWN, x + 2*x_width + 6, y + 8, finisher_blinds[boss_num], Color.new(0, 0, 0))--name
+        screen.print(SCREEN_DOWN, 3*x + 2*x_width + 6, y + 8, finisher_blinds[boss_num], Color.new(0, 0, 0))--name
     else
-        screen.print(SCREEN_DOWN, x + 2*x_width + 6, y + 8, boss_blind[boss_num], Color.new(0, 0, 0))--name
+        screen.print(SCREEN_DOWN, 3*x + 2*x_width + 6, y + 8, boss_blind[boss_num], Color.new(0, 0, 0))--name
     end
     screen.blit(SCREEN_DOWN, x + 2*x_width + 4, y + 21 + offset, blind_ui_box)
     tutorial_graphics:drawFrame(SCREEN_DOWN, 3*x + 2*x_width + 5, y + 23 + offset, 5)
     screen.print(SCREEN_DOWN, x + 6 + 2*x_width, y + 40, minimumscore[3], Color.new(31, 31, 31))--score needed
-    screen.print(SCREEN_DOWN, 3*x + 2*x_width + 6, y_max - 50, "A Challenging", Color.new(31, 31, 31))
-    screen.print(SCREEN_DOWN, 3*x + 2*x_width + 6, y_max - 40, "Encounter", Color.new(31, 31, 31))
+    screen.print(SCREEN_DOWN, 3*x + 2*x_width + 6, y +  21 + offset + 46 + 3, "A Challenging", Color.new(0,0,0))
+    screen.print(SCREEN_DOWN, 3*x + 2*x_width + 6, y +  21 + offset + 46 + 13, "Encounter", Color.new(0,0,0))
+    screen.setAlpha(30)
+    screen.drawFillRect(SCREEN_DOWN, blind*(x + x_width)+4-x_width, y+3, blind*(x + x_width)-4, y+3+17, Color.new(0,0,0))
+    screen.setAlpha(100)
 end
 
-function phase_2_update()
+function upper_display()
     local offset = 10
     local rhs = hud_width/2 + offset
     local lhs = offset
+    local chip_display = chips
+    local mult_display = multiplier
+    local hand_type_display = hand_type
     screen.drawFillRect(SCREEN_UP, 0,0,hud_width,SCREEN_HEIGHT,Color.new256(49,49,51))
     screen.blit(SCREEN_UP, 0,0,hudbg)
     screen.blit(SCREEN_UP, 0,0,hud)
     screen.print(SCREEN_UP, lhs, 180, ante.."/8")
     screen.print(SCREEN_UP, rhs, 180, round)
     screen.print(SCREEN_UP, 35, 77, round_score)
-    screen.print(SCREEN_UP, lhs, 98, hand_type)
-    screen.print(SCREEN_UP, lhs, 115, chips)
-    screen.print(SCREEN_UP, rhs, 115, multiplier)
+    if gameplay_phase == 2 and blind == 3 then
+        for i,v in ipairs(hand) do
+            if #v == 4 then
+                chip_display = ""
+                mult_display = ""
+                hand_type_display = ""
+                break
+            end
+        end
+    end
+    screen.print(SCREEN_UP, lhs, 98, hand_type_display)
+    screen.print(SCREEN_UP, lhs, 115, chip_display)
+    screen.print(SCREEN_UP, rhs, 115, mult_display)
     screen.print(SCREEN_UP, lhs, 140, hands,Color.new(0,0,31))
     screen.print(SCREEN_UP, rhs, 140, discards,Color.new(31,0,0))
     screen.print(SCREEN_UP, 15, 157, cash)
@@ -2932,15 +3611,18 @@ function draw_card_deck_graphic(deck, raise_selected, usage)
     local spacing = 5
     local scale = 1
     local enhancement_type
-    tutorial_graphics:drawFrame(SCREEN_DOWN, 16, 12, 0)--frame number is multiple of 96
-    --tutorial_graphics:drawFrame(SCREEN_DOWN, 149, 4, 1)
-    --tutorial_graphics:drawFrame(SCREEN_DOWN, 16, 4, 2)--need to change from arrow to b/X
-    tutorial_graphics:drawFrame(SCREEN_DOWN, 144, 12, 3)
-    screen.print(SCREEN_DOWN,20,2,"X: Place Card")
-    screen.print(SCREEN_DOWN,153,2,"B: Reset Hand")
-    for i,v in ipairs(deck) do
+    local show_active = true
+    if usage == "hand" and blind == 3 then
+        for i=1,#hand do
+            if #hand[i] == 5 then
+                show_active = false
+                break
+            end
+        end
+    end
+    for i=#deck,1,-1 do
         if usage == "dealt" then
-            if raise_selected == i and gameplay_phase ~= 3 and kind == 1 then
+            if raise_selected == i and gameplay_phase == 2 and kind == 1 then
                 y_pos =  SCREEN_HEIGHT - 2*card_size[2] - 4*spacing--raising up to see better
                 scale = 1.25
             else
@@ -2950,12 +3632,21 @@ function draw_card_deck_graphic(deck, raise_selected, usage)
         elseif usage == "hand" then
             y_pos = SCREEN_HEIGHT/2 - card_size[2]/2
             enhancement_type = hand_enhancement
+            if show_active and gameplay_phase ~= 2 then
+                for j=1,#ignore do
+                    if j == i then
+                        y_pos = y_pos+card_size[2]/2
+                    end
+                end
+            end
         end
-        local rank = string.sub(v,1,1)
-        local suit = string.sub(v,2,2)
+        local rank = string.sub(deck[i],1,1)
+        local suit = string.sub(deck[i],2,2)
         local x = x_space*i
         draw_card_base_graphic(x-card_size[1]/2,y_pos,scale,enhancement_type[i])
-        draw_card_detail(x-card_size[1]/2,y_pos,scale,rank,suit)
+        if #enhancement_type[i] == 4 then
+            draw_card_detail(x-card_size[1]/2,y_pos,scale,rank,suit) 
+        end
         scale = 1
     end
 end
@@ -2963,7 +3654,7 @@ end
 function draw_joker_card_graphic()
     local x = (SCREEN_WIDTH-hud_width)/(#jokers+1)
     local y_place = SCREEN_HEIGHT-card_size[2]-2
-    if blind == 3 and ante%8 == 0 and finisher_blinds[boss_num] == "Amber Acorn" and boss_active then--need to look at the descriptors
+    if blind == 3 and ante%8 == 0 and finisher_blinds[boss_num] == "Amber Acorn" and boss_active then
         if gameplay_phase == 2 or gameplay_phase==3 then
             for i,v in ipairs(jokers) do
                 screen.drawFillRect(SCREEN_UP, hud_width + x + (i-1)*card_size[1],y_place,hud_width + x + (i)*card_size[1],y_place+card_size[2],colours[3])
@@ -2982,15 +3673,15 @@ function draw_joker_card_graphic()
     end
 end
 
-function draw_shop_jokers()
+function draw_shop_main()
     local x = SCREEN_WIDTH/(3)--chosen for looks but if decide to add many jokers to shop do full width
     local y_place = SCREEN_HEIGHT/2
-    local joke_index = 0
     for i,v in ipairs(shop_jokers) do
         if joker_info[v] ~= nil then
-            joke_index = joker_info[v][3]
+            -- local joker_display = joker_graphics_table
+            local joke_index = joker_info[v][3]
             if joke_index ~= 99 then
-                screen.blit(SCREEN_DOWN, x + (i-1)*card_size[1], y_place, joker_graphics, card_size[1]*(joke_index-1),0, card_size[1], card_size[2])
+                screen.blit(SCREEN_DOWN, x + (i-1)*card_size[1], y_place, joker_graphics, card_size[1]*(joke_index-1),0, card_size[1], card_size[2])--change to joker_display
             else
                 screen.drawFillRect(SCREEN_DOWN,x + (i-1)*card_size[1], y_place,x + (i)*card_size[1], y_place+card_size[2],colours[3])
             end
@@ -3019,15 +3710,17 @@ function draw_tarots_graphics()--add art
     end
 end
 
-function card_details(kind)--jokers sometimes breaking, it is adding to the tables correctly but they are not there when displayed
+function card_details(kind)
     if kind == 1 then--playing cards
         if gameplay_phase == 2 then
             if #dealt >0 then
-                screen.print(SCREEN_UP,hud_width+10,50,dealt[selected_card],colours[1])
-                screen.print(SCREEN_UP, hud_width+10, 50+10, "+"..dealt_enhancement[selected_card][1].." Chips", colours[1])
-                for i=2,#dealt_enhancement[selected_card] do
-                    local v = dealt_enhancement[selected_card][i]
-                    screen.print(SCREEN_UP, hud_width+10, 50+10*i, v, colours[1])
+                if #dealt_enhancement[selected_card] == 4 then
+                    screen.print(SCREEN_UP,hud_width+10,50,dealt[selected_card],colours[1])
+                    screen.print(SCREEN_UP, hud_width+10, 50+10, "+"..dealt_enhancement[selected_card][1].." Chips", colours[1])
+                    for i=2,#dealt_enhancement[selected_card] do
+                        local v = dealt_enhancement[selected_card][i]
+                        screen.print(SCREEN_UP, hud_width+10, 50+10*i, v, colours[1])
+                    end
                 end
             else
                 screen.print(SCREEN_UP,hud_width+10,50,"No card selected",colours[1])
@@ -3036,15 +3729,15 @@ function card_details(kind)--jokers sometimes breaking, it is adding to the tabl
             if #pack_cards >0 then
                 local height = 50
                 screen.print(SCREEN_UP,hud_width+10,height,pack_cards[selected_card],colours[1])
-                screen.print(SCREEN_UP,hud_width+10,height +10,"A: add to selection",colours[1])
-                screen.print(SCREEN_UP,hud_width+10,height+20,"Y: reset selection",colours[1])
+                screen.print(SCREEN_UP,hud_width+10,height +10,"Y: add to selection",colours[1])
+                screen.print(SCREEN_UP,hud_width+10,height+20,"B: reset selection",colours[1])
                 screen.setAlpha(30)
                 screen.drawFillRect(SCREEN_DOWN, SCREEN_WIDTH*(selected_card)/(hand_size+1)-5,SCREEN_HEIGHT/2-5,SCREEN_WIDTH*(selected_card)/(hand_size+1)+card_size[1]+5,SCREEN_HEIGHT/2+card_size[2]+5,Color.new(0,0,0))--black shadow
                 screen.setAlpha(100)
                 screen.print(SCREEN_UP, hud_width+10, height+30, "+"..pack_cards_enhancements[selected_card][1].." Chips", colours[1])
                 for i=2,#pack_cards_enhancements[selected_card] do
                     local v = pack_cards_enhancements[selected_card][i]
-                    screen.print(SCREEN_UP, hud_width+10, height+30+10*(i-1), v, colours[1])--why does this show glass then enhancement
+                    screen.print(SCREEN_UP, hud_width+10, height+30+10*(i-1), v, colours[1])
                 end
             else
                 screen.print(SCREEN_UP,hud_width+10,50,"No card selected",colours[1])
@@ -3070,27 +3763,13 @@ function card_details(kind)--jokers sometimes breaking, it is adding to the tabl
                 end
             elseif string.len(shop_jokers[selected_card]) == 2 then
                 screen.print(SCREEN_UP,hud_width+10,50,shop_jokers[selected_card],colours[2])
-                screen.print(SCREEN_UP,hud_width+10,60,"Buy(Y):$".. shop_costs[1],colours[2])
+                screen.print(SCREEN_UP,hud_width+10,60,"Buy(Y):$".. shop_jokers_enhancement[selected_card][1],colours[2])
             else
-                local count = 0
-                repeat
-                    count = count +1
-                    local c_deck = consumable_deck[count]
-                until c_deck[shop_jokers[selected_card]] ~= nil
-                local info_text
-                if count == 2 then
-                    info_text = text_width(consumable_deck[count][shop_jokers[selected_card]][3],(SCREEN_WIDTH-(hud_width+10))/6)
-                else
-                    info_text = text_width(consumable_deck[count][shop_jokers[selected_card]],(SCREEN_WIDTH-(hud_width+10))/6)
-                end
+                local info_text = text_width(consumable_deck[shop_jokers[selected_card]][1],(SCREEN_WIDTH-(hud_width+10))/6)
                 for i,v in ipairs(info_text) do
                     screen.print(SCREEN_UP,hud_width+10,60+10*(i-1),v,colours[2])
                 end
                 screen.print(SCREEN_UP,hud_width+10,60+10*#info_text,"Buy(Y):$"..shop_jokers_enhancement[selected_card][1],colours[2])
-                for i=2,#shop_jokers_enhancement[selected_card] do
-                    local v = shop_jokers_enhancement[selected_card][i]
-                    screen.print(SCREEN_UP,hud_width+10,60+10*#info_text+10*(i-1),v,colours[2])
-                end
             end
         else
             screen.print(SCREEN_UP,hud_width+10,60,"No Jokers Available to Buy",colours[2])
@@ -3134,7 +3813,7 @@ function card_details(kind)--jokers sometimes breaking, it is adding to the tabl
             for i,v in ipairs(pack_text) do
                 screen.print(SCREEN_UP,hud_width+10,60+10*(i-1),v,colours[4])
             end
-            screen.print(SCREEN_UP,hud_width+10,60+10*#pack_text,"Buy(Y):$"..math.floor(shop_costs[5][packs[selected_card][2]]*discount_percent),colours[4])--cost
+            screen.print(SCREEN_UP,hud_width+10,60+10*#pack_text,"Buy(Y):$"..packs[selected_card][4],colours[4])--cost
             screen.setAlpha(30)
             screen.drawFillRect(SCREEN_DOWN, x_pos+(selected_card-1)*card_size[1], y_pos, x_pos+selected_card*card_size[1],y_pos+card_size[2],Color.new(0,0,0))
             screen.setAlpha(100)
@@ -3143,26 +3822,19 @@ function card_details(kind)--jokers sometimes breaking, it is adding to the tabl
         end
     elseif kind == 3 then--consumables
         if #consumable > 0 then
-            local count= 0
             local x = (SCREEN_WIDTH-hud_width)/(#consumable+1)
             local y_place = SCREEN_HEIGHT-2*card_size[2]-10
             screen.setAlpha(30)
             screen.drawFillRect(SCREEN_UP, hud_width + x + (selected_card-1)*card_size[1], y_place, hud_width + x + (selected_card)*card_size[1], y_place+card_size[2],Color.new(0,0,0))
             screen.setAlpha(100)
-            repeat
-                count = count +1
-            until consumable_deck[count][consumable[selected_card]] ~= nil
             screen.print(SCREEN_UP,hud_width+10,50,consumable[selected_card]..": "..selected_card.."/"..consumable_size,colours[5])
-            local info_text
-            if count ==2 then
-                info_text = text_width("Use(B):"..consumable_deck[count][consumable[selected_card]][3],(SCREEN_WIDTH-(hud_width+10))/6)
-            else
-                info_text = text_width("Use(B):"..consumable_deck[count][consumable[selected_card]],(SCREEN_WIDTH-(hud_width+10))/6)
-            end
+            local info_text = text_width("Use(B):"..consumable_deck[consumable[selected_card]][1],(SCREEN_WIDTH-(hud_width+10))/6)
             for i,v in ipairs(info_text) do
                 screen.print(SCREEN_UP,hud_width+10,60+10*(i-1),v,colours[5])
             end
-            screen.print(SCREEN_UP, hud_width+10,60+10*#info_text,"Sell(Y):$"..math.floor(shop_costs[count+1]*discount_percent/2),colours[5])
+            local consumable_cost = {["Planet"] = 2, ["Tarot"] = 3, ["Spectral"] = 4}
+            local shop_cost_position = consumable_cost[consumable_deck[consumable[selected_card]][2]]
+            screen.print(SCREEN_UP, hud_width+10,60+10*#info_text,"Sell(Y):$"..math.floor(shop_costs[shop_cost_position]*discount_percent/2),colours[5])
             screen.print(SCREEN_UP, hud_width+10,60+10*#info_text+10,consumable_enhancement[selected_card],colours[5])
         else
             screen.print(SCREEN_UP,hud_width+10,60,"No consumable Available",colours[5])
@@ -3173,12 +3845,12 @@ function card_details(kind)--jokers sometimes breaking, it is adding to the tabl
             screen.setAlpha(30)
             screen.drawFillRect(SCREEN_DOWN,x+(selected_card-1)*card_size[1],SCREEN_HEIGHT/3-card_size[2],x+(selected_card)*card_size[1],SCREEN_HEIGHT/3,Color.new(0,0,0))
             screen.setAlpha(100)
-            screen.print(SCREEN_UP,hud_width+10,50,voucher_show[1]..":"..selected_card.."/"..#voucher_show,Color.new(31,0,0))--name
-            local voucher_info_text = text_width(vouchers_info[voucher_show[1]],(SCREEN_WIDTH-(hud_width+10))/6)
+            screen.print(SCREEN_UP,hud_width+10,50,voucher_show[selected_card][1]..":"..selected_card.."/"..#voucher_show,Color.new(31,0,0))--name
+            local voucher_info_text = text_width(vouchers_info[voucher_show[selected_card][1]],(SCREEN_WIDTH-(hud_width+10))/6)
             for i,v in ipairs(voucher_info_text) do
                 screen.print(SCREEN_UP,hud_width+10,50+10*i,v,Color.new(31,0,0))--details
             end
-            screen.print(SCREEN_UP,hud_width+10,50 + 10*(#voucher_info_text+1),"Buy(Y): $"..shop_costs[6],Color.new(31,0,0))--cost
+            screen.print(SCREEN_UP,hud_width+10,50 + 10*(#voucher_info_text+1),"Buy(Y): $"..voucher_show[selected_card][2],Color.new(31,0,0))--cost
         else
             screen.print(SCREEN_UP,hud_width+10,60,"No Voucher Available",Color.new(31,0,0))
         end
@@ -3186,9 +3858,7 @@ function card_details(kind)--jokers sometimes breaking, it is adding to the tabl
         local buffer = 5
         local y_pack_pos = SCREEN_HEIGHT/2
         screen.print(SCREEN_UP, hud_width+10, 50, pack_interior[selected_card]..": "..selected_card.."/"..cele_size)
-        if name_pack == "celestial" then
-            screen.print(SCREEN_UP, hud_width+10,60, planets_info[pack_interior[selected_card]][3])
-        elseif name_pack == "standard" then
+        if name_pack == "standard" then
             screen.print(SCREEN_UP, hud_width+10, 50+10, "+"..pack_interior_enhancement[selected_card][1].." Chips", colours[1])
             for i=2,#pack_interior_enhancement[selected_card] do--work out how to format with multiple modifiers
                 local v = pack_interior_enhancement[selected_card][i]
@@ -3199,16 +3869,12 @@ function card_details(kind)--jokers sometimes breaking, it is adding to the tabl
             for i,v in ipairs(joker_info_text) do
                 screen.print(SCREEN_UP,hud_width+10,60+10*(i-1),v)
             end
-        elseif name_pack == "arcana" then
-            y_pack_pos = SCREEN_HEIGHT-2*card_size[2]
-            local tarot_info_text = text_width(tarots_info[pack_interior[selected_card]],(SCREEN_WIDTH-(hud_width+10))/6)
-            for i,v in ipairs(tarot_info_text) do
-                screen.print(SCREEN_UP,hud_width+10,60+10*(i-1),v)
+        else
+            if name_pack ~= "celestial" then
+                y_pack_pos = SCREEN_HEIGHT-2*card_size[2]
             end
-        elseif name_pack == "spectral" then
-            y_pack_pos = SCREEN_HEIGHT-2*card_size[2]
-            local spectral_info_text = text_width(spectral_info[pack_interior[selected_card]],(SCREEN_WIDTH-(hud_width+10))/6)
-            for i,v in ipairs(spectral_info_text) do
+            local consumable_info_text = text_width(consumable_deck[pack_interior[selected_card]][1],(SCREEN_WIDTH-(hud_width+10))/6)
+            for i,v in ipairs(consumable_info_text) do
                 screen.print(SCREEN_UP,hud_width+10,60+10*(i-1),v)
             end
         end
@@ -3222,8 +3888,6 @@ function display_joker_specifics(joker,index,text_len)
     local display = jokers_enhancement[index][1]
     if joker == "Castle" then
         screen.print(SCREEN_UP,hud_width+10,60 + 10*text_len,display[1]..", Currently "..display[2],colours[3])
-    elseif joker == "Obelisk" then
-        screen.print(SCREEN_UP,hud_width+10,60 + 10*text_len,"Currently "..display[1]..", to add "..display[2],colours[3])
     elseif joker == "Campfire" then 
         screen.print(SCREEN_UP,hud_width+10,60 + 10*text_len,"Currently "..display[1]..", Cards sold "..display[2],colours[3])
     elseif joker == "Yorick" then
@@ -3265,7 +3929,7 @@ function draw_shop()
     screen.print(SCREEN_DOWN, fit*2, 175, "B")
     screen.print(SCREEN_DOWN, fit*3, 165, "Reroll:")
     screen.print(SCREEN_DOWN, fit*3, 175, "X: $" .. tostring(reroll_price))
-    draw_shop_jokers()
+    draw_shop_main()
     draw_pack_graphics()
     for i,v in ipairs(voucher_show) do
         local x = (SCREEN_WIDTH/2-card_size[1]*(#voucher_show-1)/2)
@@ -3330,15 +3994,11 @@ function find_matching (index,active_cards,active_cards_enhancement)
 end
 
 function use_consumable_non_target(stand_cards,stand_enhancement)
-    local i = 0
     local store = consumable[selected_card]
     general_used = false
-    repeat
-        i=i+1
-    until consumable_deck[i][consumable[selected_card]] ~= nil
-    if i == 1 then
+    if consumable_deck[consumable[selected_card]][2] == "Tarot" then
         consumable = use_tarots(consumable)
-    elseif i == 2 then
+    elseif consumable_deck[consumable[selected_card]][2] == "Planet" then
         local plan_hand = planets_info[consumable[selected_card]]
         hand_multipliers[plan_hand[3]][1] = hand_multipliers[plan_hand[3]][1] + plan_hand[1]
         hand_multipliers[plan_hand[3]][2] = hand_multipliers[plan_hand[3]][2] + plan_hand[2]
@@ -3346,7 +4006,7 @@ function use_consumable_non_target(stand_cards,stand_enhancement)
         table.remove(consumable,selected_card)
         total_planets = total_planets+1
         general_used = true
-    elseif i == 3 then
+    elseif consumable_deck[consumable[selected_card]][2] == "Spectral" then
         stand_cards,stand_enhancement,consumable = use_spectral(stand_cards,stand_enhancement,consumable)
     end
     if #consumable < #consumable_enhancement then
@@ -3372,9 +4032,9 @@ function use_consumable_non_target(stand_cards,stand_enhancement)
 end
 
 function use_consumable_target(active_cards,active_cards_enhancement,stand_cards,stand_enhancement)
-    if consumable_deck[1][consumable[selected_card]] ~= nil then
+    if consumable_deck[consumable[selected_card]][2] == "Tarot" then
         active_cards,active_cards_enhancement,stand_cards,stand_enhancement,consumable = use_target_tarots(active_cards,active_cards_enhancement,stand_cards,stand_enhancement,consumable)
-    elseif consumable_deck[3][consumable[selected_card]] ~= nil then
+    elseif consumable_deck[consumable[selected_card]][2] == "Spectral" then
         active_cards,active_cards_enhancement,stand_cards,stand_enhancement,consumable = use_target_spectral(active_cards,active_cards_enhancement,stand_cards,stand_enhancement,consumable)
     end
     if #consumable < #consumable_enhancement then
@@ -3456,11 +4116,12 @@ function use_tarots(tarots_select)
         if #possible_jokers>0 then
             local rand = math.random()
             local joker_index = math.random(#possible_jokers)
-            if rand < 0.125 then
+            local wheel_prob = math.max(4,dice_prob)
+            if rand < 0.125*wheel_prob then
                 table.insert(jokers_enhancement[possible_jokers[joker_index]],"Foil")
-            elseif rand>=0.125 and rand<0.2 then
+            elseif rand>=0.125*wheel_prob and rand<0.2*wheel_prob then
                 table.insert(jokers_enhancement[possible_jokers[joker_index]],"Holographic")
-            elseif rand>=0.2 and rand<0.25 then
+            elseif rand>=0.2*wheel_prob and rand<0.25*wheel_prob then
                 table.insert(jokers_enhancement[possible_jokers[joker_index]],"Polychrome")
             end
             general_used = true
@@ -3469,12 +4130,15 @@ function use_tarots(tarots_select)
     if general_used == true then
         last_used_consumable = tarots_select[selected_card]
         table.remove(tarots_select,selected_card)
+        if gameplay_phase ~= 2 then
+            reset_deck()
+        end
     end
     return tarots_select
 end
 
 function use_target_tarots(active_cards,active_cards_enhancement,stand_cards,stand_enhancement,tarots_select)
-    if tarots_select[selected_card] == "Death" then--repeated stuff
+    if tarots_select[selected_card] == "Death" then
         if #active_cards == 2 then
             local index = find_matching(1,active_cards,active_cards_enhancement)
             full_deck[index] = active_cards[2]
@@ -3488,18 +4152,13 @@ function use_target_tarots(active_cards,active_cards_enhancement,stand_cards,sta
         end
     elseif tarots_select[selected_card] == "The Hanged Man" then
         if #active_cards <= 2 then
-            local removal = {}
-            for a,b in ipairs(active_cards) do
-                local index = find_matching(1,active_cards,active_cards_enhancement)
-                table.insert(removal,index)
+            for a=#active_cards,1,-1 do
+                local index = find_matching(a,active_cards,active_cards_enhancement)
                 for i,v in ipairs(jokers) do
-                    card_destroyed(v,i,b,active_cards_enhancement[a])
+                    card_destroyed(v,i,active_cards[a],active_cards_enhancement[a])
                 end
-            end
-            removal = table.sort(removal)
-            for i=#removal,1,-1 do
-                table.remove(full_deck,removal[i])
-                table.remove(full_deck_enhancement,removal[i])
+                table.remove(full_deck,index)
+                table.remove(full_deck_enhancement,index)
             end
             active_cards = {}
             active_cards_enhancement = {}
@@ -3568,18 +4227,15 @@ function use_target_tarots(active_cards,active_cards_enhancement,stand_cards,sta
         if #active_cards<3 then
             for a,b in ipairs(active_cards) do
                 local index = find_matching(a,active_cards,active_cards_enhancement)
-                for i=2,#active_cards_enhancement[a] do
-                    local v = active_cards_enhancement[a][i]
-                    if enhancement_info[v][2] == "Enhancement" then
-                        if v =="Stone" then
-                            active_cards[1] = standard_deck[math.random(#standard_deck)]
-                        end
-                        table.remove(active_cards_enhancement[a],i)
-                        table.remove(full_deck_enhancement[index],i)
-                    end
+                if full_deck_enhancement[index][2]=="Stone" then
+                    active_cards[a] = standard_deck[math.random(#standard_deck)]
+                    full_deck[index] = active_cards[1]
+                    assert(active_cards[a]~="st", "stone in standard deck")
+                    local store = full_deck_enhancement[index][1]
+                    full_deck_enhancement[index][1] = store - convert_rank_to_num("s")  + convert_rank_to_num(string.sub(active_cards[1],1,1))
+                    active_cards_enhancement[a][1] = full_deck_enhancement[index][1]
                 end
-                table.insert(full_deck_enhancement[index],"Lucky")
-                --table.insert(active_cards_enhancement[a],"Lucky")
+                full_deck_enhancement[index][2]="Lucky"
             end
             last_used_consumable = tarots_select[selected_card]
             table.remove(tarots_select,selected_card)
@@ -3588,18 +4244,16 @@ function use_target_tarots(active_cards,active_cards_enhancement,stand_cards,sta
         if #active_cards<3 then
             for a,b in ipairs(active_cards) do
                 local index = find_matching(a,active_cards,active_cards_enhancement)
-                for i=2,#active_cards_enhancement[a] do
-                    local v = active_cards_enhancement[a][i]
-                    if enhancement_info[v][2] == "Enhancement" then
-                        if v =="Stone" then
-                            active_cards[1] = standard_deck[math.random(#standard_deck)]
-                        end
-                        table.remove(active_cards_enhancement[a],i)
-                        table.remove(full_deck_enhancement[index],i)
-                    end
+                local index = find_matching(a,active_cards,active_cards_enhancement)
+                if full_deck_enhancement[index][2]=="Stone" then
+                    active_cards[a] = standard_deck[math.random(#standard_deck)]
+                    full_deck[index] = active_cards[1]
+                    assert(active_cards[a]~="st", "stone in standard deck")
+                    local store = full_deck_enhancement[index][1]
+                    full_deck_enhancement[index][1] = store - convert_rank_to_num("s")  + convert_rank_to_num(string.sub(active_cards[1],1,1))
+                    active_cards_enhancement[a][1] = full_deck_enhancement[index][1]
                 end
-                table.insert(full_deck_enhancement[index],"Mult")
-                --table.insert(active_cards_enhancement[a],"Mult")
+                full_deck_enhancement[index][2]="Mult"
             end
             last_used_consumable = tarots_select[selected_card]
             table.remove(tarots_select,selected_card)
@@ -3608,96 +4262,90 @@ function use_target_tarots(active_cards,active_cards_enhancement,stand_cards,sta
         if #active_cards<3 then
             for a,b in ipairs(active_cards) do
                 local index = find_matching(a,active_cards,active_cards_enhancement)
-                for i=2,#active_cards_enhancement[a] do
-                    local v = active_cards_enhancement[a][i]
-                    if enhancement_info[v][2] == "Enhancement" then
-                        if v =="Stone" then
-                            active_cards[1] = standard_deck[math.random(#standard_deck)]
-                        end
-                        table.remove(active_cards_enhancement[a],i)
-                        table.remove(full_deck_enhancement[index],i)
-                    end
+                local index = find_matching(a,active_cards,active_cards_enhancement)
+                if full_deck_enhancement[index][2]=="Stone" then
+                    active_cards[a] = standard_deck[math.random(#standard_deck)]
+                    full_deck[index] = active_cards[1]
+                    assert(active_cards[a]~="st", "stone in standard deck")
+                    local store = full_deck_enhancement[index][1]
+                    full_deck_enhancement[index][1] = store - convert_rank_to_num("s")  + convert_rank_to_num(string.sub(active_cards[1],1,1))
+                    active_cards_enhancement[a][1] = full_deck_enhancement[index][1]
                 end
-                table.insert(full_deck_enhancement[index],"Bonus")
-                --table.insert(active_cards_enhancement[a],"Bonus")
+                full_deck_enhancement[index][2]="Bonus"
             end
             last_used_consumable = tarots_select[selected_card]
             table.remove(tarots_select,selected_card)
         end
     elseif tarots_select[selected_card] == "The Chariot" then
-        if #active_cards==1 then--doing 2x
+        if #active_cards==1 then
             local index = find_matching(1,active_cards,active_cards_enhancement)
-            for i=2,#active_cards_enhancement[1] do
-                local v = active_cards_enhancement[1][i]
-                if enhancement_info[v][2] == "Enhancement" then
-                    if v =="Stone" then
-                        active_cards[1] = standard_deck[math.random(#standard_deck)]
-                    end
-                    table.remove(active_cards_enhancement[1],i)
-                    table.remove(full_deck_enhancement[index],i)
-                    break
-                end
+            if full_deck_enhancement[index][2]=="Stone" then
+                active_cards[1] = standard_deck[math.random(#standard_deck)]
+                full_deck[index] = active_cards[1]
+                assert(active_cards[1]~="st", "stone in standard deck")
+                local store = full_deck_enhancement[index][1]
+                full_deck_enhancement[index][1] = store - convert_rank_to_num("s") + convert_rank_to_num(string.sub(active_cards[1],1,1))
+                active_cards_enhancement[1][1] = full_deck_enhancement[index][1]
             end
-            table.insert(full_deck_enhancement[index],"Steel")
-            --table.insert(active_cards_enhancement[1],"Steel")
+            full_deck_enhancement[index][2]="Steel"
             last_used_consumable = tarots_select[selected_card]
             table.remove(tarots_select,selected_card)
         end
     elseif tarots_select[selected_card] == "Justice" then
         if #active_cards==1 then
             local index = find_matching(1,active_cards,active_cards_enhancement)
-            for i=2,#active_cards_enhancement[1] do
-                local v = active_cards_enhancement[1][i]
-                if enhancement_info[v][2] == "Enhancement" then
-                    if v =="Stone" then
-                        active_cards[1] = standard_deck[math.random(#standard_deck)]
-                    end
-                    table.remove(active_cards_enhancement[1],i)
-                    table.remove(full_deck_enhancement[index],i)
-                    break
-                end
+            if full_deck_enhancement[index][2]=="Stone" then
+                active_cards[1] = standard_deck[math.random(#standard_deck)]
+                full_deck[index] = active_cards[1]
+                assert(active_cards[1]~="st", "stone in standard deck")
+                local store = full_deck_enhancement[index][1]
+                full_deck_enhancement[index][1] = store - convert_rank_to_num("s")  + convert_rank_to_num(string.sub(active_cards[1],1,1))
+                active_cards_enhancement[1][1] = full_deck_enhancement[index][1]
             end
-            table.insert(full_deck_enhancement[index],"Glass")
-            --table.insert(active_cards_enhancement[1],"Glass")
+            full_deck_enhancement[index][2]="Glass"
             last_used_consumable = tarots_select[selected_card]
             table.remove(tarots_select,selected_card)
         end
     elseif tarots_select[selected_card] == "The Devil" then
         if #active_cards==1 then
             local index = find_matching(1,active_cards,active_cards_enhancement)
-            for i=2,#active_cards_enhancement[1] do
-                local v = active_cards_enhancement[1][i]
-                if enhancement_info[v][2] == "Enhancement" then
-                    if v =="Stone" then
-                        active_cards[1] = standard_deck[math.random(#standard_deck)]
-                    end
-                    table.remove(active_cards_enhancement[1],i)
-                    table.remove(full_deck_enhancement[index],i)
-                    break
-                end
+            if full_deck_enhancement[index][2]=="Stone" then
+                active_cards[1] = standard_deck[math.random(#standard_deck)]
+                full_deck[index] = active_cards[1]
+                assert(active_cards[1]~="st", "stone in standard deck")
+                local store = full_deck_enhancement[index][1]
+                full_deck_enhancement[index][1] = store - convert_rank_to_num("s")  + convert_rank_to_num(string.sub(active_cards[1],1,1))
+                active_cards_enhancement[1][1] = full_deck_enhancement[index][1]
             end
-            table.insert(full_deck_enhancement[index],"Gold")
-            --table.insert(active_cards_enhancement[1],"Gold")
+            full_deck_enhancement[index][2]="Gold"
             last_used_consumable = tarots_select[selected_card]
             table.remove(tarots_select,selected_card)
         end
     elseif tarots_select[selected_card] == "The Tower" then
         if #active_cards==1 then
             local index = find_matching(1,active_cards,active_cards_enhancement)
-            for i=2,#active_cards_enhancement[1] do
-                local v = active_cards_enhancement[1][i]
-                if enhancement_info[v][2] == "Enhancement" then
-                    table.remove(active_cards_enhancement[1],i)
-                    table.remove(full_deck_enhancement[index],i)
-                    break
-                end
-            end
-            table.insert(full_deck_enhancement[index],"Stone")--adding to active_cards? shouldnt but is
-            --table.insert(active_cards_enhancement[1],"Stone")
             active_cards[1] = "st"
             full_deck[index] = "st"
             active_cards_enhancement[1][1] = convert_rank_to_num("s")
             full_deck_enhancement[index][1] = convert_rank_to_num("s")
+            active_cards_enhancement[1][2] = "Stone"
+            full_deck_enhancement[index][2] = "Stone"
+            last_used_consumable = tarots_select[selected_card]
+            table.remove(tarots_select,selected_card)
+        end
+    elseif tarots_select[selected_card] == "The Lovers" then
+        if #active_cards==1 then
+            local index = find_matching(1,active_cards,active_cards_enhancement)
+            if full_deck_enhancement[index][2]== "Stone" then
+                active_cards[1] = standard_deck[math.random(#standard_deck)]
+                full_deck[index] = active_cards[1]
+                assert(active_cards[1]~="st", "stone in standard deck")--shouldnt do this but has may be fixed now dont know
+                local store = full_deck_enhancement[index][1]
+                full_deck_enhancement[index][1] = store - convert_rank_to_num("s") + convert_rank_to_num(string.sub(active_cards[1],1,1))
+                active_cards_enhancement[1][1] = full_deck_enhancement[index][1]
+            end
+            active_cards_enhancement[1][2] = "Wild"
+            full_deck_enhancement[index][2] = "Wild"
             last_used_consumable = tarots_select[selected_card]
             table.remove(tarots_select,selected_card)
         end
@@ -3719,6 +4367,9 @@ function use_target_tarots(active_cards,active_cards_enhancement,stand_cards,sta
         stand_cards, stand_enhancement = sort_deck(stand_cards, stand_enhancement)
         active_cards = {}
         active_cards_enhancement = {}
+    end
+    if gameplay_phase ~= 2 then
+        reset_deck()
     end
     return active_cards,active_cards_enhancement,stand_cards, stand_enhancement,tarots_select
 end
@@ -3746,6 +4397,7 @@ function use_vouchers(select)
         table.insert(vouchers,"Reroll Glut")
     elseif select == "Crystal Ball" then
         consumable_size = consumable_size + 1
+        table.insert(vouchers,"Omen Globe")
     elseif select == "Grabber" then
         max_hands = max_hands + 1
         table.insert(vouchers,"Nacho Tong")
@@ -3833,6 +4485,8 @@ function use_vouchers(select)
         reroll_price = math.max(0,reroll_price - 2)
     elseif select == "Observatory" then
         observatory = true
+    elseif select == "Omen Globe" then
+        omen_globe = true
     elseif select == "Nacho Tong" then
         max_hands = max_hands + 1
     elseif select == "Recyclomancy" then
@@ -3948,7 +4602,7 @@ function use_spectral(stand_cards, stand_cards_enhancement, spectral_select)
                 table.insert(add,v)
             end
         end
-        table.insert(jokers,jokers[sort_deck_rank])
+        table.insert(jokers,jokers[rand])
         table.insert(jokers_enhancement,add)
         if jokers[rand] == "Juggler" then--will have missed some
             max_hand_size = max_hand_size+1
@@ -3971,9 +4625,11 @@ function use_spectral(stand_cards, stand_cards_enhancement, spectral_select)
         elseif jokers[rand] == "Stuntman" then
             max_hand_size = max_hand_size-2
             hand_size = hand_size-2
+        elseif jokers[rand] == "Oops! All 6s" then
+            dice_prob = dice_prob*2
         end
         for i=#jokers-1,1,-1 do
-            if i ~= index then
+            if i ~= rand then
                 removal_joker(jokers[i],i)
             end
         end
@@ -3996,12 +4652,16 @@ function use_spectral(stand_cards, stand_cards_enhancement, spectral_select)
                     index2 = math.random(#standard_deck)
                     value = standard_deck[index2]
                 until string.sub(value,1,1) == "k" or string.sub(value,1,1) == "q" or string.sub(value,1,1) == "j"
-                local num = convert_rank_to_num(string.sub(value,1,1))
-                local addition = get_random_enhance()
+                local add = {convert_rank_to_num(string.sub(value,1,1)),"","",""}
+                local addition2,pos = get_random_enhance()
+                add[pos] = addition2
                 table.insert(stand_cards,standard_deck[index2])
-                table.insert(stand_cards_enhancement,{num,addition})
+                table.insert(stand_cards_enhancement,add)
                 table.insert(full_deck,standard_deck[index2])
-                table.insert(full_deck_enhancement,{num,addition})
+                table.insert(full_deck_enhancement,add)
+                for j,k in ipairs(jokers) do
+                    added_to_deck_jokers(k,j)
+                end
             end
             general_used = true
         end
@@ -4023,12 +4683,16 @@ function use_spectral(stand_cards, stand_cards_enhancement, spectral_select)
                     index2 = math.random(#standard_deck)
                     value = standard_deck[index2]
                 until string.sub(value,1,1) == "a"
-                local num = convert_rank_to_num(string.sub(value,1,1))
-                local addition = get_random_enhance()
+                local add = {convert_rank_to_num(string.sub(value,1,1)),"","",""}
+                local addition2,pos = get_random_enhance()
+                add[pos] = addition2
                 table.insert(stand_cards,standard_deck[index2])
-                table.insert(stand_cards_enhancement,{num,addition})
+                table.insert(stand_cards_enhancement,add)
                 table.insert(full_deck,standard_deck[index2])
-                table.insert(full_deck_enhancement,{num,addition})
+                table.insert(full_deck_enhancement,add)
+                for j,k in ipairs(jokers) do
+                    added_to_deck_jokers(k,j)
+                end
             end
             general_used = true
         end
@@ -4050,12 +4714,16 @@ function use_spectral(stand_cards, stand_cards_enhancement, spectral_select)
                     index2 = math.random(#standard_deck)
                     value = standard_deck[index2]
                 until tonumber(string.sub(value,1,1)) ~= nil
-                local num = convert_rank_to_num(string.sub(value,1,1))
-                local addition = get_random_enhance()
+                local add = {convert_rank_to_num(string.sub(value,1,1)),"","",""}
+                local addition2,pos = get_random_enhance()
+                add[pos] = addition2
                 table.insert(stand_cards,standard_deck[index2])
-                table.insert(stand_cards_enhancement,{num,addition})
+                table.insert(stand_cards_enhancement,add)
                 table.insert(full_deck,standard_deck[index2])
-                table.insert(full_deck_enhancement,{num,addition})
+                table.insert(full_deck_enhancement,add)
+                for j,k in ipairs(jokers) do
+                    added_to_deck_jokers(k,j)
+                end
             end
             general_used = true
         end
@@ -4119,6 +4787,9 @@ function use_spectral(stand_cards, stand_cards_enhancement, spectral_select)
     end
     if general_used == true then
         table.remove(spectral_select,selected_card)
+        if gameplay_phase ~= 2 then
+            reset_deck()
+        end
     end
     return stand_cards, stand_cards_enhancement, spectral_select
 end
@@ -4126,11 +4797,17 @@ end
 function use_target_spectral(active_cards,active_cards_enhancement,stand_cards,stand_enhancement,spectral_select)
     if spectral_select[selected_card] == "Cryptid" then
         if #active_cards == 1 then
-            for i =1 ,2 do
+            for i = 1 ,2 do
                 table.insert(full_deck,active_cards[1])
                 table.insert(full_deck_enhancement,active_cards_enhancement[1])
                 table.insert(stand_cards,active_cards[1])
                 table.insert(stand_enhancement,active_cards_enhancement[1])
+                for j,k in ipairs(jokers) do
+                    added_to_deck_jokers(k,j)
+                end
+            end
+            if gameplay_phase~=2 then
+                reset_deck()
             end
             table.remove(spectral_select,selected_card)
         end
@@ -4146,46 +4823,25 @@ function use_target_spectral(active_cards,active_cards_enhancement,stand_cards,s
             else
                 addition = "Holographic"
             end
-            for i=2,#active_cards_enhancement[1] do
-                local v = active_cards_enhancement[1][i]
-                if enhancement_info[v][2] == "Edition" then
-                    table.remove(active_cards_enhancement[1],i)
-                    table.remove(full_deck_enhancement[index],i)
-                    break
-                end
-            end
-            --table.insert(active_cards_enhancement[1],addition)
-            table.insert(full_deck_enhancement[index],addition)--not working, says not a table
+            full_deck_enhancement[index][3]=addition
             table.remove(spectral_select,selected_card)
         end
     elseif spectral_select[selected_card] == "Medium" then
         if #active_cards==1 then
             local index = find_matching(1,active_cards,active_cards_enhancement)
-            for i=2,#active_cards_enhancement[1] do
-                local v = active_cards_enhancement[1][i]
-                if enhancement_info[v][2] == "Seal" then
-                    table.remove(active_cards_enhancement[1],i)
-                    table.remove(full_deck_enhancement[index],i)
-                    break
-                end
-            end
-            --table.insert(active_cards_enhancement[1],"Purple Seal")
-            table.insert(full_deck_enhancement[index],"Purple-Seal")
+            full_deck_enhancement[index][4]="Purple-Seal"
             table.remove(spectral_select,selected_card)
         end
     elseif spectral_select[selected_card] == "Trance" then
         if #active_cards == 1 then
             local index = find_matching(1,active_cards,active_cards_enhancement)
-            for i=2,#active_cards_enhancement[1] do
-                local v = active_cards_enhancement[1][i]
-                if enhancement_info[v][2] == "Seal" then
-                    table.remove(active_cards_enhancement[1],i)
-                    table.remove(full_deck_enhancement[index],i)
-                    break
-                end
-            end
-            --table.insert(active_cards_enhancement[1],"Blue Seal")
-            table.insert(full_deck_enhancement[index],"Blue-Seal")
+            full_deck_enhancement[index][4]="Blue-Seal"
+            table.remove(spectral_select,selected_card)
+        end
+    elseif spectral_select[selected_card] == "Deja Vu" then
+        if #active_cards == 1 then
+            local index = find_matching(1,active_cards,active_cards_enhancement)
+            full_deck_enhancement[index][4]="Red-Seal"
             table.remove(spectral_select,selected_card)
         end
     end
@@ -4205,23 +4861,11 @@ end
 
 function open_pack()
     for i,v in ipairs(jokers) do
-        if v == "Hallucination" then
-            local rand = math.random()
-            if rand<0.5 and #consumable<consumable_size then
-                table.insert(consumable,tarots_deck[math.random(#tarots_deck)])
-                table.insert(consumable_enhancement," ")
-            end
-        end
+        open_pack_jokers(v,i)
     end
     pack_count_now = 0
     kind = 4
     gameplay_phase = 4.5
-    pack_interior = {}
-    pack_interior_enhancement = {}
-    pack_cards = {}
-    pack_cards_enhancements = {}
-    active = {}
-    active_enhancement = {}
     local copy = {}
     local copy_enhancement = {}
     for i,v in ipairs(deck) do
@@ -4241,11 +4885,19 @@ function open_pack()
             table.insert(pack_interior,max_planet)
         end
         for i=#pack_interior+1, cele_size do
-            local index = math.random(2,#planets_deck)
-            table.insert(pack_interior,planets_deck[index])
-            table.remove(planets_deck,index)
+            if math.random()<0.003 then
+                table.insert(pack_interior,"Black Hole")
+            else
+                local index = math.random(2,#planets_deck)
+                if showman_active == false then
+                    repeat
+                        index = math.random(2,#planets_deck)
+                        local same = showman_ability(planets_deck[index])
+                    until same == false
+                end
+                table.insert(pack_interior,planets_deck[index])
+            end
         end
-        reset_planets()
     elseif name_pack == "standard" then
         for i = 1, cele_size do
             local index = math.random(#standard_deck)
@@ -4287,8 +4939,14 @@ function open_pack()
             else
                 rarity = uncommon_joker
             end
-            local randomvalue = math.random(#rarity)
-            table.insert(pack_interior, rarity[randomvalue])
+            local random_value = math.random(#rarity)
+            if showman_active == false then
+                repeat
+                    random_value = math.random(#rarity)
+                    local same = showman_ability(rarity[random_value])
+                until same == false
+            end
+            table.insert(pack_interior, rarity[random_value])
         end
     elseif name_pack == "arcana" then--add probability of soul card
         for i = 1, hand_size do
@@ -4299,9 +4957,29 @@ function open_pack()
             table.remove(copy_enhancement,index)
         end
         for i = 1, cele_size do
-            local index = math.random(#tarots_deck)
-            table.insert(pack_interior,tarots_deck[index])
-            table.insert(pack_interior_enhancement,"")
+            if math.random()<0.003 then
+                table.insert(pack_interior,"The Soul")
+            else
+                if omen_globe == true and math.random()<0.2 then
+                    local index = math.random(#spectral_deck)
+                    if showman_active == false then
+                        repeat
+                            index = math.random(#spectral_deck)
+                            local same = showman_ability(spectral_deck[index])
+                        until same == false
+                    end
+                    table.insert(pack_interior,spectral_deck[index])
+                else
+                    local index = math.random(#tarots_deck)
+                    if showman_active == false then
+                        repeat
+                            index = math.random(#tarots_deck)
+                            local same = showman_ability(tarots_deck[index])
+                        until same == false
+                    end
+                    table.insert(pack_interior,tarots_deck[index])
+                end
+            end
         end
     elseif name_pack == "spectral" then
         for i =1, hand_size do
@@ -4313,16 +4991,30 @@ function open_pack()
         end
         for i =1, cele_size do
             local rand = math.random()
-            if rand < 0.003 then
+            if rand < 0.003 then--wont put checks here for now as probabilty is very low
                 table.insert(pack_interior,"Black Hole")
-                table.insert(pack_interior_enhancement,"")
-            elseif rand < 0.006 and rand>= 0.003  then
-                table.insert(pack_interior,"The Soul")
-                table.insert(pack_interior_enhancement,"")
+            elseif rand < 0.006 and rand>= 0.003 then
+                if deck_name ~= "Jokerless" then
+                    table.insert(pack_interior,"The Soul")
+                else
+                    local index = math.random(#spectral_deck)
+                    if showman_active == false then
+                        repeat
+                            index = math.random(#spectral_deck)
+                            local same = showman_ability(spectral_deck[index])
+                        until same == false
+                    end
+                    table.insert(pack_interior,spectral_deck[index])
+                end
             else
                 local index = math.random(#spectral_deck)
+                if showman_active == false then
+                    repeat
+                        index = math.random(#spectral_deck)
+                        local same = showman_ability(spectral_deck[index])
+                    until same == false
+                end
                 table.insert(pack_interior,spectral_deck[index])
-                table.insert(pack_interior_enhancement,"")
             end
         end
     end
@@ -4434,17 +5126,16 @@ function tag_shop()
             local rand_voucher
             repeat
                 rand_voucher = math.random(#vouchers)
-            until vouchers[math.random(#vouchers)] ~= voucher_show[1]
-            table.insert(voucher_show,vouchers[math.random(#vouchers)])
+            until vouchers[math.random(#vouchers)] ~= voucher_show[1][1]--need to improve
+            table.insert(voucher_show,{vouchers[math.random(#vouchers)],shop_costs[#shop_costs]})
             table.remove(tag_select,i)
         elseif v =="Coupon" then
             local total = 0
-            for i,v in ipairs(shop_jokers) do
+            for i =1,#shop_jokers do
                 total = total + shop_jokers_enhancement[i][1]
             end
-            for i,v in ipairs(packs) do
-                type_pack = packs[i][2]
-                total = total + math.floor(shop_costs[5][type_pack]*discount_percent)
+            for i=1,#packs do
+                total = total + packs[i][3]
             end
             cash = cash + total
             table.remove(tag_select,i)
@@ -4559,7 +5250,7 @@ function played_enhancement(card_enhanced)
         elseif v == "Lucky" then
             local money = math.random()
             local mult_add = math.random()
-            if mult_add < 0.2 then
+            if mult_add < 0.2*dice_prob then
                 multiplier = multiplier +20
                 for j,k in ipairs(jokers) do
                     if k == "Lucky Cat" then
@@ -4567,7 +5258,7 @@ function played_enhancement(card_enhanced)
                     end
                 end
             end
-            if money < 1/15 then
+            if money < dice_prob*1/15 then
                 cash = cash +20
                 for j,k in ipairs(jokers) do
                     if k == "Lucky Cat" then
@@ -4589,12 +5280,10 @@ function played_enhancement(card_enhanced)
     end
 end
 
-function held_enhancement(card_enhanced)-- dont actually need as a function but is a bit neater
-    for i,v in ipairs(card_enhanced) do
-        if v == "Steel" then
-            multiplier = multiplier*1.5
-        end 
-    end
+function held_enhancement(card_enhanced)
+    if card_enhanced[2] == "Steel" then
+        multiplier = multiplier*1.5
+    end 
 end
 
 function discard_enhancements(card_enhanced)
@@ -4628,6 +5317,62 @@ function round_end_enhancement()
                 end
             end
         end
+    end
+end
+
+function showman_ability(name)
+    local total_table = {table.unpack(jokers),table.unpack(consumable),table.unpack(shop_jokers),table.unpack(pack_interior)}
+    for i,v in ipairs(total_table) do
+        if v==name then
+            return true
+        end
+    end
+    return false
+end
+
+function face_down_blinds(card,index)
+    if ante%8 ~= 0 and blind == 3 and boss_active then
+        if boss_blind[boss_num] == "The House" then
+            if gameplay_phase == 1 then
+                table.insert(dealt_enhancement[index],true)
+            end
+        elseif boss_blind[boss_num] == "The Wheel" then
+            local rand = math.random()
+            if rand < dice_prob*1/7 then
+                table.insert(dealt_enhancement[index],true)
+            end
+        elseif boss_blind[boss_num] == "The Fish" then
+            if gameplay_phase == 3 then
+                table.insert(dealt_enhancement[index],true)
+            end
+        elseif boss_blind[boss_num] == "The Mark" then
+            if string.sub(card,1,1) == "k" or string.sub(card,1,1) == "q" or string.sub(card,1,1) == "j" or all_face then
+                table.insert(dealt_enhancement[index],true)
+            end
+        end
+    end
+end
+
+function inflation_ability()
+    local num_to_add
+    if gameplay_phase == 4 or gameplay_phase == 4.5 then
+        num_to_add = 1
+        for i = 1, #voucher_show do
+            voucher_show[i][2] = voucher_show[i][2] + num_to_add--not how i want to do it but should work
+        end
+    else
+        num_to_add = num_bought
+        if blind == 1 then
+            for i = 1, #voucher_show do
+                voucher_show[i][2] = voucher_show[i][2] + num_to_add
+            end
+        end
+    end
+    for j = 1, #shop_jokers do
+        shop_jokers_enhancement[j][1] = shop_jokers_enhancement[j][1] + num_to_add
+    end
+    for j=1, #packs do
+        packs[j][4] = packs[j][4] + num_to_add
     end
 end
 
@@ -4686,48 +5431,34 @@ while not Keys.newPress.Select do
             selected_deck =1
         end
     elseif scene == "game" then
-        for i,v in ipairs(jokers_enhancement) do
-            assert(type(v[2])=="number","Cost NaN: "..i.."/"..#jokers_enhancement)
-        end
-        screen.drawFillRect(SCREEN_UP, 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, Color.new256(0, 153, 76))--green backgorund
-        screen.drawFillRect(SCREEN_DOWN, 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, Color.new256(0, 153, 76))
-        phase_2_update()
-        if gameplay_phase ~= 2.5 then--not drawing joker and tarot on pause menu for clarity
+        screen.drawFillRect(SCREEN_UP,0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, Color.new256(0, 153, 76))
+        screen.drawFillRect(SCREEN_DOWN,0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, Color.new256(0, 153, 76))
+        upper_display()
+        if gameplay_phase ~= 2.5 then--not drawing joker and tarot on pause menu for clarity, will move this to below when the jokers grahics are done
             draw_joker_card_graphic()
             draw_tarots_graphics()
-            if first ~= 0 then
-                movement()
-            end
         end
-
         if gameplay_phase == 0 then--initialise for first blind
-            if ante == 5 and deck_name == "Typecast" then
-                for i,v in ipairs(jokers_enhancement) do
-                    for j,k in ipairs(v) do
-                        if k == "Perishable" then
-                            v[j] = "Eternal"
-                            break
-                        elseif k == "Eternal" then
-                            break
-                        end
-                        if j == #v then
-                            table.insert(v,"Eternal")
+            if ante == 5 then
+                if deck_name == "Typecast" then
+                    for i,v in ipairs(jokers_enhancement) do
+                        for j,k in ipairs(v) do
+                            if k == "Perishable" then
+                                v[j] = "Eternal"
+                                break
+                            elseif k == "Eternal" then
+                                break
+                            end
+                            if j == #v then
+                                table.insert(v,"Eternal")
+                            end
                         end
                     end
+                    joker_size = #jokers
                 end
-                joker_size = #jokers
-            end
-            for i=1,#boss_blind_locked do
-                local index = #boss_blind_locked+1-i
-                local v = boss_blind_locked[index]
-                if boss_blind_description[v][3] == ante then
-                    table.insert(boss_blind,v)
-                    table.remove(boss_blind,index)
-                end
-            end
-            if ante == 2 then
-                for i,v in ipairs(tag_unlock_2) do
-                    table.insert(tag_deck,v)
+            elseif ante == 2 then
+                for i=#tag_unlock_2,1,-1 do
+                    table.insert(tag_deck,tag_unlock_2[i])
                 end
             end
             for i =1, 2 do
@@ -4738,13 +5469,19 @@ while not Keys.newPress.Select do
             if ante == 1 then
                 repeat
                     table.remove(voucher_show,1)
-                    table.insert(voucher_show, vouchers[math.random(#vouchers)])
-                until voucher_show[1] ~= "Heiroglyph" --heiroglyph not possible on ante 1 bc not set ante 0 score
+                    table.insert(voucher_show, {vouchers[math.random(#vouchers)],shop_costs[#shop_costs]})
+                until voucher_show[1][1] ~= "Heiroglyph" --heiroglyph not possible on ante 1 bc not set ante 0 score
             else
+                for i=#boss_blind_locked,1,-1 do
+                    local v = boss_blind_locked[i]
+                    if boss_blind_description[v][3] == ante then
+                        table.insert(boss_blind,v)
+                    end
+                end
                 if deck_name == "Anaglyph Deck" then
                     table.insert(tag_select,"Double")
                 end
-                table.insert(voucher_show, vouchers[math.random(#vouchers)])
+                table.insert(voucher_show, {vouchers[math.random(#vouchers)],shop_costs[#shop_costs]})
             end
             set_boss_blind()
             calculate_minimum_score()
@@ -4752,8 +5489,8 @@ while not Keys.newPress.Select do
             gameplay_phase = 1
         elseif gameplay_phase == 1 then--chossing blind
             draw_blind_menu()
-            draw_boss_menu()
-            if Keys.newPress.X and cash > 10 and boss_reroll==true then
+            card_details(kind)
+            if Keys.newPress.X and cash > 9+min_cash and boss_reroll==true then
                 if total_boss_reroll ~= boss_reroll_num then
                     boss_reroll_num = boss_reroll_num+1
                     set_boss_blind()
@@ -4764,7 +5501,6 @@ while not Keys.newPress.Select do
             end
 
             if Keys.newPress.A then
-                gameplay_phase = 2
                 for i, v in ipairs(jokers) do
                     selected_blind_jokers(v,i)
                 end
@@ -4778,8 +5514,6 @@ while not Keys.newPress.Select do
                         table.remove(tag_select,i)
                     end
                 end
-                add_to_dealt()
-                dealt,dealt_enhancement = sort_deck(dealt,dealt_enhancement)
                 if blind == 3 and boss_active == true then
                     if ante%8 == 0 then
                         if finisher_blinds[boss_num] == "Cerulean Bell" then
@@ -4812,6 +5546,9 @@ while not Keys.newPress.Select do
                             end
                             jokers = temp_jokers
                             jokers_enhancement = temp_jokers_enhancement
+                        elseif finisher_blinds[boss_num] == "Crimson Heart" then
+                            local rand = math.random(#jokers)
+                            table.insert(jokers_enhancement[rand],3,"Disabled")
                         end
                     else
                         if boss_blind[boss_num] == "The Needle" then
@@ -4823,9 +5560,17 @@ while not Keys.newPress.Select do
                         end
                     end
                 end
+                add_to_dealt()
+                dealt,dealt_enhancement = sort_deck(dealt,dealt_enhancement)
+                for i,v in ipairs(jokers) do
+                    selected_blind_after_dealt_jokers(v,i)
+                end
+                gameplay_phase = 2
+                kind = 1
+                selected_card = 1
             end
 
-            if Keys.newPress.Y then
+            if Keys.newPress.R then
                 if blind < 3 then
                     no_blinds_skipped = no_blinds_skipped+1
                     table.insert(tag_select,blind_tags[blind])
@@ -4838,28 +5583,77 @@ while not Keys.newPress.Select do
                     tag_immediate()
                 end
             end
+
             if Keys.newPress.Start then--game menu to look at deck/volume etc
                 prev_phase = gameplay_phase
                 gameplay_phase = 2.5
             end
 
+            if Keys.newPress.Up and kind == 2 then
+                kind = kind+1
+            elseif Keys.newPress.Down and kind == 3 then
+                kind = kind-1
+            end
+
+            if Keys.newPress.Left then
+                selected_card = selected_card - 1
+            elseif Keys.newPress.Right then
+                selected_card = selected_card + 1
+            end
+
+            if kind == 2 then
+                if Keys.newPress.Y and #jokers>0 then
+                    sell_jokers(jokers[selected_card],selected_card)
+                end
+                if Keys.newPress.B and #jokers>1 then
+                    move_action(jokers,jokers_enhancement)
+                end
+                selected_card = bounds(jokers,selected_card)
+            elseif kind == 3 then
+                if Keys.newPress.B and #consumable>0 then
+                    pack_cards,pack_cards_enhancements = use_consumable_non_target(pack_cards,pack_cards_enhancements)
+                    if #active>0 and general_used == false then
+                        active,active_enhancement,pack_cards,pack_cards_enhancements = use_consumable_target(active,active_enhancement,pack_cards,pack_cards_enhancements,consumable)
+                    end
+                elseif Keys.newPress.Y and #consumable>0 then
+                    local consumable_cost = {["Planet"] = 2, ["Tarot"] = 3, ["Spectral"] = 4}
+                    local shop_cost_position = consumable_cost[consumable_deck[consumable[selected_card]][2]]
+                    cash = cash + math.floor(shop_costs[shop_cost_position]*discount_percent/2)
+                    if consumable_enhancement[selected_card] == "Negative" then
+                        consumable_size = consumable_size-1
+                    end
+                    table.remove(consumable_enhancement, selected_card)
+                    table.remove(consumable, selected_card)
+                end
+                selected_card = bounds(consumable,selected_card)
+            end
+
         elseif gameplay_phase == 2 then--choosing hand
-            draw_card_deck_graphic(dealt, selected_card, "dealt")
+            tutorial_graphics:drawFrame(SCREEN_DOWN, 16, 12, 0)--frame number is multiple of 96
+            --tutorial_graphics:drawFrame(SCREEN_DOWN, 149, 4, 1)
+            --tutorial_graphics:drawFrame(SCREEN_DOWN, 16, 4, 2)--need to change from arrow to B/X
+            tutorial_graphics:drawFrame(SCREEN_DOWN, 144, 12, 3)
+            screen.print(SCREEN_DOWN,20,2,"X: Place Card")
+            screen.print(SCREEN_DOWN,153,2,"B: Reset Hand")
             draw_card_base_graphic((SCREEN_WIDTH-card_size[1])/2,0,1,{})--card for deck
             screen.print(SCREEN_DOWN, (SCREEN_WIDTH-card_size[1])/2+2, 7,#deck, Color.new(0,0,0))
-            if #hand ~= 0 then
+            draw_card_deck_graphic(dealt, selected_card, "dealt")--why does this show always
+
+            if #hand >0 then
                 draw_card_deck_graphic(hand, selected_card, "hand")
                 local hand_description = ""
                 local x_space = math.floor(SCREEN_WIDTH/(#hand_enhancement+1))
                 for i,v in ipairs(hand_enhancement) do
-                    local status_string = ""
-                    for j,k in ipairs(v) do
-                        status_string= status_string..k.." "
-                    end
-                    local x = x_space*i
-                    local indv_status = text_width(status_string,1)--not always displaying best but works for now
-                    for a,b in ipairs(indv_status) do
-                        screen.print(SCREEN_DOWN,x-card_size[1],SCREEN_HEIGHT/3-10*(a-2),b,colours[1])
+                    if #v == 4 then
+                        local status_string = ""
+                        for j,k in ipairs(v) do
+                            status_string= status_string..k.." "
+                        end
+                        local x = x_space*i
+                        local indv_status = text_width(status_string,1)
+                        for a,b in ipairs(indv_status) do
+                            screen.print(SCREEN_DOWN,x-card_size[1],SCREEN_HEIGHT/3-10*(a-2),b,colours[1])
+                        end
                     end
                 end
                 screen.print(SCREEN_DOWN,(SCREEN_WIDTH-6*string.len(hand_description))/2,SCREEN_HEIGHT/3,hand_description,colours[1])
@@ -4872,7 +5666,6 @@ while not Keys.newPress.Select do
             elseif kind == 3 then
                 selected_card = bounds(consumable,selected_card)
             end
-
             card_details(kind)
 
             if Keys.newPress.Left then
@@ -4963,6 +5756,11 @@ while not Keys.newPress.Select do
 
             if Keys.newPress.Y then
                 if can_discard and kind == 1 then
+                    for i,v in ipairs(hand_enhancement) do
+                        if #v == 5 then
+                            table.remove(hand_enhancement[i],#v)
+                        end
+                    end
                     if deck_name == "Golden Needle" then
                         cash = cash -1
                     end
@@ -4990,11 +5788,9 @@ while not Keys.newPress.Select do
                 elseif kind == 2 and #jokers>0 then
                     sell_jokers(jokers[selected_card],selected_card)
                 elseif kind == 3 and #consumable>0 then
-                    local i = 0
-                    repeat
-                        i=i+1
-                    until consumable_deck[i][consumable[selected_card]] ~= nil
-                    cash = cash + math.floor(shop_costs[i+1]*discount_percent/2)
+                    local consumable_cost = {["Planet"] = 2, ["Tarot"] = 3, ["Spectral"] = 4}
+                    local shop_cost_position = consumable_cost[consumable_deck[consumable[selected_card]][2]]
+                    cash = cash + math.floor(shop_costs[shop_cost_position]*discount_percent/2)
                     if consumable_enhancement[selected_card] == "Negative" then
                         consumable_size = consumable_size-1
                     end
@@ -5025,21 +5821,24 @@ while not Keys.newPress.Select do
             end
             if Keys.newPress.A then
                 if can_play_hand and kind == 1 then
-                    last_played_hand = hand_type
-                    no_hands_played = no_hands_played+1
-                    for k,v in pairs(locked_planets) do
-                        if locked_planets[last_played_hand] ~= nil then
-                            table.insert(full_planets,v)
-                            table.insert(planets_deck,v)
-                            locked_planets[k] = nil
+                    for i,v in ipairs(hand_enhancement) do
+                        if #v == 5 then
+                            table.remove(hand_enhancement[i],#v)
                         end
                     end
+                    last_played_hand = hand_type
+                    no_hands_played = no_hands_played+1
+                    local count = 0
+                    for k,v in pairs(planets_deck) do
+                        if hand_multipliers[hand_type][4] ~= v then
+                            count = count+1
+                        end
+                    end
+                    if count ~= #planets_deck then
+                        table.insert(planets_deck,hand_multipliers[hand_type][4])
+                    end
                     table.insert(played_hand_type,hand_type)
-                    gameplay_phase = 3
-                    --Sound.pause()
-                    --Sound.startSFX(0)
-                    --Sound.startSFX(1)
-                    --Sound.resume()
+                    gameplay_phase = 2.1
                     selected_card = 1
                     hands = hands - 1
                 end
@@ -5048,8 +5847,20 @@ while not Keys.newPress.Select do
                 prev_phase = 2
                 gameplay_phase = 2.5
             end
+        elseif gameplay_phase == 2.1 then--temp solution to show cards, doesnt always works
+            tutorial_graphics:drawFrame(SCREEN_DOWN, 16, 12, 0)--frame number is multiple of 96
+            --tutorial_graphics:drawFrame(SCREEN_DOWN, 149, 4, 1)
+            --tutorial_graphics:drawFrame(SCREEN_DOWN, 16, 4, 2)--need to change from arrow to B/X
+            tutorial_graphics:drawFrame(SCREEN_DOWN, 144, 12, 3)
+            screen.print(SCREEN_DOWN,20,2,"X: Place Card")
+            screen.print(SCREEN_DOWN,153,2,"B: Reset Hand")
+            draw_card_base_graphic((SCREEN_WIDTH-card_size[1])/2,0,1,{})--card for deck
+            screen.print(SCREEN_DOWN, (SCREEN_WIDTH-card_size[1])/2+2, 7,#deck, Color.new(0,0,0))
+            draw_card_deck_graphic(dealt, -1, "dealt")
+            draw_card_deck_graphic(hand, selected_card, "hand")
+            gameplay_phase = 3
         elseif gameplay_phase == 2.5 then--game menu
-            local index_menu_details = {"Show Deck","Show Hand Types","Show Enhancments", "Adjust Volume", "Retire Run"}
+            local index_menu_details = {"Show Deck","Show Hand Types","Show Enhancments", "Adjust Volume", "Adjust Animations", "Retire Run"}
             screen.print(SCREEN_UP, SCREEN_WIDTH/2 -5,SCREEN_HEIGHT/3,"Main Menu",Color.new(0,0,0))
             for i,v in ipairs(index_menu_details) do
                 screen.print(SCREEN_UP, SCREEN_WIDTH/2 -5,SCREEN_HEIGHT/3+10*(i),v,Color.new(31,31,31))
@@ -5057,8 +5868,9 @@ while not Keys.newPress.Select do
             index_menu = bounds(index_menu_details,index_menu)
             screen.drawFillRect(SCREEN_UP, SCREEN_WIDTH/2 - 15, SCREEN_HEIGHT/3+10*index_menu, SCREEN_WIDTH/2 - 6, SCREEN_HEIGHT/3+10*(index_menu)+7, Color.new(0, 0, 0))
             if index_menu_details[index_menu] == "Show Deck" then
-                local rank_deck = {["2"]=0,["3"]=0,["4"]=0,["5"]=0,["6"]=0,["7"]=0,["8"]=0,["9"]=0,["t"]=0,["j"]=0,["q"]=0,["k"]=0,["a"]=0,["st"]=0}
+                local rank_deck = {[2]=0,[3]=0,[4]=0,[5]=0,[6]=0,[7]=0,[8]=0,[9]=0,[10]=0,[11]=0,[12]=0,[13]=0,[14]=0,[15]=0}
                 local suit_deck = {["h"]=0,["d"]=0,["c"]=0,["s"]=0}
+                local wilds = 0
                 for i,v in ipairs(deck) do--cards in deck
                     if string.sub(v,2,2) == "h" then
                         deck_y = SCREEN_HEIGHT/5
@@ -5069,11 +5881,11 @@ while not Keys.newPress.Select do
                     elseif string.sub(v,2,2) == "c" then
                         deck_y = 4*SCREEN_HEIGHT/5
                     else
-                        rank_deck[v] = rank_deck[v]+1
+                        rank_deck[position(string.sub(v,1,1))] = rank_deck[position(string.sub(v,1,1))]+1
                     end
                     if string.sub(v,2,2) ~= "t" then
                         suit_deck[string.sub(v,2,2)]= suit_deck[string.sub(v,2,2)]+1
-                        rank_deck[string.sub(v,1,1)]= rank_deck[string.sub(v,1,1)]+1
+                        rank_deck[position(string.sub(v,1,1))] = rank_deck[position(string.sub(v,1,1))]+1
                         screen.print(SCREEN_DOWN, 50 + 13*position(string.sub(v,1,1)), deck_y, v)
                     end
                 end
@@ -5087,40 +5899,39 @@ while not Keys.newPress.Select do
                     elseif string.sub(v,2,2) == "c" then
                         deck_y = 4*SCREEN_HEIGHT/5
                     else
-                        rank_deck[v] = rank_deck[v]+1
+                        rank_deck[position(string.sub(v,1,1))] = rank_deck[position(string.sub(v,1,1))]+1
                     end
                     if string.sub(v,2,2) ~= "t" then
                         suit_deck[string.sub(v,2,2)]= suit_deck[string.sub(v,2,2)]+1
-                        rank_deck[string.sub(v,1,1)]= rank_deck[string.sub(v,1,1)]+1
+                        rank_deck[position(string.sub(v,1,1))] = rank_deck[position(string.sub(v,1,1))] +1
                         screen.print(SCREEN_DOWN, 50 + 13*position(string.sub(v,1,1)), deck_y, v, Color.new(31,0,0))
                     end
                 end
-                local count = 1
-                for k,v in pairs(rank_deck) do
-                    screen.print(SCREEN_DOWN, 10 , 12*count, k..": "..v, Color.new(0,0,0))
-                    count = count+1
+                for i=2,15 do
+                    local k
+                    if i<15 then
+                        k = convert_num_to_rank(i)
+                    else
+                        k = "st"
+                    end
+                    screen.print(SCREEN_DOWN, 10 , 12*(i-1), k..": "..rank_deck[i], Color.new(0,0,0))
                 end
-                count = 1
+                local count = 1
                 for k,v in pairs(suit_deck) do
                     screen.print(SCREEN_DOWN, 40+40*count , 10, k..":"..v, Color.new(0,0,0))
                     count = count+1
                 end
             elseif index_menu_details[index_menu] == "Show Hand Types" then
-                local i = 1
                 screen.print(SCREEN_DOWN, SCREEN_WIDTH/4 ,10,"Poker Hand")
                 screen.print(SCREEN_DOWN, 2*SCREEN_WIDTH/3-20 ,10,"Chips",Color.new(0,0,31))
                 screen.print(SCREEN_DOWN, 3*SCREEN_WIDTH/4 ,10,"Mult",Color.new(31,0,0))
                 screen.print(SCREEN_DOWN, SCREEN_WIDTH/5-10 ,10,"#",Color.new(0,0,0))
-                for k,v in pairs(hand_multipliers) do
-                    if k == "" then
-                        goto continue
-                    end
-                    screen.print(SCREEN_DOWN, SCREEN_WIDTH/4, 10+ 12*i, k)
-                    screen.print(SCREEN_DOWN, 2*SCREEN_WIDTH/3-20, 10+12*i, v[1],Color.new(0,0,31))
-                    screen.print(SCREEN_DOWN, 3*SCREEN_WIDTH/4, 10+12*i, v[2],Color.new(31,0,0))
-                    screen.print(SCREEN_DOWN, SCREEN_WIDTH/5-10, 10+12*i, v[3],Color.new(0,0,0))
-                    i = i +1
-                    ::continue::
+                for i =2, #planets_deck do
+                    local v= hand_multipliers[planets_info[planets_deck[i]][3]]
+                    screen.print(SCREEN_DOWN, SCREEN_WIDTH/4, 10+ 12*(i-1), planets_info[planets_deck[i]][3])
+                    screen.print(SCREEN_DOWN, 2*SCREEN_WIDTH/3-20, 10+12*(i-1), v[1],Color.new(0,0,31))
+                    screen.print(SCREEN_DOWN, 3*SCREEN_WIDTH/4, 10+12*(i-1), v[2],Color.new(31,0,0))
+                    screen.print(SCREEN_DOWN, SCREEN_WIDTH/5-10, 10+12*(i-1), v[3],Color.new(0,0,0))
                 end
             elseif index_menu_details[index_menu] == "Show Enhancments" then
                 if Keys.newPress.B then
@@ -5135,13 +5946,13 @@ while not Keys.newPress.Select do
                     end
                 end
                 screen.print(SCREEN_DOWN,SCREEN_WIDTH/5,10,"B/Y: Cycle enhancement type",Color.new(0,0,31))
-                local total_enhancement = {{"Gold","Steel","Glass","Lucky","Mult","Stone"},{"Polychrome", "Holographic","Foil","Negative"},seals,{"Eternal","Perishable","Rental"}}
+                local total_enhancement = {{"Gold","Steel","Glass","Lucky","Mult","Wild", "Stone"},{"Polychrome", "Holographic","Foil","Negative"},seals,{"Eternal","Perishable","Rental"}}
                 local descriptor = {"1 available on playing cards", "1 available on playing cards, Negative possible on jokers or consumables","1 available on playing cards","Applies to jokers, available on certain stakes"}
                 local enhancement_kind = bounds(total_enhancement,enhancement_kind)
-                local spacer = 0
+                local spacer = 10
                 for i,v in ipairs(total_enhancement[enhancement_kind])do
                     screen.print(SCREEN_DOWN,5,10+10*i+spacer,v..":",Color.new(31*(i%2),31*(i%2),31*(i%2)))
-                    local to_print = text_width(enhancement_info[v][1],SCREEN_WIDTH/(2*6))
+                    local to_print = text_width(enhancement_info[v][1],2*SCREEN_WIDTH/(3*6))
                     for j,k in ipairs(to_print) do
                         screen.print(SCREEN_DOWN,SCREEN_WIDTH/3,10*(i+j)+spacer,k,Color.new(31*(i%2),31*(i%2),31*(i%2)))
                     end
@@ -5160,26 +5971,26 @@ while not Keys.newPress.Select do
                     end
                 end
                 if Keys.held.Right then
-                    if music_vol == true then
+                    if music_vol == true and MOD_volume<1 then
                         MOD_volume =  MOD_volume + 0.01
-                        if MOD_volume > 1 then
+                        if MOD_volume >1 then
                             MOD_volume = 1
                         end
-                    elseif music_vol == false then
+                    elseif music_vol == false and SFX_volume<1 then
                         SFX_volume = SFX_volume + 0.01
-                        if SFX_volume > 1 then
+                        if SFX_volume >1 then
                             SFX_volume = 1
                         end
                     end
                 elseif Keys.held.Left then
-                    if music_vol == true then
+                    if music_vol == true and MOD_volume>0 then
                         MOD_volume = MOD_volume - 0.01
-                        if MOD_volume < 0 then
+                        if MOD_volume <0 then
                             MOD_volume = 0
                         end
-                    elseif music_vol == false then
+                    elseif music_vol == false and SFX_volume >0 then
                         SFX_volume = SFX_volume - 0.01
-                        if SFX_volume < 0 then
+                        if SFX_volume <0 then
                             SFX_volume = 0
                         end
                     end
@@ -5194,6 +6005,22 @@ while not Keys.newPress.Select do
                 screen.print(SCREEN_DOWN, SCREEN_WIDTH/3, SCREEN_HEIGHT/2+10, MOD_volume*100)
                 screen.print(SCREEN_DOWN, 2*SCREEN_WIDTH/3, SCREEN_HEIGHT/2, "SFX")
                 screen.print(SCREEN_DOWN, 2*SCREEN_WIDTH/3, SCREEN_HEIGHT/2+10, SFX_volume*100)
+            elseif index_menu_details[index_menu] == "Adjust Animations" then
+                screen.drawFillRect(SCREEN_DOWN, SCREEN_WIDTH*(speed_init+1)/5,SCREEN_HEIGHT/2, SCREEN_WIDTH*(speed_init+1)/5 + 6*string.len(speed_details[speed_init]),SCREEN_HEIGHT/2+10, Color.new(0,0,0))
+                for i=0,3 do
+                    screen.print(SCREEN_DOWN, SCREEN_WIDTH*(i+1)/5,SCREEN_HEIGHT/2,speed_details[i])
+                end
+                if Keys.newPress.Right then
+                    speed_init = speed_init+1
+                    if speed_init>3 then
+                        speed_init = 0
+                    end
+                elseif Keys.newPress.Left then
+                    speed_init = speed_init-1
+                    if speed_init<0 then
+                        speed_init = 3
+                    end
+                end
             elseif index_menu_details[index_menu] == "Retire Run"  then
                 screen.print(SCREEN_DOWN, 70, SCREEN_HEIGHT/2, "Hold A to retire run")
                 if Keys.held.A then
@@ -5217,25 +6044,22 @@ while not Keys.newPress.Select do
                 else 
                     kind = 1
                 end
-                Sound.setModVolume(math.floor(600*MOD_volume))
+                Sound.setModVolume(math.floor(MOD_max*MOD_volume))
                 Sound.setSFXVolume(0,math.floor(255*SFX_volume))
                 Sound.setSFXVolume(1,math.floor(255*SFX_volume))
             end
-        elseif gameplay_phase == 3 then--playing hand
+        elseif gameplay_phase == 3 then--playing hand 
+            Sound.setModVolume(0)
             can_play_hand = false
             can_discard = false
             interest = 0
             cash_out = 0
-            for k,v in pairs(hand_multipliers) do
-                if k == hand_type then
-                    hand_multipliers[hand_type][3] = hand_multipliers[hand_type][3]+1
-                    break
-                end
-            end
-            val = calculate_total_score(hand) 
+            hand_multipliers[hand_type][3] = hand_multipliers[hand_type][3]+1
+            val = calculate_total_score(hand)
             round_score = round_score + val
             hand = {}
             hand_enhancement = {}
+            Sound.setModVolume(math.floor(MOD_max*MOD_volume))
             if hands == 0 and round_score < minimumscore[blind] then
                 for i,v in ipairs(jokers) do
                     if v == "Mr Bones" and round_score >=minimumscore[blind]/4 then
@@ -5257,7 +6081,6 @@ while not Keys.newPress.Select do
                 round_end_enhancement()
                 dealt = {}
                 dealt_enhancement = {}
-                collectgarbage()
                 gameplay_phase = 3.5
                 for i,v in ipairs(jokers) do
                     round_end_jokers(v,i)
@@ -5265,9 +6088,13 @@ while not Keys.newPress.Select do
                 interest = math.Clamp(math.floor(cash / 5), 0, max_interest)
                 cash_out = blind_payouts[blind] + hands*hand_cash + discards*discard_cash + interest
                 shop_jokers = {}
+                if ante == 8 and blind == 3 then
+                    win = true
+                    gameplay_phase = 5
+                end
             else
-                gameplay_phase = 2
                 add_to_dealt()
+                gameplay_phase = 2
                 if blind == 3 and ante%8 == 0 then
                     if finisher_blinds[boss_num] == "Cerulean Bell" and boss_active == true then
                         local rand = math.random(#dealt)
@@ -5275,32 +6102,50 @@ while not Keys.newPress.Select do
                         table.insert(hand_enhancement,dealt_enhancement[rand])
                         table.remove(dealt,rand)
                         table.remove(dealt_enhancement,rand)
+                    elseif finisher_blinds[boss_num] == "Crimson Heart" then
+                        for i,v in ipairs(jokers_enhancement) do
+                            if v[3] == "Disabled" then
+                                table.remove(jokers_enhancement[i],3)
+                            end
+                        end
+                        local rand = math.random(#jokers)
+                        table.insert(jokers_enhancement[rand],3,"Disabled")
                     end
                 end
                 dealt,dealt_enhancement = sort_deck(dealt,dealt_enhancement)
             end
         elseif gameplay_phase == 3.5 then--cash_out
             draw_cashout()
+            if blind == 3 and boss_active == false then
+                for i,v in ipairs(jokers) do
+                    if v == "Chicot" then
+                        break
+                    end
+                    if i == #jokers then
+                        boss_active = true
+                    end
+                end
+            end
             if Keys.newPress.A then
+                hand_type = ""
                 reset_deck()
                 used_cards={}
-                gameplay_phase = 4
                 round_score = 0
                 cash = cash + cash_out
                 for i=1, 2 do
                     local p_type = 0
                     local p_size = 0
-                    local initial_rand = math.random()--may be some edge case weirdness idk cba to figure out atm
+                    local initial_rand = math.random()
                     local second_rand = math.random()
                     repeat
                         p_type = p_type + 1
-                        initial_rand = initial_rand - type_base_prob[p_type]
+                        initial_rand = initial_rand - type_active_prob[p_type]
                     until initial_rand <= 0
                     repeat
                         p_size = p_size + 1
-                        second_rand = second_rand - size_base_prob[p_size]
+                        second_rand = second_rand - size_active_prob[p_size]
                     until second_rand <= 0
-                    table.insert(packs,{pack_type[p_type],p_size,p_type})
+                    table.insert(packs,{pack_type[p_type],p_size,p_type,math.floor(shop_costs[5][p_size]*discount_percent)})
                 end
                 round = round +1
                 kind = 1.5
@@ -5310,8 +6155,25 @@ while not Keys.newPress.Select do
                 for i,v in ipairs(jokers) do
                     if v == "Chaos the Clown" then
                         reroll_price = 0
+                    elseif v == "Astronomer" then
+                        for j = 1, #shop_jokers do
+                            if consumable_deck[shop_jokers[j]] ~= nil then
+                                if consumable_deck[shop_jokers[j]][2] == "Planet" then
+                                    shop_jokers_enhancement[j][1] = 0
+                                end
+                            end
+                        end
+                        for j=1, #packs do
+                            if packs[j][1] == "celestial" then
+                                packs[j][4] = 0
+                            end
+                        end
                     end
                 end
+                if deck_name == "Inflation" then
+                    inflation_ability()
+                end
+                gameplay_phase = 4
             end
         elseif gameplay_phase == 4 then--shop
             if kind == 1.5 then
@@ -5354,7 +6216,7 @@ while not Keys.newPress.Select do
             if Keys.newPress.Y then--sell or buy 
                 if kind == 1.5 and #shop_jokers>0 then--shop_joker
                     if joker_info[shop_jokers[selected_card]] ~= nil then
-                        if #shop_jokers > 0 and cash >= shop_jokers_enhancement[selected_card][1] + min_cash then
+                        if cash >= shop_jokers_enhancement[selected_card][1] + min_cash then
                             local negative_shop = false
                             for i,v in ipairs(shop_jokers_enhancement[selected_card]) do
                                 if v == "Negative" then
@@ -5368,12 +6230,20 @@ while not Keys.newPress.Select do
                                 table.remove(shop_jokers, selected_card)
                                 table.remove(shop_jokers_enhancement, selected_card)
                                 selected_card = 1
+                                if deck_name == "Inflation" then
+                                    num_bought = num_bought + 1
+                                    inflation_ability()
+                                end
                             elseif negative_shop == false and #jokers < joker_size then
                                 cash = cash - shop_jokers_enhancement[selected_card][1]
                                 add_jokers_to_selection(shop_jokers[selected_card],shop_jokers_enhancement[selected_card])
                                 table.remove(shop_jokers, selected_card)
                                 table.remove(shop_jokers_enhancement, selected_card)
                                 selected_card = 1
+                                if deck_name == "Inflation" then
+                                    num_bought = num_bought + 1
+                                    inflation_ability()
+                                end
                             end
                         end
                     elseif string.len(shop_jokers[selected_card]) == 2 then--may be a better way, works for now
@@ -5385,19 +6255,26 @@ while not Keys.newPress.Select do
                             table.remove(shop_jokers, selected_card)
                             table.remove(shop_jokers_enhancement, selected_card)
                             selected_card = 1
+                            for j,k in ipairs(jokers) do
+                                added_to_deck_jokers(k,j)
+                            end
+                            if deck_name == "Inflation" then
+                                num_bought = num_bought + 1
+                                inflation_ability()
+                            end
                             reset_deck()
                         end
                     else
-                        local i = 0
-                        repeat
-                            i=i+1
-                        until consumable_deck[i][shop_jokers[selected_card]] ~= nil
                         if cash >= shop_jokers_enhancement[selected_card][1] + min_cash and #consumable<consumable_size then
                             cash = cash - shop_jokers_enhancement[selected_card][1]
                             table.insert(consumable,shop_jokers[selected_card])
                             table.insert(consumable_enhancement," ")
                             table.remove(shop_jokers, selected_card)
                             table.remove(shop_jokers_enhancement, selected_card)
+                            if deck_name == "Inflation" then
+                                num_bought = num_bought + 1
+                                inflation_ability()
+                            end
                         end
                     end
                 elseif kind == 2 and #jokers>0 then--joker
@@ -5405,9 +6282,8 @@ while not Keys.newPress.Select do
                 elseif kind == 2.5 and #packs>0 then--packs
                     name_pack = packs[selected_card][1]
                     type_pack = packs[selected_card][2]
-                    local cost = math.floor(shop_costs[5][type_pack]*discount_percent)
-                    if cash >= cost + min_cash and #packs > 0  then
-                        cash = cash - cost
+                    if cash >= packs[selected_card][4] + min_cash and #packs > 0  then
+                        cash = cash - packs[selected_card][4]
                         prev_phase = 4
                         if name_pack == "standard" or name_pack == "arcana" or name_pack == "celestial" then
                             if type_pack == 1 then
@@ -5424,25 +6300,31 @@ while not Keys.newPress.Select do
                         end
                         table.remove(packs,selected_card)
                         selected_card=1
+                        if deck_name == "Inflation" then
+                            num_bought = num_bought + 1
+                            inflation_ability()
+                        end
                         open_pack()
                     end
                 elseif kind == 3 and #consumable>0 then--consumable
-                    local i = 0
-                    repeat
-                        i=i+1
-                    until consumable_deck[i][consumable[selected_card]] ~= nil
-                        cash = cash + math.floor(shop_costs[i+1]*discount_percent/2)
+                    local consumable_cost = {["Planet"] = 2, ["Tarot"] = 3, ["Spectral"] = 4}
+                    local shop_cost_position = consumable_cost[consumable_deck[consumable[selected_card]][2]]
+                    cash = cash + math.floor(shop_costs[shop_cost_position]*discount_percent/2)
                         if consumable_enhancement[selected_card] == "Negative" then
                             consumable_size = consumable_size-1
                         end
                     table.remove(consumable, selected_card)
                     table.remove(consumable_enhancement, selected_card)
                 elseif kind == 3.5 and #vouchers>0 then--voucher
-                    if cash >= shop_costs[#shop_costs] + min_cash then
-                        cash = cash - shop_costs[#shop_costs]
-                        use_vouchers(voucher_show[selected_card])
+                    if cash >= voucher_show[selected_card][2] + min_cash then
+                        cash = cash - voucher_show[selected_card][2]
+                        use_vouchers(voucher_show[selected_card][1])
                         table.remove(voucher_show,selected_card)
                         kind = 1.5
+                        if deck_name == "Inflation" then
+                            num_bought = num_bought + 1
+                            inflation_ability()
+                        end
                     end
                 end
             end
@@ -5460,9 +6342,7 @@ while not Keys.newPress.Select do
             if Keys.newPress.X and cash >= reroll_price-min_cash then
                 cash = cash - reroll_price
                 for i,v in ipairs(jokers) do
-                    if v == "Chaos the Clown" and reroll_price == 0 then
-                        reroll_price = min_reroll
-                    end
+                    reroll_jokers(v,i)
                 end
                 reroll_price = reroll_price + 1
                 shop_jokers = {}
@@ -5497,7 +6377,7 @@ while not Keys.newPress.Select do
             end
         elseif gameplay_phase == 4.5 then--packs
             screen.print(SCREEN_DOWN,SCREEN_WIDTH/3,SCREEN_HEIGHT-card_size[2]/2,"X: Skip")
-            screen.print(SCREEN_DOWN,2*SCREEN_WIDTH/3,SCREEN_HEIGHT-card_size[2]/2,"B: Use")
+            screen.print(SCREEN_DOWN,2*SCREEN_WIDTH/3,SCREEN_HEIGHT-card_size[2]/2,"A: Use")
             local pack_count_tot = 1--number of cards to pick
             if type_pack == 3 then
                 pack_count_tot = 2
@@ -5575,27 +6455,41 @@ while not Keys.newPress.Select do
                 end
             end
             if kind == 4 then
-                if Keys.newPress.B then
+                if Keys.newPress.A then
                     local initial_len = #pack_interior
                     if name_pack == "celestial" then
-                        local plan_hand = planets_info[pack_interior[selected_card]]
-                        hand_multipliers[plan_hand[3]][1] = hand_multipliers[plan_hand[3]][1] + plan_hand[1]
-                        hand_multipliers[plan_hand[3]][2] = hand_multipliers[plan_hand[3]][2] + plan_hand[2]
-                        last_used_consumable = pack_interior[selected_card]
-                        table.remove(pack_interior,selected_card)
-                        total_planets = total_planets+1
+                        if consumable_deck[pack_interior[selected_card]][2] == "Planet" then
+                            local plan_hand = planets_info[pack_interior[selected_card]]
+                            hand_multipliers[plan_hand[3]][1] = hand_multipliers[plan_hand[3]][1] + plan_hand[1]
+                            hand_multipliers[plan_hand[3]][2] = hand_multipliers[plan_hand[3]][2] + plan_hand[2]
+                            last_used_consumable = pack_interior[selected_card]
+                            table.remove(pack_interior,selected_card)
+                            total_planets = total_planets+1
+                        elseif consumable_deck[pack_interior[selected_card]][2] == "Spectral" then
+                            use_spectral(pack_cards, pack_cards_enhancements, pack_interior)
+                        end
                     elseif name_pack == "standard" then
                         table.insert(full_deck, pack_interior[selected_card])
                         table.insert(full_deck_enhancement, pack_interior_enhancement[selected_card])
                         table.remove(pack_interior,selected_card)
                         table.remove(pack_interior_enhancement,selected_card)
+                        for j,k in ipairs(jokers) do
+                            added_to_deck_jokers(k,j)
+                        end
                     elseif name_pack == "bufoon" and #jokers < joker_size then
                         add_jokers_to_selection(pack_interior[selected_card],{joker_info[pack_interior[selected_card]][1]})
                         table.remove(pack_interior,selected_card)
                     elseif name_pack == "arcana" then
-                        pack_interior  = use_tarots(pack_interior)
-                        if #active ~= 0 and general_tarot == false then
-                            active, active_enhancement, pack_cards, pack_cards_enhancements, pack_interior = use_target_tarots(active,active_enhancement,pack_cards,pack_cards_enhancements,pack_interior)
+                        if consumable_deck[pack_interior[selected_card]][2] == "Tarot" then
+                            pack_interior  = use_tarots(pack_interior)
+                            if #active ~= 0 and general_used == false then
+                                active, active_enhancement, pack_cards, pack_cards_enhancements, pack_interior = use_target_tarots(active,active_enhancement,pack_cards,pack_cards_enhancements,pack_interior)
+                            end
+                        elseif consumable_deck[pack_interior[selected_card]][2] == "Spectral" then
+                            pack_cards,pack_cards_enhancements, pack_interior = use_spectral(pack_cards,pack_cards_enhancements, pack_interior)
+                            if #active ~= 0 and general_used == false then
+                                active, active_enhancement, pack_cards, pack_cards_enhancements,pack_interior= use_target_spectral(active, active_enhancement, pack_cards, pack_cards_enhancements,pack_interior)
+                            end
                         end
                     elseif name_pack == "spectral" then
                         pack_cards,pack_cards_enhancements, pack_interior = use_spectral(pack_cards,pack_cards_enhancements, pack_interior)
@@ -5610,10 +6504,12 @@ while not Keys.newPress.Select do
                         gameplay_phase = prev_phase
                         selected_card = 1
                         reset_deck()
-                        active = {}
-                        active_enhancement = {}
                         pack_interior = {}
                         pack_interior_enhancement = {}
+                        pack_cards = {}
+                        pack_cards_enhancements = {}
+                        active = {}
+                        active_enhancement = {}
                         if prev_phase == 1 then
                             kind = 1
                         elseif prev_phase == 4 then
@@ -5623,12 +6519,12 @@ while not Keys.newPress.Select do
                 end
                 selected_card = bounds(pack_interior,selected_card)
             elseif kind == 1 then
-                if Keys.newPress.A then
+                if Keys.newPress.Y then
                     table.insert(active_enhancement,pack_cards_enhancements[selected_card])
                     table.insert(active,pack_cards[selected_card])
                     table.remove(pack_cards_enhancements,selected_card)
                     table.remove(pack_cards,selected_card)
-                elseif Keys.newPress.Y then
+                elseif Keys.newPress.B then
                     for i, v in ipairs(active) do
                         table.insert(pack_cards,v)
                         table.insert(pack_cards_enhancements,active_enhancement[i])
@@ -5652,11 +6548,9 @@ while not Keys.newPress.Select do
                         active,active_enhancement,pack_cards,pack_cards_enhancements = use_consumable_target(active,active_enhancement,pack_cards,pack_cards_enhancements,consumable)
                     end
                 elseif Keys.newPress.Y and #consumable>0 then
-                    local i = 0
-                    repeat
-                        i=i+1
-                    until consumable_deck[i][consumable[selected_card]] ~= nil
-                    cash = cash + math.floor(shop_costs[1+i]*discount_percent/2)
+                    local consumable_cost = {["Planet"] = 2, ["Tarot"] = 3, ["Spectral"] = 4}
+                    local shop_cost_position = consumable_cost[consumable_deck[consumable[selected_card]][2]]
+                    cash = cash + math.floor(shop_costs[shop_cost_position]*discount_percent/2)
                     if consumable_enhancement[selected_card] == "Negative" then
                         consumable_size = consumable_size-1
                     end
@@ -5681,17 +6575,17 @@ while not Keys.newPress.Select do
             end
             if Keys.newPress.X then--without buying
                 for i,v in ipairs(jokers) do
-                    if v == "Red Card" then
-                        jokers_enhancement[i][1] = jokers_enhancement[i][1] + 3--do with brainstorm and bluprint
-                    end
+                    pack_skip_jokers(v,i)
                 end
                 gameplay_phase = prev_phase
                 selected_card = 1
                 reset_deck()
-                active = {}
-                active_enhancement = {}
                 pack_interior = {}
                 pack_interior_enhancement = {}
+                pack_cards = {}
+                pack_cards_enhancements = {}
+                active = {}
+                active_enhancement = {}
                 if prev_phase == 4 then
                     kind = 1.5
                 elseif prev_phase == 1 then
@@ -5699,11 +6593,6 @@ while not Keys.newPress.Select do
                 end
             end
         elseif gameplay_phase == 5 then--game over
-            if Keys.newPress.A then
-                gameplay_phase = 0
-                scene = "menu"
-                hard_reset()
-            end
             screen.setAlpha(40)
             screen.drawFillRect(SCREEN_DOWN, 0, 0, 256, 192, Color.new256(0, 255, 0))
             screen.drawFillRect(SCREEN_UP, 80, 0, 256, 192, Color.new256(0, 255, 0))
@@ -5714,25 +6603,38 @@ while not Keys.newPress.Select do
             screen.drawFillRect(SCREEN_DOWN, 36, 66, 223, 96, Color.new256(39, 39, 46))
             screen.drawFillRect(SCREEN_DOWN, 36, 154, 223, 192, Color.new256(39, 39, 46))
             screen.print(SCREEN_DOWN, 54, 172, "PRESS A TO RETURN TO MENU", Color.new(31, 31, 31))
-            joker_graphic = Sprite.new(joker_graphics, 19, 28, VRAM)
+            local joker_graphic = Sprite.new(joker_graphics, 19, 28, VRAM)
             screen.blit(SCREEN_DOWN, 64, 112, card_graphic)
             joker_graphic:drawFrame(SCREEN_DOWN, 64, 112, 0)
             if win then
                 screen.print(SCREEN_DOWN, 88, 118, "Good thing I didnt", Color.new(31, 31, 31))
                 screen.print(SCREEN_DOWN, 88, 128, "bet against you!", Color.new(31, 31, 31))
                 screen.print(SCREEN_DOWN, 106, 76, "YOU WIN!", Color.new(31, 31, 31))
+                if Keys.newPress.A then
+                    gameplay_phase = 3.5
+                end
             else
                 screen.print(SCREEN_DOWN, 88, 118, "We folded like a", Color.new(31, 31, 31))
                 screen.print(SCREEN_DOWN, 88, 128, "cheap suit!", Color.new(31, 31, 31))
                 screen.print(SCREEN_DOWN, 96, 76, "YOU LOSE...", Color.new(31, 31, 31))
+                if Keys.newPress.A then
+                    gameplay_phase = 0
+                    scene = "menu"
+                    hard_reset()
+                end
+            end
+        end
+        if gameplay_phase ~= 2.5 then
+            if first~= 0 then
+                movement()
             end
         end
     end
     render()
 end
 collectgarbage()
---Sound.unloadSFX(1)--unload in reverse order
---Sound.unloadSFX(0)
+Sound.unloadSFX(1)--unload in reverse order
+Sound.unloadSFX(0)
 Sound.unloadMod(0)
 Sound.unloadBank()
 Image.destroy(img_packs)

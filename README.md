@@ -1,5 +1,5 @@
 # Balatro DS Port
-A port of fire game Balatro to the nintendo DS made using MicroLUA, based of Haynster's original port.
+An (almost complete) port of fire game Balatro to the nintendo DS made using MicroLUA, based of Haynster's original port.
 
 ## How to Install
 1. Get MicroLUA from https://www.gamebrew.org/wiki/Micro_Lua_DS
@@ -10,30 +10,26 @@ A port of fire game Balatro to the nintendo DS made using MicroLUA, based of Hay
 ## Contains:
 1. 15 Jokers with art
 2. Large number of jokers without art including legendary jokers
-3. 21/22 tarot cards
-4. tarots planet and spectral work in consumable slot
+3. All tarot cards
+4. Tarots, planet and spectral cards work in consumable slot
 5. All packs added
-6. All vouchers apart from omen
+6. All vouchers apart
 7. All skip tags--with some slight differences
 8. All different stakes
-9. All different base decks + 1 additional mainly for testing + Some challenge decsk
-10. 17/18 spectral cards
+9. All different base decks + Some challenge decsk
+10. All spectral cards
 11. Improved calculations
 12. Endless implemented but not tested
-13. ability to move cards and jokers
-14. ability to sell jokers and consumables
-15. Pause menu--see deck, look at hands, look at enhancements, music volume, retire run
-16. music plays but sounds bad
-17. card enhancements and stickers minus red seal
+13. Ability to move cards and jokers
+14. Ability to sell jokers and consumables
+15. Pause menu--see deck, look at hands, look at enhancements, music volume, animation speed, retire run
+16. Music plays but sounds bad, SFX works but no great animations
+17. All card enhancements and stickers
 18. Seeded runs
-19. Improved number of Boss Blinds including some finisher blinds (not tested)
+19. All Boss and Finisher Blinds except The Pillar
 ## Missing:
-1. remaining jokers
-2. remaining boss blinds flipping cards and debuf jokers
-3. retriggering
-4. wild cards
-5. SFX
-6. Animations
-7. artwork
-8. Improve deck/card tracker
-9. Challenge Decks
+1. The Pillar mainly due to no artwork to show debuffed cards atm so would just be frustrating to play
+2. Animations
+3. Artwork -- some done by mathlver342 but not implemented yet
+4. Improve deck/card tracker to show enhancements
+5. Challenge Decks -- Double or nothing
