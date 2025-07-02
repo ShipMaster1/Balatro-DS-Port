@@ -309,57 +309,58 @@ planets_info = {
 }
 
 consumable_deck = {
-    ["The Fool"] = {"Creates the last Tarot or Planet card used during this run","Tarot"},
-    ["The Magician"] = {"Convert up to 2 cards to Lucky cards","Tarot"},
-    ["The High Priestess"] = {"Creates up to 2 planet cards","Tarot"},
-    ["The Empress"] = {"Convert up to 2 cards to Mult cards","Tarot"},
-    ["The Emperor"] = {"Creates up to 2 tarot cards","Tarot"},
-    ["The Heirophant"] = {"Converts up to 2 cards to Bonus cards","Tarot"},
-    ["The Lovers"] = {"Convert 1 card to a Wild card","Tarot"},
-    ["The Chariot"] = {"Convert 1 card into a Steel card","Tarot"},
-    ["Justice"] = {"Convert 1 card into a Glass card","Tarot"},
-    ["The Hermit"] = {"Double money (max $20)","Tarot"},
-    ["The Wheel of Fortune"] = {"1 in 4 cahnce to give a random joker Foil, Holographic or Polychrome","Tarot"},
-    ["Strength"] = {"Increase the rank on up to 2 cards by 1","Tarot"},
-    ["The Hanged Man"] = {"Destroy up to 2 Cards","Tarot"},
-    ["Death"] = {"Convert the left card into the right card","Tarot"},
-    ["Temperence"] = {"Gives total sell value of all jokers (max $50)","Tarot"},
-    ["The Tower"] = {"Convert 1 card to a Stone card (+50 chips, always scores)","Tarot"},
-    ["The Devil"] = {"Convert 1 card into a Gold card","Tarot"},
-    ["The Star"] = {"Convert up to 3 cards to Diamonds","Tarot"},
-    ["The Moon"] = {"Convert up to 3 cards to Clubs","Tarot"},
-    ["The Sun"] = {"Convert up to 3 cards to Hearts","Tarot"},
-    ["Judgement"] = {"creates a random joker (must have room)","Tarot"},
-    ["The World"] = {"Convert up to 3 cards to Spades","Tarot"},
-    ["Pluto"] = {"High Card","Planet"}, 
-    ["Mercury"] = {"Pair","Planet"}, 
-    ["Uranus"] = {"Two Pair","Planet"}, 
-    ["Venus"] = {"3 of a Kind","Planet"}, 
-    ["Saturn"] = {"Straight","Planet"}, 
-    ["Jupiter"] = {"Flush","Planet"}, 
-    ["Earth"] = {"Full House","Planet"}, 
-    ["Mars"] = {"4 of a Kind","Planet"}, 
-    ["Neptune"] = {"Straight Flush","Planet"}, 
-    ["Planet X"] = {"5 of a Kind","Planet"}, 
-    ["Ceres"] = {"Flush House","Planet"}, 
-    ["Eris"] = {"Flush Five","Planet"},
-    ["Familiar"] = {"Destroy 1 random card in hand but add 3 random enchanted face cards","Spectral"},
-    ["Grim"] = {"Destroy 1 random card in hand but add 2 random enchanted ace cards","Spectral"},
-    ["Incantation"] = {"Destroy 1 random card in hand but add 4 random numbered cards","Spectral"},
-    ["Aura"] = {"Add Foil, Holographic or Polychrome to a selected card in hand","Spectral"},
-    ["Wraith"] = {"Create a random rare joker, set money to $0","Spectral"},
-    ["Sigil"] = {"Convert all cards in hand to a single random suit","Spectral"},
-    ["Ouija"] = {"Convert all cards in hand to a single random rank but -1 hand size","Spectral"},
-    ["Ectoplasm"] = {"Add Negative to a random joker, but -1 hand size, plus another -1 hand size for each time Ectoplasm has been used this run","Spectral"},
-    ["Immolate"] = {"Destroy 5 random cards in hand, gain $20","Spectral"},
-    ["Ankh"] = {"Creates an exact copy of 1 of your Jokers at random, then destroys the others","Spectral"},
-    ["Deja Vu"] = {"Add a Red-Seal to a selected card","Spectral"},
-    ["Hex"] = {"Add Polychrome to a random joker but destroys the rest","Spectral"},
-    ["Trance"] = {"Add a blue seal to a selected card","Spectral"},
-    ["Medium"] = {"Add a Purple Seal to a selected card","Spectral"},
-    ["Cryptid"] = {"Create 2 exact copies of a selected card","Spectral"},
-    ["The Soul"] = {"Create a legendary Joker","Spectral"},--0.3% chance
-    ["Black Hole"] = {"Increase all poker hands by 1 level","Spectral"},--0.3% chance
+    ["The Fool"] = {"Creates the last Tarot or Planet card used during this run","Tarot",1},
+    ["The Magician"] = {"Convert up to 2 cards to Lucky cards","Tarot",2},
+    ["The High Priestess"] = {"Create and use up to 2 planet cards","Tarot",3},
+    ["The Empress"] = {"Convert up to 2 cards to Mult cards","Tarot",4},
+    ["The Emperor"] = {"Creates up to 2 tarot cards","Tarot",5},
+    ["The Heirophant"] = {"Converts up to 2 cards to Bonus cards","Tarot",6},
+    ["The Lovers"] = {"Convert 1 card to a Wild card","Tarot",7},
+    ["The Chariot"] = {"Convert 1 card into a Steel card","Tarot",8},
+    ["Justice"] = {"Convert 1 card into a Glass card","Tarot",9},
+    ["The Hermit"] = {"Double money (max $20)","Tarot",10},
+    ["The Wheel of Fortune"] = {"1 in 4 cahnce to give a random joker Foil, Holographic or Polychrome","Tarot",11},
+    ["Strength"] = {"Increase the rank on up to 2 cards by 1","Tarot",12},
+    ["The Hanged Man"] = {"Destroy up to 2 Cards","Tarot",13},
+    ["Death"] = {"Convert the left card into the right card","Tarot",14},
+    ["Temperence"] = {"Gives total sell value of all jokers (max $50)","Tarot",15},
+    ["The Tower"] = {"Convert 1 card to a Stone card (+50 chips, always scores)","Tarot",16},
+    ["The Devil"] = {"Convert 1 card into a Gold card","Tarot",17},
+    ["The Star"] = {"Convert up to 3 cards to Diamonds","Tarot",18},
+    ["The Moon"] = {"Convert up to 3 cards to Clubs","Tarot",19},
+    ["The Sun"] = {"Convert up to 3 cards to Hearts","Tarot",20},
+    ["Judgement"] = {"creates a random joker (must have room)","Tarot",21},
+    ["The World"] = {"Convert up to 3 cards to Spades","Tarot",22},
+    ["Pluto"] = {"High Card","Planet",1}, 
+    ["Mercury"] = {"Pair","Planet",2}, 
+    ["Uranus"] = {"Two Pair","Planet",3}, 
+    ["Venus"] = {"3 of a Kind","Planet",4}, 
+    ["Saturn"] = {"Straight","Planet",5}, 
+    ["Jupiter"] = {"Flush","Planet",6}, 
+    ["Earth"] = {"Full House","Planet",7}, 
+    ["Mars"] = {"4 of a Kind","Planet",8}, 
+    ["Neptune"] = {"Straight Flush","Planet",9}, 
+    ["Planet X"] = {"5 of a Kind","Planet",10}, 
+    ["Ceres"] = {"Flush House","Planet",11}, 
+    ["Eris"] = {"Flush Five","Planet",12},
+    ["Familiar"] = {"Destroy 1 random card in hand but add 3 random enchanted face cards","Spectral",1},
+    ["Grim"] = {"Destroy 1 random card in hand but add 2 random enchanted ace cards","Spectral",2},
+    ["Incantation"] = {"Destroy 1 random card in hand but add 4 random numbered cards","Spectral",3},
+    ["Talisman"] = {"Add Gold Seal to 1 card","Spectral",4},
+    ["Aura"] = {"Add Foil, Holographic or Polychrome to a selected card in hand","Spectral",5},
+    ["Wraith"] = {"Create a random rare joker, set money to $0","Spectral",6},
+    ["Sigil"] = {"Convert all cards in hand to a single random suit","Spectral",7},
+    ["Ouija"] = {"Convert all cards in hand to a single random rank but -1 hand size","Spectral",8},
+    ["Ectoplasm"] = {"Add Negative to a random joker, but -1 hand size, plus another -1 hand size for each time Ectoplasm has been used this run","Spectral",9},
+    ["Immolate"] = {"Destroy 5 random cards in hand, gain $20","Spectral",10},
+    ["Ankh"] = {"Creates an exact copy of 1 of your Jokers at random, then destroys the others","Spectral",11},
+    ["Deja Vu"] = {"Add a Red-Seal to a selected card","Spectral",12},
+    ["Hex"] = {"Add Polychrome to a random joker but destroys the rest","Spectral",13},
+    ["Trance"] = {"Add a blue seal to a selected card","Spectral",14},
+    ["Medium"] = {"Add a Purple Seal to a selected card","Spectral",15},
+    ["Cryptid"] = {"Create 2 exact copies of a selected card","Spectral",16},
+    ["The Soul"] = {"Create a legendary Joker","Spectral",17},--0.3% chance
+    ["Black Hole"] = {"Increase all poker hands by 1 level","Spectral",18},--0.3% chance
 
 }
 
@@ -424,7 +425,7 @@ tag_info = {
     ["Orbital"] = "Upgrade a most played Poker Hand by 3 levels"--i know this isnt what it is but is very awkward to get to work and display
 }
 
-card_enhancement = {"Gold","Steel","Glass","Lucky","Mult","Wild"}--stone excluded
+card_enhancement = {"Gold","Steel","Glass","Lucky","Mult","Wild","Stone"}
 editions = {"Polychrome", "Holographic","Foil"}--negative, excluded
 seals = {"Gold-Seal", "Blue-Seal", "Purple-Seal", "Red-Seal"}
 
@@ -453,6 +454,7 @@ rank_graphics = {["t"] = Image.load("sprites/cards/1.png", VRAM), ["2"] = Image.
 suit_graphics = {["d"] = Image.load("sprites/cards/d.png", VRAM), ["c"] = Image.load("sprites/cards/c.png", VRAM), ["s"] = Image.load("sprites/cards/s.png", VRAM), ["h"] = Image.load("sprites/cards/h.png", VRAM),}
 joker_graphics = Image.load("sprites/cards/jokers.png", VRAM)
 --joker_graphics_table = {["Common"] = Image.load("sprites/cards/common_jokers.png", VRAM), ["Uncommon"] = Image.load("sprites/cards/uncommon_jokers.png", VRAM), ["Rare"] = Image.load("sprites/cards/rare_jokers.png", VRAM), ["Legendary"] = Image.load("sprites/cards/legendary_jokers.png", VRAM) }
+consumable_graphics_table = {["Tarot"] = Image.load("sprites/cards/Tarots.png", VRAM), ["Planet"] = Image.load("sprites/cards/Planets.png", VRAM), ["Spectral"] = Image.load("sprites/cards/Spectral.png", VRAM)}
 hudbg = Image.load("sprites/ui/hudbackground.png", VRAM)
 hud = Image.load("sprites/ui/hud.png", VRAM)
 blind_ui = Image.load("sprites/ui/blindui.png", VRAM)
@@ -552,7 +554,7 @@ function hard_reset()--done when resetting run
     reset_shop_weights()
     reset_challenge()
     reset_pack_prob()
-    ante_bases = {300, 800, 2000, 5000, 11000, 20000, 35000, 50000, 110000, 560000, 72e5, 3e8, 47e9, 2.9e13, 7.7e16, 8.6e20, 4,2e25, 9.2e30, 9.2e36, 4.3e43, 9.7e50, 1e59, 5.8e67, 1.6e77, 2.4e87,1.9e98, 8.4e109, 2e122, 2.7e135, 2.1e149, 9.9e163, 2.7e179, 4.4e195, 4.4e212, 2.8e230, 1.1e249, 2.7e268,4.5e288, 4.8e309}
+    ante_bases = {300, 800, 2000, 5000, 11000, 20000, 35000, 50000, 110000, 560000, 72e5, 1e8}--above this the numbers go beyond the 32 bit integer limit
     telescope, observatory, shop_enhanced = false, false, false
     vouchers = {"Overstock", "Clearence Sale", "Reroll Surplus", "Crystal Ball", "Grabber", "Wasteful", "Seed Money", "Heiroglyph", "Director's Cut", "Paint Brush", "Tarot Merchant", "Planet Merchant", "Telescope", "Magic Trick","Blank","Hone"}--all cost $10
     full_deck_enhancement = {}
@@ -1063,22 +1065,33 @@ function get_deck(deck_name)
     deck_size = #full_deck
 end
 
-function get_random_enhance()
-    local index = math.random(#card_enhancement+#editions+#seals)
-    local addition,pos
-    if index < #card_enhancement+1 then
-        addition = card_enhancement[index]
-        pos = 2
-    elseif index > #card_enhancement+#editions then
-        index = index-(#card_enhancement+#editions)
-        addition = seals[index]
-        pos = 3
-    else
-        index = index-(#card_enhancement)
-        addition = editions[index]
-        pos = 4
+function get_random_enhance(name)
+    local rand = math.random()
+    local addition = {convert_rank_to_num(string.sub(name,1,1)),"","",""}
+    for i,v in ipairs(shop_cards_enhancement_weight) do
+        if rand<v then
+            if i ==1 then
+                local j = math.random(#card_enhancement)
+                addition[i+1]=card_enhancement[j]
+                if card_enhancement[j] == "Stone" then
+                    addition[1] = 50
+                    name = "st"
+                end
+            elseif i == 2 then
+                local rand2 = math.random()
+                for j,k in ipairs(cards_edition_prob) do
+                    if rand2 < k then
+                        addition[i+1]=editions[j]
+                        break
+                    end
+                end
+            elseif i == 3 then
+                local j = math.random(#seals)
+                addition[i+1]=seals[j]
+            end
+        end
     end
-    return addition,pos
+    return name,addition
 end
 
 function stake_begin(stake_name)
@@ -1190,7 +1203,7 @@ function sort_deck_suit(deck,deck_enhancement)
 end
 
 function bounds(deck,selected)
-    if #deck ~= 0 then--voucher behaving poorly
+    if #deck ~= 0 then
         if selected > #deck then
             selected = 1
         elseif selected < 1 then
@@ -1522,7 +1535,7 @@ function get_hand_type(hand_play)
     return "High Card"
 end
 
-function on_play_jokers(joker,joker_index)
+function on_play_jokers(joker,joker_index,played)
     if joker == "To do List" then
         if hand_type == jokers_enhancement[joker_index][1] then
             cash = cash + 4
@@ -1532,6 +1545,7 @@ function on_play_jokers(joker,joker_index)
             if string.sub(k,1,1) == "k" or string.sub(k,1,1) == "q" or string.sub(k,1,1) == "j" or all_face == true then
                 local index = find_matching(j,hand,hand_enhancement)
                 full_deck_enhancement[index][2] = "Gold"
+                hand_enhancement[j][2] = "Gold"
             end
         end
     elseif joker == "Space Joker" then
@@ -1551,6 +1565,12 @@ function on_play_jokers(joker,joker_index)
                 added_to_deck_jokers(k,j)
             end
         end
+    elseif joker == "Hiker" then
+        for i,v in ipairs(played) do
+            local index = find_matching(i,played,hand_enhancement)
+            hand_enhancement[i][1] = hand_enhancement[i][1] + 5
+            full_deck_enhancement[index][1] = full_deck_enhancement[index][1] + 5
+        end            
     elseif joker == "Blueprint" then
         if joker_index ~= #jokers then
             on_play_jokers(jokers[joker_index+1],joker_index+1)
@@ -1730,8 +1750,6 @@ function per_card_joker(joker,joker_index, card, card_index)
         if string.sub(card,1,1) == "k" or string.sub(card,1,1) == "q" then
             multiplier = multiplier*2
         end
-    elseif joker == "Hiker" then
-            hand_enhancement[card_index][1] = hand_enhancement[card_index][1] + 5
     elseif joker == "Blueprint" then
         if joker_index ~= #jokers then
             per_card_joker(jokers[joker_index+1],joker_index+1,card,card_index)
@@ -3034,7 +3052,11 @@ function add_to_dealt()
     while cards_added < goal and #deck >0 do
         local randomvalue = math.random(#deck)
         table.insert(dealt, deck[randomvalue])-- need to decouple
-        table.insert(dealt_enhancement, deck_enhancement[randomvalue])
+        table.insert(dealt_enhancement,{})
+        for i,v in ipairs(deck_enhancement[randomvalue]) do
+            table.insert(dealt_enhancement[#dealt_enhancement],v)
+        end
+        --table.insert(dealt_enhancement, deck_enhancement[randomvalue])
         table.insert(used_cards, deck[randomvalue])
         face_down_blinds(dealt[#dealt],#dealt)
         table.remove(deck, randomvalue)
@@ -3118,8 +3140,8 @@ function do_boss_debuff(played,held_in_hand_enhanced)
         elseif boss_blind[boss_num] == "The Arm" then
             if hand_multipliers[hand_type][1] > min_hand_multipliers[hand_type][1] then
                 local planet = hand_multipliers[hand_type][4]
-                hand_multipliers[hand_type][1] = hand_multipliers[hand_type][1] - planets_info[planets][1]
-                hand_multipliers[hand_type][2] = hand_multipliers[hand_type][2] - planets_info[planets][2]
+                hand_multipliers[hand_type][1] = hand_multipliers[hand_type][1] - planets_info[planet][1]
+                hand_multipliers[hand_type][2] = hand_multipliers[hand_type][2] - planets_info[planet][2]
                 chips = hand_multipliers[hand_type][1]
                 multiplier = hand_multipliers[hand_type][2]
                 boss_activated = true
@@ -3150,9 +3172,6 @@ function calculate_total_score(hand)
         table.insert(played,v)
     end
     local held_in_hand_enhanced = dealt_enhancement
-    for j,k in ipairs(jokers) do
-        on_play_jokers(k,j)
-    end
     for i=#played,1,-1 do
         for j=1, #ignore do
             if i == ignore[j] then
@@ -3163,6 +3182,9 @@ function calculate_total_score(hand)
     end
     if blind == 3 and boss_active == true then
         played,held_in_hand_enhanced = do_boss_debuff(played,held_in_hand_enhanced)
+    end
+    for j,k in ipairs(jokers) do
+        on_play_jokers(k,j,played)
     end
     local begin_chips = chips
     local begin_mult = multiplier
@@ -3405,27 +3427,10 @@ function add_to_shop()
             local num = convert_rank_to_num(string.sub(standard_deck[randomvalue],1,1))
             local addition = {cost,num,"","",""}
             if shop_enhanced then
-                local rand = math.random()
-                for i,v in ipairs(shop_cards_enhancement_weight) do
-                    if rand<v then
-                        if i ==1 then
-                            local j = math.random(#card_enhancement)
-                            addition[3]=card_enhancement[j]
-                            break
-                        elseif i == 2 then
-                            local rand2 = math.random()
-                            for j,k in ipairs(cards_edition_prob) do
-                                if rand2 < k then
-                                    addition[4]=editions[j]
-                                    break
-                                end
-                            end
-                        elseif i == 3 then
-                            local j = math.random(#seals)
-                            addition[5]=seals[j]
-                            break
-                        end
-                    end
+                local name,rand_add = get_random_enhance(standard_deck[randomvalue])
+                shop_jokers[#shop_jokers] = name
+                for i = 1,#rand_add do
+                    addition[i+1] = rand_add[i]
                 end
             end
             table.insert(shop_jokers_enhancement,addition)
@@ -3558,8 +3563,8 @@ function upper_display()
     screen.print(SCREEN_UP, rhs, 180, round)
     screen.print(SCREEN_UP, 35, 77, round_score)
     if gameplay_phase == 2 and blind == 3 then
-        for i,v in ipairs(hand) do
-            if #v == 4 then
+        for i,v in ipairs(hand_enhancement) do
+            if #v == 5 then
                 chip_display = ""
                 mult_display = ""
                 hand_type_display = ""
@@ -3600,18 +3605,22 @@ end
 function draw_card_base_graphic(x, y, scale, enhancement_type)
     Image.scale(card_graphic, math.floor(card_size[1] * scale), math.floor(card_size[2] * scale))--white card base
     Image.setTint(card_graphic,Color.new256(255,255,255))
-    for j,k in ipairs(enhancement_type) do
-        if k == "Gold" then
-            Image.setTint(card_graphic,Color.new256(255,215,0))
-        elseif k== "Steel" then
-            Image.setTint(card_graphic,Color.new256(192,192,192))
-        elseif k == "Glass" then
-            Image.setTint(card_graphic,Color.new256(175,238,238))
-        elseif k == "Stone" then
-            Image.setTint(card_graphic,Color.new256(0,0,0))
-        end
+    local k = enhancement_type[2]--only doing for card enhancement atm
+    if k == "Gold" then
+        Image.setTint(card_graphic,Color.new256(255,215,0))
+    elseif k== "Steel" then
+        Image.setTint(card_graphic,Color.new256(192,192,192))
+    elseif k == "Glass" then
+        screen.setAlpha(30)
+    elseif k == "Stone" then
+        Image.setTint(card_graphic,Color.new256(0,0,0))
+    elseif k == "Lucky" then
+        Image.setTint(card_graphic,Color.new256(66, 215, 245)) 
+    elseif k == "Mult" then
+        Image.setTint(card_graphic,Color.new256(245, 126, 66))
     end
     screen.blit(SCREEN_DOWN, x, y, card_graphic)
+    screen.setAlpha(100)
 end
 
 function draw_card_detail(x, y, scale, rank, suit)
@@ -3709,7 +3718,9 @@ function draw_shop_main()
             draw_card_base_graphic(x + (i-1)*card_size[1], y_place,1,shop_jokers_enhancement[i])
             draw_card_detail(x + (i-1)*card_size[1], y_place,1,string.sub(v,1,1),string.sub(v,2,2))
         else
-            screen.drawFillRect(SCREEN_DOWN, x + (i-1)*card_size[1], y_place, x + (i)*card_size[1], y_place+card_size[2],colours[5])
+            local cons_type = consumable_deck[v][2] 
+            local index = consumable_deck[v][3]
+            screen.blit(SCREEN_DOWN, x+card_size[1]*(i-1), y_place, consumable_graphics_table[cons_type], card_size[1]*(index-1),0, card_size[1], card_size[2])
         end
     end
 end
@@ -3718,50 +3729,33 @@ function draw_pack_graphics()
     local x = 2*SCREEN_WIDTH/(3)--chosen for looks but if decide to add many jokers to shop do full width
     local y_place = SCREEN_HEIGHT/2
     for i,v in ipairs(packs) do
-        screen.blit(SCREEN_DOWN, x+card_size[1]*(i-1), y_place, img_packs, card_size[1]*(v[3]-1),0, card_size[1], card_size[2])--change to packs graphic
+        screen.blit(SCREEN_DOWN, x+card_size[1]*(i-1), y_place, img_packs, card_size[1]*(v[3]-1),0, card_size[1], card_size[2])
     end
 end
 
-function draw_tarots_graphics()--add art
+function draw_tarots_graphics()
     local x = (SCREEN_WIDTH-hud_width)/(#consumable+1)
     local y_place = SCREEN_HEIGHT-2*card_size[2]-10
     for i,v in ipairs(consumable) do
-        screen.drawFillRect(SCREEN_UP, hud_width + x + (i-1)*card_size[1], y_place, hud_width + x + (i)*card_size[1], y_place+card_size[2],colours[5])
+        local cons_type = consumable_deck[v][2] 
+        local index = consumable_deck[v][3]
+        screen.blit(SCREEN_UP, hud_width + x+card_size[1]*(i-1), y_place, consumable_graphics_table[cons_type], card_size[1]*(index-1),0, card_size[1], card_size[2])
     end
 end
 
 function card_details(kind)
     if kind == 1 then--playing cards
-        if gameplay_phase == 2 then
-            if #dealt >0 then
-                if #dealt_enhancement[selected_card] == 4 then
-                    screen.print(SCREEN_UP,hud_width+10,50,dealt[selected_card],colours[1])
-                    screen.print(SCREEN_UP, hud_width+10, 50+10, "+"..dealt_enhancement[selected_card][1].." Chips", colours[1])
-                    for i=2,#dealt_enhancement[selected_card] do
-                        local v = dealt_enhancement[selected_card][i]
-                        screen.print(SCREEN_UP, hud_width+10, 50+10*i, v, colours[1])
-                    end
+        if #dealt >0 then
+            if #dealt_enhancement[selected_card] == 4 then
+                screen.print(SCREEN_UP,hud_width+10,50,dealt[selected_card],colours[1])
+                screen.print(SCREEN_UP, hud_width+10, 50+10, "+"..dealt_enhancement[selected_card][1].." Chips", colours[1])
+                for i=2,#dealt_enhancement[selected_card] do
+                    local v = dealt_enhancement[selected_card][i]
+                    screen.print(SCREEN_UP, hud_width+10, 50+10*i, v, colours[1])
                 end
-            else
-                screen.print(SCREEN_UP,hud_width+10,50,"No card selected",colours[1])
             end
-        elseif gameplay_phase == 4.5 then
-            if #pack_cards >0 then
-                local height = 50
-                screen.print(SCREEN_UP,hud_width+10,height,pack_cards[selected_card],colours[1])
-                screen.print(SCREEN_UP,hud_width+10,height +10,"Y: add to selection",colours[1])
-                screen.print(SCREEN_UP,hud_width+10,height+20,"B: reset selection",colours[1])
-                screen.setAlpha(30)
-                screen.drawFillRect(SCREEN_DOWN, SCREEN_WIDTH*(selected_card)/(hand_size+1)-5,SCREEN_HEIGHT/2-5,SCREEN_WIDTH*(selected_card)/(hand_size+1)+card_size[1]+5,SCREEN_HEIGHT/2+card_size[2]+5,Color.new(0,0,0))--black shadow
-                screen.setAlpha(100)
-                screen.print(SCREEN_UP, hud_width+10, height+30, "+"..pack_cards_enhancements[selected_card][1].." Chips", colours[1])
-                for i=2,#pack_cards_enhancements[selected_card] do
-                    local v = pack_cards_enhancements[selected_card][i]
-                    screen.print(SCREEN_UP, hud_width+10, height+30+10*(i-1), v, colours[1])
-                end
-            else
-                screen.print(SCREEN_UP,hud_width+10,50,"No card selected",colours[1])
-            end
+        else
+            screen.print(SCREEN_UP,hud_width+10,50,"No card selected",colours[1])
         end
     elseif kind == 1.5 and gameplay_phase==4 then--main shop
         if #shop_jokers > 0 then-- currently no additional foil polychrome etc in shop
@@ -3901,6 +3895,23 @@ function card_details(kind)
         screen.setAlpha(30)
         screen.drawFillRect(SCREEN_DOWN, SCREEN_WIDTH*(selected_card)/(cele_size+1)-buffer, y_pack_pos-buffer, SCREEN_WIDTH*(selected_card)/(cele_size+1)+card_size[1]+buffer,y_pack_pos+card_size[2]+buffer,Color.new(0,0,0))--may make a better way
         screen.setAlpha(100)
+    elseif kind == 5 and gameplay_phase == 4.5 then
+        if #pack_cards >0 then
+            local height = 50
+            screen.print(SCREEN_UP,hud_width+10,height,pack_cards[selected_card],colours[1])
+            screen.print(SCREEN_UP,hud_width+10,height +10,"Y: add to selection",colours[1])
+            screen.print(SCREEN_UP,hud_width+10,height+20,"B: reset selection",colours[1])
+            screen.setAlpha(30)
+            screen.drawFillRect(SCREEN_DOWN, SCREEN_WIDTH*(selected_card)/(hand_size+1)-5,SCREEN_HEIGHT/2-5,SCREEN_WIDTH*(selected_card)/(hand_size+1)+card_size[1]+5,SCREEN_HEIGHT/2+card_size[2]+5,Color.new(0,0,0))--black shadow
+            screen.setAlpha(100)
+            screen.print(SCREEN_UP, hud_width+10, height+30, "+"..pack_cards_enhancements[selected_card][1].." Chips", colours[1])
+            for i=2,#pack_cards_enhancements[selected_card] do
+                local v = pack_cards_enhancements[selected_card][i]
+                screen.print(SCREEN_UP, hud_width+10, height+30+10*(i-1), v, colours[1])
+            end
+        else
+            screen.print(SCREEN_UP,hud_width+10,50,"No card selected",colours[1])
+        end
     end
 end
 
@@ -4278,6 +4289,7 @@ function use_target_tarots(active_cards,active_cards_enhancement,stand_cards,sta
                     active_cards_enhancement[a][1] = full_deck_enhancement[index][1]
                 end
                 full_deck_enhancement[index][2]="Lucky"
+                active_cards_enhancement[a][2] = "Lucky"
             end
             last_used_consumable = tarots_select[selected_card]
             table.remove(tarots_select,selected_card)
@@ -4285,7 +4297,6 @@ function use_target_tarots(active_cards,active_cards_enhancement,stand_cards,sta
     elseif tarots_select[selected_card] == "The Empress" then
         if #active_cards<3 then
             for a,b in ipairs(active_cards) do
-                local index = find_matching(a,active_cards,active_cards_enhancement)
                 local index = find_matching(a,active_cards,active_cards_enhancement)
                 if full_deck_enhancement[index][2]=="Stone" then
                     active_cards[a] = standard_deck[math.random(#standard_deck)]
@@ -4296,6 +4307,7 @@ function use_target_tarots(active_cards,active_cards_enhancement,stand_cards,sta
                     active_cards_enhancement[a][1] = full_deck_enhancement[index][1]
                 end
                 full_deck_enhancement[index][2]="Mult"
+                active_cards_enhancement[a][2] = "Mult"
             end
             last_used_consumable = tarots_select[selected_card]
             table.remove(tarots_select,selected_card)
@@ -4303,7 +4315,6 @@ function use_target_tarots(active_cards,active_cards_enhancement,stand_cards,sta
     elseif tarots_select[selected_card] == "The Heirophant" then
         if #active_cards<3 then
             for a,b in ipairs(active_cards) do
-                local index = find_matching(a,active_cards,active_cards_enhancement)
                 local index = find_matching(a,active_cards,active_cards_enhancement)
                 if full_deck_enhancement[index][2]=="Stone" then
                     active_cards[a] = standard_deck[math.random(#standard_deck)]
@@ -4314,6 +4325,7 @@ function use_target_tarots(active_cards,active_cards_enhancement,stand_cards,sta
                     active_cards_enhancement[a][1] = full_deck_enhancement[index][1]
                 end
                 full_deck_enhancement[index][2]="Bonus"
+                 active_cards_enhancement[a][2] = "Bonus"
             end
             last_used_consumable = tarots_select[selected_card]
             table.remove(tarots_select,selected_card)
@@ -4330,6 +4342,7 @@ function use_target_tarots(active_cards,active_cards_enhancement,stand_cards,sta
                 active_cards_enhancement[1][1] = full_deck_enhancement[index][1]
             end
             full_deck_enhancement[index][2]="Steel"
+            active_cards_enhancement[1][2] = "Steel"
             last_used_consumable = tarots_select[selected_card]
             table.remove(tarots_select,selected_card)
         end
@@ -4345,6 +4358,7 @@ function use_target_tarots(active_cards,active_cards_enhancement,stand_cards,sta
                 active_cards_enhancement[1][1] = full_deck_enhancement[index][1]
             end
             full_deck_enhancement[index][2]="Glass"
+            active_cards_enhancement[1][2] = "Glass"
             last_used_consumable = tarots_select[selected_card]
             table.remove(tarots_select,selected_card)
         end
@@ -4360,6 +4374,7 @@ function use_target_tarots(active_cards,active_cards_enhancement,stand_cards,sta
                 active_cards_enhancement[1][1] = full_deck_enhancement[index][1]
             end
             full_deck_enhancement[index][2]="Gold"
+             active_cards_enhancement[1][2] = "Gold"
             last_used_consumable = tarots_select[selected_card]
             table.remove(tarots_select,selected_card)
         end
@@ -4694,9 +4709,11 @@ function use_spectral(stand_cards, stand_cards_enhancement, spectral_select)
                     index2 = math.random(#standard_deck)
                     value = standard_deck[index2]
                 until string.sub(value,1,1) == "k" or string.sub(value,1,1) == "q" or string.sub(value,1,1) == "j"
-                local add = {convert_rank_to_num(string.sub(value,1,1)),"","",""}
-                local addition2,pos = get_random_enhance()
-                add[pos] = addition2
+                local add = {convert_rank_to_num(string.sub(value,1,1)),card_enhancement[math.random(#card_enhancement)],"",""}
+                if add[2] == "Stone" then
+                    value = "st"
+                    add[1] = 50
+                end
                 table.insert(stand_cards,standard_deck[index2])
                 table.insert(stand_cards_enhancement,add)
                 table.insert(full_deck,standard_deck[index2])
@@ -4725,9 +4742,11 @@ function use_spectral(stand_cards, stand_cards_enhancement, spectral_select)
                     index2 = math.random(#standard_deck)
                     value = standard_deck[index2]
                 until string.sub(value,1,1) == "a"
-                local add = {convert_rank_to_num(string.sub(value,1,1)),"","",""}
-                local addition2,pos = get_random_enhance()
-                add[pos] = addition2
+                local add = {convert_rank_to_num(string.sub(value,1,1)),card_enhancement[math.random(#card_enhancement)],"",""}
+                if add[2] == "Stone" then
+                    value = "st"
+                    add[1] = 50
+                end
                 table.insert(stand_cards,standard_deck[index2])
                 table.insert(stand_cards_enhancement,add)
                 table.insert(full_deck,standard_deck[index2])
@@ -4756,9 +4775,11 @@ function use_spectral(stand_cards, stand_cards_enhancement, spectral_select)
                     index2 = math.random(#standard_deck)
                     value = standard_deck[index2]
                 until tonumber(string.sub(value,1,1)) ~= nil
-                local add = {convert_rank_to_num(string.sub(value,1,1)),"","",""}
-                local addition2,pos = get_random_enhance()
-                add[pos] = addition2
+                local add = {convert_rank_to_num(string.sub(value,1,1)),card_enhancement[math.random(#card_enhancement)],"",""}
+                if add[2] == "Stone" then
+                    value = "st"
+                    add[1] = 50
+                end
                 table.insert(stand_cards,standard_deck[index2])
                 table.insert(stand_cards_enhancement,add)
                 table.insert(full_deck,standard_deck[index2])
@@ -4866,24 +4887,35 @@ function use_target_spectral(active_cards,active_cards_enhancement,stand_cards,s
                 addition = "Holographic"
             end
             full_deck_enhancement[index][3]=addition
+            active_cards_enhancement[3]=addition
             table.remove(spectral_select,selected_card)
         end
     elseif spectral_select[selected_card] == "Medium" then
         if #active_cards==1 then
             local index = find_matching(1,active_cards,active_cards_enhancement)
             full_deck_enhancement[index][4]="Purple-Seal"
+            active_cards_enhancement[1][4] = "Purple-Seal"
             table.remove(spectral_select,selected_card)
         end
     elseif spectral_select[selected_card] == "Trance" then
         if #active_cards == 1 then
             local index = find_matching(1,active_cards,active_cards_enhancement)
             full_deck_enhancement[index][4]="Blue-Seal"
+            active_cards_enhancement[1][4] = "Blue-Seal"
             table.remove(spectral_select,selected_card)
         end
     elseif spectral_select[selected_card] == "Deja Vu" then
         if #active_cards == 1 then
             local index = find_matching(1,active_cards,active_cards_enhancement)
             full_deck_enhancement[index][4]="Red-Seal"
+            active_cards_enhancement[1][4] = "Red-Seal"
+            table.remove(spectral_select,selected_card)
+        end
+    elseif spectral_select[selected_card] == "Talisman" then
+        if #active_cards == 1 then
+            local index = find_matching(1,active_cards,active_cards_enhancement)
+            full_deck_enhancement[index][4]="Gold-Seal"
+            active_cards_enhancement[1][4] = "Gold-Seal"
             table.remove(spectral_select,selected_card)
         end
     end
@@ -4944,29 +4976,13 @@ function open_pack()
     elseif name_pack == "standard" then
         for i = 1, cele_size do
             local index = math.random(#standard_deck)
-            table.insert(pack_interior,standard_deck[index])
             local num = convert_rank_to_num(string.sub(standard_deck[index],1,1))
             local addition = {num,"","",""}
-            for i,v in ipairs(shop_cards_enhancement_weight) do
-                local rand = math.random()
-                if rand<v then
-                    if i ==1 then
-                        local j = math.random(#card_enhancement)
-                        addition[i+1] = card_enhancement[j]
-                    elseif i == 2 then
-                        local rand2 = math.random()
-                        for j,k in ipairs(cards_edition_prob) do
-                            if rand2 < k then
-                                addition[i+1]=editions[j]
-                                break
-                            end
-                        end
-                    elseif i == 3 then
-                        local j = math.random(#seals)
-                        addition[i+1]=seals[j]
-                    end
-                end
+            local name, rand_add = get_random_enhance(standard_deck[index])
+            for i = 1,#rand_add do
+                addition[i] = rand_add[i]
             end
+            table.insert(pack_interior, name)
             table.insert(pack_interior_enhancement,addition)
         end
     elseif name_pack == "bufoon" then
@@ -5320,8 +5336,6 @@ function played_enhancement(card_enhanced)
             multiplier = multiplier*1.5
         elseif v == "Gold-Seal" then
             cash = cash + 3
-        elseif v == "Red-Seal" then
-            --retrigger once
         end
     end
 end
@@ -5783,7 +5797,7 @@ while not Keys.newPress.Select do
                 end
             end
 
-            if Keys.newPress.X and #hand < 5 and kind ==1 then--might change up/down for X/B if there is no reason to move the cards in hand
+            if Keys.newPress.X and #hand < 5 and kind ==1 then
                 table.insert(hand, dealt[selected_card])
                 table.insert(hand_enhancement,dealt_enhancement[selected_card])
                 table.remove(dealt, selected_card)
@@ -5791,7 +5805,7 @@ while not Keys.newPress.Select do
                 hand_type = get_hand_type(hand)
                 chips = hand_multipliers[hand_type][1]
                 multiplier = hand_multipliers[hand_type][2]
-                dealt,dealt_enhancement = sort_deck(dealt,dealt_enhancement)
+                selected_card = bounds(dealt,selected_card)--temp solution to bug with stone cards sometimes causing indexing issues
             end
 
             if Keys.newPress.Down then
@@ -5895,12 +5909,12 @@ while not Keys.newPress.Select do
                     no_hands_played = no_hands_played+1
                     local count = 0
                     for k,v in pairs(planets_deck) do
-                        if hand_multipliers[hand_type][4] ~= v then
-                            count = count+1
+                        if hand_multipliers[hand_type][4] == v then
+                            break
                         end
-                    end
-                    if count ~= #planets_deck then
-                        table.insert(planets_deck,hand_multipliers[hand_type][4])
+                        if k == #planets_deck then
+                            table.insert(planets_deck,hand_multipliers[hand_type][4])
+                        end
                     end
                     table.insert(played_hand_type,hand_type)
                     gameplay_phase = 2.1
@@ -5991,8 +6005,8 @@ while not Keys.newPress.Select do
                 screen.print(SCREEN_DOWN, 2*SCREEN_WIDTH/3-20 ,10,"Chips",Color.new(0,0,31))
                 screen.print(SCREEN_DOWN, 3*SCREEN_WIDTH/4 ,10,"Mult",Color.new(31,0,0))
                 screen.print(SCREEN_DOWN, SCREEN_WIDTH/5-10 ,10,"#",Color.new(0,0,0))
-                for i =2, #planets_deck do
-                    local v= hand_multipliers[planets_info[planets_deck[i]][3]]
+                for i = 2, #planets_deck do
+                    local v = hand_multipliers[planets_info[planets_deck[i]][3]]
                     screen.print(SCREEN_DOWN, SCREEN_WIDTH/4, 10+ 12*(i-1), planets_info[planets_deck[i]][3])
                     screen.print(SCREEN_DOWN, 2*SCREEN_WIDTH/3-20, 10+12*(i-1), v[1],Color.new(0,0,31))
                     screen.print(SCREEN_DOWN, 3*SCREEN_WIDTH/4, 10+12*(i-1), v[2],Color.new(31,0,0))
@@ -6011,7 +6025,7 @@ while not Keys.newPress.Select do
                     end
                 end
                 screen.print(SCREEN_DOWN,SCREEN_WIDTH/5,10,"B/Y: Cycle enhancement type",Color.new(0,0,31))
-                local total_enhancement = {{"Gold","Steel","Glass","Lucky","Mult","Wild", "Stone"},{"Polychrome", "Holographic","Foil","Negative"},seals,{"Eternal","Perishable","Rental"}}
+                local total_enhancement = {card_enhancement,{"Polychrome", "Holographic","Foil","Negative"},seals,{"Eternal","Perishable","Rental"}}
                 local descriptor = {"1 available on playing cards", "1 available on playing cards, Negative possible on jokers or consumables","1 available on playing cards","Applies to jokers, available on certain stakes"}
                 local enhancement_kind = bounds(total_enhancement,enhancement_kind)
                 local spacer = 10
@@ -6121,7 +6135,16 @@ while not Keys.newPress.Select do
             cash_out = 0
             hand_multipliers[hand_type][3] = hand_multipliers[hand_type][3]+1
             val = calculate_total_score(hand)
-            round_score = round_score + val
+            local success, error_message = pcall(function()
+                return round_score + val
+            end)
+
+            if success then
+                round_score = round_score + val
+            else
+                round_score = 4294967295
+                Debug.print(error_message)
+            end
             hand = {}
             hand_enhancement = {}
             Sound.setModVolume(math.floor(MOD_max*MOD_volume))
@@ -6153,9 +6176,11 @@ while not Keys.newPress.Select do
                 interest = math.Clamp(math.floor(cash / 5), 0, max_interest)
                 cash_out = blind_payouts[blind] + hands*hand_cash + discards*discard_cash + interest
                 shop_jokers = {}
-                if ante == 8 and blind == 3 then
-                    win = true
-                    gameplay_phase = 5
+                if blind == 3 then
+                    if ante==8 or ante == 12 then
+                        win = true
+                        gameplay_phase = 5
+                    end
                 end
             else
                 add_to_dealt()
@@ -6451,10 +6476,10 @@ while not Keys.newPress.Select do
             local y_pack_pos
             if name_pack == "arcana" or name_pack == "spectral" then
                 y_pack_pos= SCREEN_HEIGHT-2*card_size[2]
-                if kind > 4 then
-                    kind =1
-                elseif kind <1 then
-                    kind = 4
+                if kind > 5 then
+                    kind =2
+                elseif kind <2 then
+                    kind = 5
                 end
             else
                 y_pack_pos = SCREEN_HEIGHT/2
@@ -6467,7 +6492,9 @@ while not Keys.newPress.Select do
 
             if name_pack == "celestial" then
                 for i = 1, #pack_interior do
-                    screen.print(SCREEN_DOWN, SCREEN_WIDTH*(i)/(cele_size+1),y_pack_pos,pack_interior[i])
+                    local cons_type = consumable_deck[pack_interior[i]][2] 
+                    local index = consumable_deck[pack_interior[i]][3]
+                    screen.blit(SCREEN_DOWN,  SCREEN_WIDTH*(i)/(#pack_interior+1), y_pack_pos, consumable_graphics_table[cons_type], card_size[1]*(index-1),0, card_size[1], card_size[2])
                 end
             elseif name_pack == "standard" then
                 for i,v in ipairs(pack_interior) do
@@ -6496,11 +6523,13 @@ while not Keys.newPress.Select do
                 for i,v in ipairs(pack_cards) do
                     local rank_c = string.sub(v,1,1)
                     local suit_c = string.sub(v,2,2)
-                    draw_card_base_graphic(SCREEN_WIDTH*(i)/(hand_size+1),SCREEN_HEIGHT/2,1,pack_cards_enhancements[i])
-                    draw_card_detail(SCREEN_WIDTH*(i)/(hand_size+1),SCREEN_HEIGHT/2,1,rank_c,suit_c)
+                    draw_card_base_graphic(SCREEN_WIDTH*(i)/(#pack_cards+1),SCREEN_HEIGHT/2,1,pack_cards_enhancements[i])
+                    draw_card_detail(SCREEN_WIDTH*(i)/(#pack_cards+1),SCREEN_HEIGHT/2,1,rank_c,suit_c)
                 end
                 for i,v in ipairs(pack_interior) do
-                    screen.drawFillRect(SCREEN_DOWN, SCREEN_WIDTH*(i)/(cele_size+1),y_pack_pos, SCREEN_WIDTH*(i)/(cele_size+1)+card_size[1],y_pack_pos+card_size[2],colours[5])
+                    local cons_type = consumable_deck[pack_interior[i]][2] 
+                    local index = consumable_deck[pack_interior[i]][3]
+                    screen.blit(SCREEN_DOWN,  SCREEN_WIDTH*(i)/(#pack_interior+1), y_pack_pos, consumable_graphics_table[cons_type], card_size[1]*(index-1),0, card_size[1], card_size[2])
                 end
             elseif name_pack == "spectral" then
                 for i,v in ipairs(active) do
@@ -6512,11 +6541,13 @@ while not Keys.newPress.Select do
                 for i,v in ipairs(pack_cards) do
                     local rank_c = string.sub(v,1,1)
                     local suit_c = string.sub(v,2,2)
-                    draw_card_base_graphic(SCREEN_WIDTH*(i)/(hand_size+1),SCREEN_HEIGHT/2,1,pack_cards_enhancements[i])
-                    draw_card_detail(SCREEN_WIDTH*(i)/(hand_size+1),SCREEN_HEIGHT/2,1,rank_c,suit_c)
+                    draw_card_base_graphic(SCREEN_WIDTH*(i)/(#pack_cards+1),SCREEN_HEIGHT/2,1,pack_cards_enhancements[i])
+                    draw_card_detail(SCREEN_WIDTH*(i)/(#pack_cards+1),SCREEN_HEIGHT/2,1,rank_c,suit_c)
                 end
                 for i,v in ipairs(pack_interior) do
-                    screen.drawFillRect(SCREEN_DOWN, SCREEN_WIDTH*(i)/(cele_size+1),y_pack_pos, SCREEN_WIDTH*(i)/(#pack_interior+1)+card_size[1],y_pack_pos+card_size[2],Color.new(0,0,31))
+                    local cons_type = consumable_deck[pack_interior[i]][2] 
+                    local index = consumable_deck[pack_interior[i]][3]
+                    screen.blit(SCREEN_DOWN,  SCREEN_WIDTH*(i)/(#pack_interior+1), y_pack_pos, consumable_graphics_table[cons_type], card_size[1]*(index-1),0, card_size[1], card_size[2])
                 end
             end
             if kind == 4 then
@@ -6583,7 +6614,7 @@ while not Keys.newPress.Select do
                     end
                 end
                 selected_card = bounds(pack_interior,selected_card)
-            elseif kind == 1 then
+            elseif kind == 5 then
                 if Keys.newPress.Y then
                     table.insert(active_enhancement,pack_cards_enhancements[selected_card])
                     table.insert(active,pack_cards[selected_card])
@@ -6626,7 +6657,7 @@ while not Keys.newPress.Select do
             end
             card_details(kind)
             if Keys.newPress.Up then
-                kind = kind +1
+                kind = kind+1
                 selected_card = 1
             elseif Keys.newPress.Down then
                 kind = kind-1
@@ -6676,7 +6707,11 @@ while not Keys.newPress.Select do
                 screen.print(SCREEN_DOWN, 88, 128, "bet against you!", Color.new(31, 31, 31))
                 screen.print(SCREEN_DOWN, 106, 76, "YOU WIN!", Color.new(31, 31, 31))
                 if Keys.newPress.A then
-                    gameplay_phase = 3.5
+                    if ante == 8 then
+                        gameplay_phase = 3.5
+                    else
+                        gameplay_phase = 1
+                    end
                 end
             else
                 screen.print(SCREEN_DOWN, 88, 118, "We folded like a", Color.new(31, 31, 31))
