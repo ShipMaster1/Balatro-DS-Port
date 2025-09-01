@@ -2,7 +2,7 @@ scene = "menu"
 index_menu = 1
 enhancement_kind = 1--menu init
 speed_init = 2
-limit = 4,294,967,295
+limit = 4294967295
 speed_details = {[0] = "Off", [1] = "Fast", [2] = "Normal", [3] = "Slow"}
 deck_able = {"Red Deck", "Blue Deck", "Yellow Deck", "Green Deck", "Black Deck", "Magic Deck", "Nebula Deck", "Ghost Deck", "Abandoned Deck", "Checkered Deck", "Zodiac Deck", "Painted Deck", "Anaglyph Deck", "Plasma Deck", "Erratic Deck"}--need achievements for locked
 challenge_decks = {"The Omlette", "15 Minute City", "Rich get Richer", "On a Knife's Edge", "X-ray Vision", "Mad World", "Luxury Tax", "Non Perishable", "Medusa", "Typecast", "Inflation", "Bram Poker", "Fragile","Monolith", "Blast Off", "5 Card Draw", "Golden Needle", "Cruelty","Jokerless"}
@@ -68,6 +68,8 @@ non_eternal_sticker = {"Gros Michel", "Cavendish", "Ice Cream", "Turtle Bean", "
 non_perishable_sticker = {"Castle", "Ceremonial Dagger", "Constellation", "Flash Card", "Glass Joker", "Green Joker", "Hologram", "Lucky Cat", "Madness", "Obelisk", "Red Card", "Ride the Bus", "Rocket", "Runner", "Spare Trousers", "Square Joker", "Vampire", "Wee Joker"}
 card_size = {19,28}--x,y of sprites
 hud_width = 80--width of lhs bar
+y_buffer = 10 --space between text vertically
+avg_char_width = 6 
 colours = {Color.new(31,31,31),Color.new256(153,0,204), Color.new256(102,0,102),Color.new256(0,50,170) ,Color.new256(153,76,0)}--cards, shop_jokers, jokers, packs,consumable
 card_graphic = Image.load("sprites/cards/card.png", VRAM)
 
@@ -570,7 +572,7 @@ end
 
 function soft_reset()--done when increasing blind/ante
     kind = 2
-    round_score = 0.0
+    round_score = 0
     hand = {}
     hand_enhancement = {}
     dealt = {}
@@ -583,8 +585,8 @@ function soft_reset()--done when increasing blind/ante
     pack_enhancement = {}
     selected_card = 1
     first = 0
-    chips = 0.0--do as float ue to being able to store a larger number 10^38 vs 10^9if possible but lua doesnt realy have fixed type i am trying
-    multiplier = 0.0
+    chips = 0
+    multiplier = 0
     reroll_price = min_reroll
     hand_type = ""
     hands = max_hands
@@ -985,15 +987,6 @@ function get_deck_adjust(deck_name)
         challenge_removal(tarots_deck,{"Judgement"})
         challenge_removal(finisher_blinds,{"Crimson Heart", "Amber Acorn", "Verdent Leaf"})
     end
-    if selected_stake > 3 then
-        table.insert(stickers,"Eternal")
-        if selected_stake > 6 then
-            table.insert(stickers,"Perishable")
-            if selected_stake == 8 then
-                table.insert(stickers,"Rental")
-            end
-        end
-    end
 end
 
 function get_deck(deck_name)
@@ -1095,21 +1088,23 @@ function get_random_enhance(name)
     return name,addition
 end
 
-function stake_begin(stake_name)
-    if stake_name == "Red" then
+function stake_begin()
+    if selected_stake >1 then
         blind_payouts[1] = 0
-    elseif stake_name == "Green" then
-        local ante_fast = {300,900,2600,8000,20000,36000,60000}
-        for i,v in ipairs(ante_bases)do
-            if i<8 then
-                ante_bases[i] = ante_fast[i]
-            else
-                ante_bases[i] = 2*v
+        if selected_stake > 3 then
+            table.insert(stickers,"Eternal")
+            if selected_stake > 4 then
+                max_discards = max_discards-1
+                if selected_stake > 6 then
+                    table.insert(stickers,"Perishable")
+                    if selected_stake == 8 then
+                        table.insert(stickers,"Rental")
+                    end
+                end
             end
         end
-    elseif stake_name == "Blue" then
-        max_discards = max_discards-1
-    elseif stake_name == "Purple" then
+    end
+    if selected_stake > 5 then
         local ante_fast = {300,1000,3200,9000,25000,60000,110000}
         for i,v in ipairs(ante_bases)do
             if i<8 then
@@ -1118,7 +1113,18 @@ function stake_begin(stake_name)
                 ante_bases[i] = 4*v
             end
         end
-    end 
+    else
+        if selected_stake > 2 then
+            local ante_fast = {300,900,2600,8000,20000,36000,60000}
+            for i,v in ipairs(ante_bases)do
+                if i<8 then
+                    ante_bases[i] = ante_fast[i]
+                else
+                    ante_bases[i] = 2*v
+                end
+            end
+        end
+    end
 end
 
 function position(rank)
@@ -2737,6 +2743,9 @@ function removal_joker(joker,index)--done for stuff like dagger/madness
         end
         if count == 1 then
             contains_fingers = false
+            if #hand>0 then
+                get_hand_type(hand)
+            end
         end
     elseif joker == "Shortcut" then
         local count = 0
@@ -2747,6 +2756,9 @@ function removal_joker(joker,index)--done for stuff like dagger/madness
         end
         if count == 1 then
             contains_shortcut = false
+            if #hand>0 then
+                get_hand_type(hand)
+            end
         end
     elseif joker == "Pareidolia" then
         local count = 0
@@ -2767,6 +2779,9 @@ function removal_joker(joker,index)--done for stuff like dagger/madness
         end
         if count == 1 then
             smeared = false
+            if #hand>0 then
+                get_hand_type(hand)
+            end
         end
     end
     for i,v in ipairs(jokers_enhancement[index]) do
@@ -3028,7 +3043,7 @@ function get_boss_info()
     end
     local col = boss_blind_description[boss_type[boss_num]][1]
     local info = boss_blind_description[boss_type[boss_num]][2]
-    local boss_info_table = text_width(info,(SCREEN_WIDTH-(hud_width+10))/6)--6 is a good estimate for the average with of a character on the screen
+    local boss_info_table = text_width(info,(SCREEN_WIDTH-(hud_width+10))/avg_char_width)
     return col, boss_info_table
 end
 
@@ -3485,6 +3500,7 @@ function math.Clamp(val, lower, upper)--cash out
 end
 
 function draw_title_screen()
+    local x_init_pos = hud_width + 10
     screen.blit(SCREEN_DOWN, 0, 0, menubg)--bottom screen background
     screen.blit(SCREEN_UP, 0, 0, menubg)
     screen.blit(SCREEN_UP, 39, 44 - (logo_bop / 30), logo)--logo
@@ -3495,25 +3511,26 @@ function draw_title_screen()
     screen.drawFillRect(SCREEN_DOWN, 0, 50, SCREEN_WIDTH, SCREEN_HEIGHT, Color.new256(111, 111, 111))--press a to start background 2
     screen.print(SCREEN_DOWN, SCREEN_WIDTH/2-20, SCREEN_HEIGHT-10, "A: Play")
     screen.print(SCREEN_DOWN, 0, 5, "Y: Cycle Seeded")
-    screen.print(SCREEN_DOWN, 0, 15, "Up/Down: Select Seed")
+    screen.print(SCREEN_DOWN, 0, 5+y_buffer, "Up/Down: Select Seed")
     screen.print(SCREEN_DOWN, 115, 5, "Left/Right: Select Deck")
-    screen.print(SCREEN_DOWN, 150, 15, "X/B: Select Stake")
-    local deck_name = text_width(total_deck[deck_kind][selected_deck],hud_width/6)
+    screen.print(SCREEN_DOWN, 150, 5+y_buffer, "X/B: Select Stake")
+    local y_pos1 = 65
+    local deck_name = text_width(total_deck[deck_kind][selected_deck],hud_width/avg_char_width)
     for i=1,#deck_name do
-        screen.print(SCREEN_DOWN, 0, 65+10*(i-1), deck_name[i])
+        screen.print(SCREEN_DOWN, 0, y_pos1+y_buffer*(i-1), deck_name[i])
     end
-    local deck_text = text_width(deck_details[total_deck[deck_kind][selected_deck]],(SCREEN_WIDTH-(hud_width+10))/6)
+    local deck_text = text_width(deck_details[total_deck[deck_kind][selected_deck]],(SCREEN_WIDTH-(x_init_pos))/avg_char_width)
     for i,v in ipairs(deck_text) do 
-        screen.print(SCREEN_DOWN, hud_width+10, 65+10*(i-1), v)
+        screen.print(SCREEN_DOWN, x_init_pos, y_pos1+y_buffer*(i-1), v)
     end
-    screen.print(SCREEN_DOWN, 0, 120, stakes[selected_stake].." Stake")
-    local stake_text = text_width(stakes_info[stakes[selected_stake]],(SCREEN_WIDTH-(hud_width+10))/6)
+    screen.print(SCREEN_DOWN, 0, 2*y_pos1, stakes[selected_stake].." Stake")
+    local stake_text = text_width(stakes_info[stakes[selected_stake]],(SCREEN_WIDTH-(x_init_pos))/avg_char_width)
     for i,v in ipairs(stake_text) do 
-        screen.print(SCREEN_DOWN, hud_width+10, 120+10*(i-1), v)
+        screen.print(SCREEN_DOWN, x_init_pos, 2*y_pos1+y_buffer*(i-1), v)
     end
-    screen.print(SCREEN_DOWN, 0, 150, "Seeded run: " .. tostring(seeded_run))
-    screen.print(SCREEN_DOWN, 160, 150, seeded_num)
-    screen.print(SCREEN_UP, 2, 185, "GAME BY LOCAL THUNK, RECREATED FOR THE DS")
+    screen.print(SCREEN_DOWN, 0, 2.5*y_pos1, "Seeded run: " .. tostring(seeded_run))
+    screen.print(SCREEN_DOWN, 160, 2.5*y_pos1, seeded_num)
+    screen.print(SCREEN_UP, 2, SCREEN_HEIGHT - 10, "GAME BY LOCAL THUNK, RECREATED FOR THE DS")
     logo_bop = logo_bop + 1
     if logo_bop > 119 then
         logo_bop = -120
@@ -3521,9 +3538,11 @@ function draw_title_screen()
 end
 
 function draw_blind_menu()
-    local offset = 4
+    local y_offset = 4
     local x = 1 --the left position of the small blind
     local x_width = 84
+    local x_box_indent = 4
+    local x_text_indent = 2
     local y = SCREEN_HEIGHT/2 - 10
     Image.setTint(blind_ui, Color.new256(241, 184, 91))--tint box behind name
     tutorial_graphics = Sprite.new(tutorial_sheet, 96, 16, VRAM)
@@ -3531,48 +3550,47 @@ function draw_blind_menu()
         screen.setAlpha(70)
         screen.drawFillRect(SCREEN_DOWN, i*(x + x_width)-x_width, y, i*(x + x_width), SCREEN_HEIGHT, normal_blind[i][2])--small blind colour big box
         screen.setAlpha(100)
-        screen.blit(SCREEN_DOWN, i*(x+x_width) + 4 - x_width, y + 3, blind_ui)--"box behind name"
-        screen.print(SCREEN_DOWN, i*(x+x_width) + 6 - x_width, y + 8, normal_blind[i][1], normal_blind[i][2])--Text "small blind"
-        screen.blit(SCREEN_DOWN, i*(x+x_width) + 4 - x_width, y + 21 + offset, blind_ui_box)--grey box
-        tutorial_graphics:drawFrame(SCREEN_DOWN, i*(x+x_width) + 5 - x_width, y + 23 + offset,5)--"score at least:" 
-        screen.print(SCREEN_DOWN, i*(x+x_width) + 6 - x_width, y + 40, minimumscore[i], Color.new256(255, 255, 255))--score needed
-        screen.print(SCREEN_DOWN, i*(x+x_width) + 6 - x_width, y +  21 + offset + 46 + 3 , "Skip Reward:", Color.new256(255, 255, 255))
-        screen.print(SCREEN_DOWN, i*(x+x_width) + 6 - x_width, y +  21 + offset + 46 +13, blind_tags[i], Color.new256(255, 255, 255))
+        screen.blit(SCREEN_DOWN, i*(x+x_width) - x_width + x_box_indent, y + y_offset-1, blind_ui)--"box behind name"
+        screen.print(SCREEN_DOWN, i*(x+x_width) - x_width + x_box_indent + x_text_indent, y + 2*y_offset, normal_blind[i][1], normal_blind[i][2])--Text "small blind"
+        screen.blit(SCREEN_DOWN, i*(x+x_width)- x_width + x_box_indent , y + 2*y_buffer + y_offset, blind_ui_box)--grey box
+        tutorial_graphics:drawFrame(SCREEN_DOWN, i*(x+x_width) - x_width + x_box_indent + 1, y + 2*y_buffer + y_offset/2 + y_offset,5)--"score at least:" 
+        screen.print(SCREEN_DOWN, i*(x+x_width) - x_width + x_box_indent + x_text_indent, y + 2*y_buffer + y_offset + y_buffer, minimumscore[i], Color.new(31,31,31))--score needed
+        screen.print(SCREEN_DOWN, i*(x+x_width) - x_width + x_box_indent + x_text_indent, y + 2*y_buffer + 2*y_offset + 2*(2*y_buffer+y_offset), "Skip Reward:", Color.new(31,31,31))
+        screen.print(SCREEN_DOWN, i*(x+x_width) - x_width + x_box_indent + x_text_indent, y + 2*y_offset + 2*(2*y_buffer+y_offset) + 3*y_buffer, blind_tags[i], Color.new(31,31,31))
     end
     local display_tag = "Tags owned: "
     for i, v in ipairs(tag_select) do
         display_tag=display_tag..v..", "
     end
-    local display_width = text_width(display_tag,(SCREEN_WIDTH-(hud_width+10))/6)
+    local display_reroll_y = 5
+    if boss_reroll then
+        screen.print(SCREEN_DOWN, SCREEN_WIDTH/2 - avg_char_width*string.len("X: Reroll Boss Blind ($10)")/2, display_reroll_y, "X: Reroll Boss Blind ($10)")
+    end
+    local display_width = text_width(display_tag,(SCREEN_WIDTH)/avg_char_width)
     for i,v in ipairs(display_width) do
-        screen.print(SCREEN_DOWN, (SCREEN_WIDTH - 6*string.len(v))/2 ,5+10*i,v)
+        screen.print(SCREEN_DOWN, (SCREEN_WIDTH - avg_char_width*string.len(v))/2 ,display_reroll_y+y_buffer*i,v)
     end
     if blind < 3 then
-        screen.print(SCREEN_DOWN, (SCREEN_WIDTH - 6*string.len("Blind Tag(L/R):"..blind_tags[blind]))/2, 5+10*#display_width+20, "Blind Tag(L/R):"..blind_tags[blind], Color.new256(255, 255, 255))
-        local tag_details = text_width(tag_info[blind_tags[blind]],SCREEN_WIDTH/6)
+        screen.print(SCREEN_DOWN, (SCREEN_WIDTH - avg_char_width*string.len("Blind Tag(L/R):"..blind_tags[blind]))/2, display_reroll_y+y_buffer*(#display_width+2), "Blind Tag(L/R):"..blind_tags[blind], Color.new256(255, 255, 255))
+        local tag_details = text_width(tag_info[blind_tags[blind]],SCREEN_WIDTH/avg_char_width)
         for i,v in ipairs(tag_details) do
-            screen.print(SCREEN_DOWN, (SCREEN_WIDTH - 6*string.len(v))/2 , 5+10*#display_width+20 +10*(i), v) 
+            screen.print(SCREEN_DOWN, (SCREEN_WIDTH - avg_char_width*string.len(v))/2 ,display_reroll_y + y_buffer*(#display_width+2 +i), v) 
         end
     end
-
-    if boss_reroll then
-        screen.print(SCREEN_DOWN, SCREEN_WIDTH/2 - string.len("X: Reroll Boss Blind ($10)")*3, 5, "X: Reroll Boss Blind ($10)")
-    end
-
     screen.drawFillRect(SCREEN_DOWN, 3*x + 2*x_width, y, 3*(x + x_width), SCREEN_HEIGHT, boss_col)--boss blind colour big box
-    screen.blit(SCREEN_DOWN, 3*x + 4 + 2*x_width, y + 3, blind_ui)--"box behind name"
+    screen.blit(SCREEN_DOWN, 3*x + 2*x_width + x_box_indent, y + y_offset, blind_ui)--"box behind name"
     if ante%8 == 0 then
-        screen.print(SCREEN_DOWN, 3*x + 2*x_width + 6, y + 8, finisher_blinds[boss_num], Color.new(0, 0, 0))--name
+        screen.print(SCREEN_DOWN, 3*x + 2*x_width + x_box_indent + x_text_indent, y + 2*y_offset, finisher_blinds[boss_num], Color.new(0, 0, 0))--name
     else
-        screen.print(SCREEN_DOWN, 3*x + 2*x_width + 6, y + 8, boss_blind[boss_num], Color.new(0, 0, 0))--name
+        screen.print(SCREEN_DOWN, 3*x + 2*x_width + x_box_indent + x_text_indent, y + 2*y_offset, boss_blind[boss_num], Color.new(0, 0, 0))--name
     end
-    screen.blit(SCREEN_DOWN, x + 2*x_width + 4, y + 21 + offset, blind_ui_box)
-    tutorial_graphics:drawFrame(SCREEN_DOWN, 3*x + 2*x_width + 5, y + 23 + offset, 5)
-    screen.print(SCREEN_DOWN, x + 6 + 2*x_width, y + 40, minimumscore[3], Color.new(31, 31, 31))--score needed
-    screen.print(SCREEN_DOWN, 3*x + 2*x_width + 6, y +  21 + offset + 46 + 3, "A Challenging", Color.new(0,0,0))
-    screen.print(SCREEN_DOWN, 3*x + 2*x_width + 6, y +  21 + offset + 46 + 13, "Encounter", Color.new(0,0,0))
+    screen.blit(SCREEN_DOWN, x + 2*x_width + x_box_indent, y + 2*y_buffer + y_offset, blind_ui_box)
+    tutorial_graphics:drawFrame(SCREEN_DOWN, 3*x + 2*x_width + x_box_indent + 1, y + 2*y_buffer + y_offset + y_offset, 5)
+    screen.print(SCREEN_DOWN, x + 2*x_width + x_box_indent + x_text_indent, y + 2*y_buffer + y_offset + y_buffer + y_buffer/2, minimumscore[3], Color.new(31, 31, 31))--score needed
+    screen.print(SCREEN_DOWN, 3*x + 2*x_width + x_box_indent + x_text_indent, y +  2*y_buffer + y_offset + y_offset + 2*(2*y_buffer + y_offset), "A Challenging", Color.new(0,0,0))
+    screen.print(SCREEN_DOWN, 3*x + 2*x_width + x_box_indent + x_text_indent, y +  2*y_buffer + y_offset + y_offset + 2*(2*y_buffer + y_offset) + y_buffer, "Encounter", Color.new(0,0,0))
     screen.setAlpha(30)
-    screen.drawFillRect(SCREEN_DOWN, blind*(x + x_width)+4-x_width, y+3, blind*(x + x_width)-4, y+3+17, Color.new(0,0,0))
+    screen.drawFillRect(SCREEN_DOWN, blind*(x + x_width)-x_width+x_box_indent, y+3, blind*(x + x_width)-x_box_indent, y+3+17, Color.new(0,0,0))
     screen.setAlpha(100)
 end
 
@@ -3580,14 +3598,17 @@ function upper_display()
     local offset = 10
     local rhs = hud_width/2 + offset
     local lhs = offset
+    local y_level1 = 180
+    local y_level2 = 140
+    local y_level3 = 115
     local chip_display = chips
     local mult_display = multiplier
     local hand_type_display = hand_type
     screen.drawFillRect(SCREEN_UP, 0,0,hud_width,SCREEN_HEIGHT,Color.new256(49,49,51))
     screen.blit(SCREEN_UP, 0,0,hudbg)
     screen.blit(SCREEN_UP, 0,0,hud)
-    screen.print(SCREEN_UP, lhs, 180, ante.."/8")
-    screen.print(SCREEN_UP, rhs, 180, round)
+    screen.print(SCREEN_UP, lhs, y_level1, ante.."/8")
+    screen.print(SCREEN_UP, rhs, y_level1, round)
     screen.print(SCREEN_UP, 35, 77, round_score)
     if gameplay_phase == 2 and blind == 3 then
         for i,v in ipairs(hand_enhancement) do
@@ -3600,32 +3621,31 @@ function upper_display()
         end
     end
     screen.print(SCREEN_UP, lhs, 98, hand_type_display)
-    screen.print(SCREEN_UP, lhs, 115, chip_display)
-    screen.print(SCREEN_UP, rhs, 115, mult_display)
-    screen.print(SCREEN_UP, lhs, 140, hands,Color.new(0,0,31))
-    screen.print(SCREEN_UP, rhs, 140, discards,Color.new(31,0,0))
+    screen.print(SCREEN_UP, lhs, y_level3, chip_display)
+    screen.print(SCREEN_UP, rhs, y_level3, mult_display)
+    screen.print(SCREEN_UP, lhs, y_level2, hands,Color.new(0,0,31))
+    screen.print(SCREEN_UP, rhs, y_level2, discards,Color.new(31,0,0))
     screen.print(SCREEN_UP, 15, 157, cash)
     if gameplay_phase>0 then
-        screen.print(SCREEN_UP, hud_width + 10, 10, "Boss Blind ability:",Color.new(0,0,0))
+        screen.print(SCREEN_UP, hud_width+10, 10, "Boss Blind ability:",Color.new(0,0,0))
         for i, v in ipairs(boss_info) do
-            screen.print(SCREEN_UP, hud_width+10, 10+10*(i), v, Color.new(0,0,0))
+            screen.print(SCREEN_UP, hud_width+10, 10 + y_buffer*(i), v, Color.new(0,0,0))
         end
     end
     if gameplay_phase < 4 and gameplay_phase>0 then
-        screen.blit(SCREEN_UP, 0, 10, blind_ui)--"box behind name"
-        screen.print(SCREEN_UP, 0, 30, "Minimum Score")
-        screen.print(SCREEN_UP, 0, 50, "Reward: $"..blind_payouts[blind])
+        screen.blit(SCREEN_UP, 0, offset, blind_ui)--"box behind name"
+        screen.print(SCREEN_UP, 0, 2*offset+y_buffer, "Minimum Score")
+        screen.print(SCREEN_UP, 0, 2*offset+ 3*y_buffer, "Reward: $"..blind_payouts[blind])
         if blind < 3 then
-            screen.print(SCREEN_UP, 5, 15, normal_blind[blind][1],normal_blind[blind][2])--Text "small blind" 
-            screen.print(SCREEN_UP, 0, 40, minimumscore[blind])
+            screen.print(SCREEN_UP, 5, offset + 5, normal_blind[blind][1],normal_blind[blind][2])--Text "small blind" 
         else
             if ante%8 == 0 then
-                screen.print(SCREEN_UP, 5, 15, finisher_blinds[boss_num],Color.new(0,0,0))
+                screen.print(SCREEN_UP, 5, offset + 5, finisher_blinds[boss_num],Color.new(0,0,0))
             else
-                screen.print(SCREEN_UP, 5, 15, boss_blind[boss_num],Color.new(0,0,0))
+                screen.print(SCREEN_UP, 5, offset + 5, boss_blind[boss_num],Color.new(0,0,0))
             end
-            screen.print(SCREEN_UP, 0, 40, minimumscore[blind],Color.new(31,0,5))
         end
+        screen.print(SCREEN_UP, 0, 2*offset+2*y_buffer, minimumscore[blind],Color.new(31,0,5))
     end
 end
 
@@ -3654,6 +3674,8 @@ function draw_card_base_graphic(x, y, scale, enhancement_type)
 end
 
 function draw_card_detail(x, y, scale, rank, suit, enhancement_type)
+    local nearside_square = 2
+    local farside_square = 6
     if rank ~= "s" then
         local rank_num = rank_graphics[rank]
         local suit_display = suit_graphics[suit]
@@ -3666,11 +3688,11 @@ function draw_card_detail(x, y, scale, rank, suit, enhancement_type)
         screen.blit(SCREEN_DOWN, x, y, suit_display)
         screen.setAlpha(100)
     end
-    if enhancement_type[4] ~= "" then
-        screen.drawFillRect(SCREEN_DOWN,x+math.floor((card_size[1]-6) * scale),y+math.floor(2* scale),x+math.floor((card_size[1]-2) * scale),y+math.floor(6* scale),edition_seal_col[enhancement_type[4]])
+    if enhancement_type[4] ~= "" then--seals
+        screen.drawFillRect(SCREEN_DOWN,x+math.floor((card_size[1]-farside_square) * scale),y+math.floor(nearside_square* scale),x+math.floor((card_size[1]-nearside_square) * scale),y+math.floor(6* scale),edition_seal_col[enhancement_type[4]])
     end
-    if enhancement_type[3] ~= "" then
-        screen.drawFillRect(SCREEN_DOWN,x+math.floor(2* scale),y+ math.floor((card_size[2] -6) * scale),x+math.floor(6* scale),y+math.floor((card_size[2] -2) * scale),edition_seal_col[enhancement_type[3]])
+    if enhancement_type[3] ~= "" then--editions
+        screen.drawFillRect(SCREEN_DOWN,x+math.floor(nearside_square* scale),y+ math.floor((card_size[2] -farside_square) * scale),x+math.floor(farside_square* scale),y+math.floor((card_size[2] -nearside_square) * scale),edition_seal_col[enhancement_type[3]])
     end
 end
 
@@ -3721,6 +3743,8 @@ function draw_card_deck_graphic(deck, raise_selected, usage)
 end
 
 function draw_joker_card_graphic()
+    local nearside_square = 2
+    local farside_square = 6
     local x = (SCREEN_WIDTH-hud_width)/(#jokers+1)
     local y_place = SCREEN_HEIGHT-card_size[2]-2
     if blind == 3 and ante%8 == 0 and finisher_blinds[boss_num] == "Amber Acorn" and boss_active then
@@ -3741,17 +3765,17 @@ function draw_joker_card_graphic()
             for j = 2, #jokers_enhancement[i] do
                 if type(jokers_enhancement[i][j]) ~= "table" then
                     if jokers_enhancement[i][j] == "Foil" or jokers_enhancement[i][j] == "Polychrome" or jokers_enhancement[i][j] == "Holographic" then
-                        screen.drawFillRect(SCREEN_UP, hud_width + x + (i-1)*card_size[1]+2, y_place+card_size[2]-6, hud_width + x + (i-1)*card_size[1]+6, y_place+card_size[2]-2,edition_seal_col[jokers_enhancement[i][j]])
+                        screen.drawFillRect(SCREEN_UP, hud_width + x + (i-1)*card_size[1]+nearside_square, y_place+card_size[2]-farside_square, hud_width + x + (i-1)*card_size[1]+farside_square, y_place+card_size[2]-nearside_square,edition_seal_col[jokers_enhancement[i][j]])
                     elseif jokers_enhancement[i][j] == "Negative" then
-                        screen.drawFillRect(SCREEN_UP, hud_width + x + (i-1)*card_size[1]+2, y_place+2, hud_width + x + (i-1)*card_size[1]+6, y_place+6,Color.new(0,0,0))
+                        screen.drawFillRect(SCREEN_UP, hud_width + x + (i-1)*card_size[1]+nearside_square, y_place+nearside_square, hud_width + x + (i-1)*card_size[1]+farside_square, y_place+farside_square,Color.new(0,0,0))
                     elseif jokers_enhancement[i][j] == "Eternal" then
-                        screen.drawFillRect(SCREEN_UP, hud_width + x + (i)*card_size[1]-6, y_place+2, hud_width + x + (i)*card_size[1]-2, y_place+6,edition_seal_col["Blue-Seal"])
+                        screen.drawFillRect(SCREEN_UP, hud_width + x + (i)*card_size[1]-farside_square, y_place+nearside_square, hud_width + x + (i)*card_size[1]-nearside_square, y_place+farside_square,edition_seal_col["Blue-Seal"])
                     elseif jokers_enhancement[i][j] == "Rental" then
-                        screen.drawFillRect(SCREEN_UP, hud_width + x + (i)*card_size[1]-6, y_place+card_size[2]-6, hud_width + x + (i)*card_size[1]-2, y_place+card_size[2]-2,edition_seal_col["Red-Seal"])
+                        screen.drawFillRect(SCREEN_UP, hud_width + x + (i)*card_size[1]-farside_square, y_place+card_size[2]-farside_square, hud_width + x + (i)*card_size[1]-nearside_square, y_place+card_size[2]-nearside_square,edition_seal_col["Red-Seal"])
                     end
                 else
                     if jokers_enhancement[i][j][1] == "Perishable" then
-                        screen.drawFillRect(SCREEN_UP, hud_width + x + (i)*card_size[1]-6, y_place+2, hud_width + x + (i)*card_size[1]-2, y_place+6,edition_seal_col["Purple-Seal"])
+                        screen.drawFillRect(SCREEN_UP, hud_width + x + (i)*card_size[1]-farside_square, y_place+nearside_square, hud_width + x + (i)*card_size[1]-nearside_square, y_place+farside_square,edition_seal_col["Purple-Seal"])
                     end
                 end
             end
@@ -3764,6 +3788,8 @@ function draw_shop_main()
     local y_place = SCREEN_HEIGHT/2
     for i,v in ipairs(shop_jokers) do
         if joker_info[v] ~= nil then
+            local nearside_square = 2
+            local farside_square = 6
             local joke_index = joker_info[v][3]
             if joke_index ~= 99 then
                 screen.blit(SCREEN_DOWN, x + (i-1)*card_size[1], y_place, joker_graphics, card_size[1]*(joke_index-1),0, card_size[1], card_size[2])--change to joker_display
@@ -3773,17 +3799,17 @@ function draw_shop_main()
             for j = 2, #shop_jokers_enhancement[i] do
                 if type(shop_jokers_enhancement[i][j]) ~= "table" then
                     if shop_jokers_enhancement[i][j] == "Foil" or shop_jokers_enhancement[i][j] == "Polychrome" or shop_jokers_enhancement[i][j] == "Holographic" then
-                        screen.drawFillRect(SCREEN_DOWN, x + (i-1)*card_size[1]+2, y_place+card_size[2]-6, x + (i-1)*card_size[1]+6, y_place+card_size[2]-2,edition_seal_col[shop_jokers_enhancement[i][j]])
+                        screen.drawFillRect(SCREEN_DOWN, x + (i-1)*card_size[1]+nearside_square, y_place+card_size[2]-farside_square, x + (i-1)*card_size[1]+farside_square, y_place+card_size[2]-nearside_square,edition_seal_col[shop_jokers_enhancement[i][j]])
                     elseif shop_jokers_enhancement[i][j] == "Negative" then
-                        screen.drawFillRect(SCREEN_DOWN, x + (i-1)*card_size[1]+2, y_place+2, x + (i-1)*card_size[1]+6, y_place+6,Color.new(0,0,0))
+                        screen.drawFillRect(SCREEN_DOWN, x + (i-1)*card_size[1]+nearside_square, y_place+nearside_square, x + (i-1)*card_size[1]+farside_square, y_place+farside_square,Color.new(0,0,0))
                     elseif shop_jokers_enhancement[i][j] == "Eternal" then
-                        screen.drawFillRect(SCREEN_DOWN, x + (i)*card_size[1]-6, y_place+2, x + (i)*card_size[1]-2, y_place+6,edition_seal_col["Blue-Seal"])
+                        screen.drawFillRect(SCREEN_DOWN, x + (i)*card_size[1]-farside_square, y_place+nearside_square, x + (i)*card_size[1]-nearside_square, y_place+farside_square,edition_seal_col["Blue-Seal"])
                     elseif shop_jokers_enhancement[i][j] == "Rental" then
-                        screen.drawFillRect(SCREEN_DOWN, x + (i)*card_size[1]-6, y_place+card_size[2]-6, x + (i)*card_size[1]-2, y_place+card_size[2]-2,edition_seal_col["Red-Seal"])
+                        screen.drawFillRect(SCREEN_DOWN, x + (i)*card_size[1]-farside_square, y_place+card_size[2]-farside_square, x + (i)*card_size[1]-nearside_square, y_place+card_size[2]-nearside_square,edition_seal_col["Red-Seal"])
                     end
                 else
                     if shop_jokers_enhancement[i][j][1] == "Perishable" then
-                        screen.drawFillRect(SCREEN_DOWN, x + (i)*card_size[1]-6, y_place+2, x + (i)*card_size[1]-2, y_place+6,edition_seal_col["Purple-Seal"])
+                        screen.drawFillRect(SCREEN_DOWN, x + (i)*card_size[1]-farside_square, y_place+nearside_square, x + (i)*card_size[1]-nearside_square, y_place+farside_square,edition_seal_col["Purple-Seal"])
                     end
                 end
             end
@@ -3808,7 +3834,7 @@ end
 
 function draw_tarots_graphics()
     local x = (SCREEN_WIDTH-hud_width)/(#consumable+1)
-    local y_place = SCREEN_HEIGHT-2*card_size[2]-10
+    local y_place = SCREEN_HEIGHT-2*card_size[2]-y_buffer
     for i,v in ipairs(consumable) do
         local cons_type = consumable_deck[v][2] 
         local index = consumable_deck[v][3]
@@ -3820,71 +3846,74 @@ function draw_tarots_graphics()
 end
 
 function card_details(kind)
+    local y_init_pos = 50
+    local x_init_pos = hud_width+10
     if kind == 1 then--playing cards
         if #dealt >0 then
             if #dealt_enhancement[selected_card] == 4 then
-                screen.print(SCREEN_UP,hud_width+10,50,dealt[selected_card],colours[1])
-                screen.print(SCREEN_UP, hud_width+10, 50+10, "+"..dealt_enhancement[selected_card][1].." Chips", colours[1])
+                screen.print(SCREEN_UP,x_init_pos,y_init_pos,dealt[selected_card],colours[1])
+                screen.print(SCREEN_UP, x_init_pos, y_init_pos+y_buffer, "+"..dealt_enhancement[selected_card][1].." Chips", colours[1])
                 for i=2,#dealt_enhancement[selected_card] do
                     local v = dealt_enhancement[selected_card][i]
-                    screen.print(SCREEN_UP, hud_width+10, 50+10*i, v, colours[1])
+                    screen.print(SCREEN_UP, x_init_pos, y_init_pos+y_buffer*i, v, colours[1])
                 end
             end
         else
-            screen.print(SCREEN_UP,hud_width+10,50,"No card selected",colours[1])
+            screen.print(SCREEN_UP,x_init_pos,y_init_pos,"No card selected",colours[1])
         end
     elseif kind == 1.5 and gameplay_phase==4 then--main shop
-        if #shop_jokers > 0 then-- currently no additional foil polychrome etc in shop
+        if #shop_jokers > 0 then
             local x_pos = SCREEN_WIDTH/(3)--chosen for looks but if decide to add many jokers to shop do full width
             local y_pos = SCREEN_HEIGHT/2
             screen.setAlpha(30)
             screen.drawFillRect(SCREEN_DOWN, x_pos+(selected_card-1)*card_size[1], y_pos, x_pos+selected_card*card_size[1],y_pos+card_size[2],Color.new(0,0,0))
             screen.setAlpha(100)
-            screen.print(SCREEN_UP,hud_width+10,50,shop_jokers[selected_card]..": "..selected_card.."/"..#shop_jokers,colours[2])
+            screen.print(SCREEN_UP,x_init_pos,y_init_pos,shop_jokers[selected_card]..": "..selected_card.."/"..#shop_jokers,colours[2])
             if joker_info[shop_jokers[selected_card]] ~= nil then
-                local joker_info_text = text_width(joker_info[shop_jokers[selected_card]][2],(SCREEN_WIDTH-(hud_width+10))/6)
+                local joker_info_text = text_width(joker_info[shop_jokers[selected_card]][2],(SCREEN_WIDTH-(x_init_pos))/avg_char_width)
                 for i,v in ipairs(joker_info_text) do
-                    screen.print(SCREEN_UP,hud_width+10,60+10*(i-1),v,colours[2])
+                    screen.print(SCREEN_UP,x_init_pos,y_init_pos+y_buffer*(i),v,colours[2])
                 end
-                screen.print(SCREEN_UP,hud_width+10,60+10*#joker_info_text,"Buy(Y):$"..shop_jokers_enhancement[selected_card][1],colours[2])
+                screen.print(SCREEN_UP,x_init_pos,y_init_pos+y_buffer*(#joker_info_text+1),"Buy(Y):$"..shop_jokers_enhancement[selected_card][1],colours[2])
                 for i=2,#shop_jokers_enhancement[selected_card] do
                     local v = shop_jokers_enhancement[selected_card][i]
-                    screen.print(SCREEN_UP,hud_width+10,60+10*#joker_info_text+10*(i-1),v,colours[2])
+                    screen.print(SCREEN_UP,x_init_pos,y_init_pos+y_buffer*#joker_info_text+y_buffer*(i),v,colours[2])
                 end
+                screen.print(SCREEN_UP,x_init_pos,y_init_pos+y_buffer*(#joker_info_text+#shop_jokers_enhancement[selected_card]+1),joker_info[shop_jokers[selected_card]][4],colours[2])
             elseif string.len(shop_jokers[selected_card]) == 2 then
-                screen.print(SCREEN_UP,hud_width+10,50,shop_jokers[selected_card],colours[2])
-                screen.print(SCREEN_UP,hud_width+10,60,"Buy(Y):$".. shop_jokers_enhancement[selected_card][1],colours[2])
+                screen.print(SCREEN_UP,x_init_pos,y_init_pos,shop_jokers[selected_card],colours[2])
+                screen.print(SCREEN_UP,x_init_pos,y_init_pos+y_buffer,"Buy(Y):$".. shop_jokers_enhancement[selected_card][1],colours[2])
             else
-                local info_text = text_width(consumable_deck[shop_jokers[selected_card]][1],(SCREEN_WIDTH-(hud_width+10))/6)
+                local info_text = text_width(consumable_deck[shop_jokers[selected_card]][1],(SCREEN_WIDTH-(x_init_pos))/avg_char_width)
                 for i,v in ipairs(info_text) do
-                    screen.print(SCREEN_UP,hud_width+10,60+10*(i-1),v,colours[2])
+                    screen.print(SCREEN_UP,x_init_pos,y_init_pos+y_buffer*(i),v,colours[2])
                 end
-                screen.print(SCREEN_UP,hud_width+10,60+10*#info_text,"Buy(Y):$"..shop_jokers_enhancement[selected_card][1],colours[2])
+                screen.print(SCREEN_UP,x_init_pos,y_init_pos+y_buffer*(#info_text+1),"Buy(Y):$"..shop_jokers_enhancement[selected_card][1],colours[2])
             end
         else
-            screen.print(SCREEN_UP,hud_width+10,60,"No Jokers Available to Buy",colours[2])
+            screen.print(SCREEN_UP,x_init_pos,y_init_pos+y_buffer,"No Jokers Available to Buy",colours[2])
         end
     elseif kind == 2 then--jokers
         if #jokers >0 then
             local x_pos = hud_width+(SCREEN_WIDTH-hud_width)/(#jokers+1)
             local y_pos = SCREEN_HEIGHT-card_size[2]-2
-            local joker_info_text = text_width(joker_info[jokers[selected_card]][2],(SCREEN_WIDTH-(hud_width+10))/6)
             if blind == 3 and ante%8 == 0 and finisher_blinds[boss_num] == "Amber Acorn" and boss_active then
-                if gameplay_phase == 2 or gamplay_phase == 3 then
-                    screen.print(SCREEN_UP,hud_width+10,50,"Boss ability in effect",colours[3])
+                if gameplay_phase == 2 or gameplay_phase == 3 then
+                    screen.print(SCREEN_UP,x_init_pos,y_init_pos,"Boss ability in effect",colours[3])
                 end
             else
-                screen.print(SCREEN_UP,hud_width+10,50,jokers[selected_card]..": "..selected_card.."/"..joker_size,colours[3])
+                local joker_info_text = text_width(joker_info[jokers[selected_card]][2],(SCREEN_WIDTH-(x_init_pos))/avg_char_width)
+                screen.print(SCREEN_UP,x_init_pos,y_init_pos,jokers[selected_card].."("..string.sub(joker_info[jokers[selected_card]][#joker_info[jokers[selected_card]]],1,1)..")"..": "..selected_card.."/"..joker_size,colours[3])
                 for i,v in ipairs(joker_info_text) do
-                    screen.print(SCREEN_UP,hud_width+10,60+10*(i-1),v,colours[3])
+                    screen.print(SCREEN_UP,x_init_pos,y_init_pos+y_buffer*(i),v,colours[3])
                 end
                 display_joker_specifics(jokers[selected_card],selected_card,#joker_info_text)
-                screen.print(SCREEN_UP,hud_width+10,60 + 10*#joker_info_text+10,"Sell(Y): $"..jokers_enhancement[selected_card][2],colours[3])
+                screen.print(SCREEN_UP,x_init_pos,y_init_pos + y_buffer*(#joker_info_text+2),"Sell(Y): $"..jokers_enhancement[selected_card][2],colours[3])
                 for i=3,#jokers_enhancement[selected_card] do
                     if type(jokers_enhancement[selected_card][i]) ~= "table" then
-                        screen.print(SCREEN_UP, hud_width+10, 60 + 10*#joker_info_text+10*(i-1), jokers_enhancement[selected_card][i], colours[3])
+                        screen.print(SCREEN_UP, x_init_pos, y_init_pos + y_buffer*(#joker_info_text+i), jokers_enhancement[selected_card][i], colours[3])
                     else
-                        screen.print(SCREEN_UP, hud_width+10, 60 + 10*#joker_info_text+10*(i-1), jokers_enhancement[selected_card][i][1].." Rounds left:"..jokers_enhancement[selected_card][i][2], colours[3])
+                        screen.print(SCREEN_UP, x_init_pos, y_init_pos + y_buffer*(#joker_info_text+i), jokers_enhancement[selected_card][i][1].." Rounds left:"..jokers_enhancement[selected_card][i][2], colours[3])
                     end
                 end
             end
@@ -3892,23 +3921,23 @@ function card_details(kind)
             screen.drawFillRect(SCREEN_UP, x_pos+(selected_card-1)*card_size[1], y_pos, x_pos+selected_card*card_size[1],y_pos+card_size[2],Color.new(0,0,0))--may make a better way
             screen.setAlpha(100)
         else
-            screen.print(SCREEN_UP,hud_width+10,50,"No joker selected",colours[3])
+            screen.print(SCREEN_UP,x_init_pos,y_init_pos,"No joker selected",colours[3])
         end
     elseif kind == 2.5 and gameplay_phase ==4 then--packs
         if #packs > 0 then
             local x_pos = 2*SCREEN_WIDTH/(3)--chosen for looks but if decide to add many jokers to shop do full width
             local y_pos = SCREEN_HEIGHT/2
-            screen.print(SCREEN_UP,hud_width+10,50,packs[selected_card][1]..": "..selected_card.."/"..#packs,colours[4])--name
-            local pack_text = text_width(pack_size[packs[selected_card][2]],(SCREEN_WIDTH-(hud_width+10))/6)
+            screen.print(SCREEN_UP,x_init_pos,y_init_pos,packs[selected_card][1]..": "..selected_card.."/"..#packs,colours[4])--name
+            local pack_text = text_width(pack_size[packs[selected_card][2]],(SCREEN_WIDTH-(x_init_pos))/avg_char_width)
             for i,v in ipairs(pack_text) do
-                screen.print(SCREEN_UP,hud_width+10,60+10*(i-1),v,colours[4])
+                screen.print(SCREEN_UP,x_init_pos,y_init_pos+y_buffer*(i),v,colours[4])
             end
-            screen.print(SCREEN_UP,hud_width+10,60+10*#pack_text,"Buy(Y):$"..packs[selected_card][4],colours[4])--cost
+            screen.print(SCREEN_UP,x_init_pos,y_init_pos+y_buffer*(#pack_text+1),"Buy(Y):$"..packs[selected_card][4],colours[4])--cost
             screen.setAlpha(30)
             screen.drawFillRect(SCREEN_DOWN, x_pos+(selected_card-1)*card_size[1], y_pos, x_pos+selected_card*card_size[1],y_pos+card_size[2],Color.new(0,0,0))
             screen.setAlpha(100)
         else
-            screen.print(SCREEN_UP,hud_width+10,60,"No packs Available to Buy",colours[4])
+            screen.print(SCREEN_UP,x_init_pos,y_init_pos+y_buffer,"No packs Available to Buy",colours[4])
         end
     elseif kind == 3 then--consumables
         if #consumable > 0 then
@@ -3917,17 +3946,17 @@ function card_details(kind)
             screen.setAlpha(30)
             screen.drawFillRect(SCREEN_UP, hud_width + x + (selected_card-1)*card_size[1], y_place, hud_width + x + (selected_card)*card_size[1], y_place+card_size[2],Color.new(0,0,0))
             screen.setAlpha(100)
-            screen.print(SCREEN_UP,hud_width+10,50,consumable[selected_card]..": "..selected_card.."/"..consumable_size,colours[5])
-            local info_text = text_width("Use(B):"..consumable_deck[consumable[selected_card]][1],(SCREEN_WIDTH-(hud_width+10))/6)
+            screen.print(SCREEN_UP,x_init_pos,y_init_pos,consumable[selected_card]..": "..selected_card.."/"..consumable_size,colours[5])
+            local info_text = text_width("Use(B):"..consumable_deck[consumable[selected_card]][1],(SCREEN_WIDTH-(x_init_pos))/avg_char_width)
             for i,v in ipairs(info_text) do
-                screen.print(SCREEN_UP,hud_width+10,60+10*(i-1),v,colours[5])
+                screen.print(SCREEN_UP,x_init_pos,y_init_pos+y_buffer*(i),v,colours[5])
             end
             local consumable_cost = {["Planet"] = 2, ["Tarot"] = 3, ["Spectral"] = 4}
             local shop_cost_position = consumable_cost[consumable_deck[consumable[selected_card]][2]]
-            screen.print(SCREEN_UP, hud_width+10,60+10*#info_text,"Sell(Y):$"..math.floor(shop_costs[shop_cost_position]*discount_percent/2),colours[5])
-            screen.print(SCREEN_UP, hud_width+10,60+10*#info_text+10,consumable_enhancement[selected_card],colours[5])
+            screen.print(SCREEN_UP, x_init_pos,y_init_pos+y_buffer*(#info_text+1),"Sell(Y):$"..math.floor(shop_costs[shop_cost_position]*discount_percent/2),colours[5])
+            screen.print(SCREEN_UP, x_init_pos,y_init_pos+y_buffer*(#info_text+2),consumable_enhancement[selected_card],colours[5])
         else
-            screen.print(SCREEN_UP,hud_width+10,60,"No consumable Available",colours[5])
+            screen.print(SCREEN_UP,x_init_pos,y_init_pos+y_buffer,"No consumable Available",colours[5])
         end
     elseif kind == 3.5 and gameplay_phase == 4 then--voucher
         if #voucher_show>0 then
@@ -3935,36 +3964,36 @@ function card_details(kind)
             screen.setAlpha(30)
             screen.drawFillRect(SCREEN_DOWN,x+(selected_card-1)*card_size[1],SCREEN_HEIGHT/3-card_size[2],x+(selected_card)*card_size[1],SCREEN_HEIGHT/3,Color.new(0,0,0))
             screen.setAlpha(100)
-            screen.print(SCREEN_UP,hud_width+10,50,voucher_show[selected_card][1]..":"..selected_card.."/"..#voucher_show,Color.new(31,0,0))--name
-            local voucher_info_text = text_width(vouchers_info[voucher_show[selected_card][1]],(SCREEN_WIDTH-(hud_width+10))/6)
+            screen.print(SCREEN_UP,x_init_pos,y_init_pos,voucher_show[selected_card][1]..":"..selected_card.."/"..#voucher_show,Color.new(31,0,0))--name
+            local voucher_info_text = text_width(vouchers_info[voucher_show[selected_card][1]],(SCREEN_WIDTH-(x_init_pos))/avg_char_width)
             for i,v in ipairs(voucher_info_text) do
-                screen.print(SCREEN_UP,hud_width+10,50+10*i,v,Color.new(31,0,0))--details
+                screen.print(SCREEN_UP,x_init_pos,y_init_pos+y_buffer*i,v,Color.new(31,0,0))--details
             end
-            screen.print(SCREEN_UP,hud_width+10,50 + 10*(#voucher_info_text+1),"Buy(Y): $"..voucher_show[selected_card][2],Color.new(31,0,0))--cost
+            screen.print(SCREEN_UP,x_init_pos,y_init_pos + y_buffer*(#voucher_info_text+1),"Buy(Y): $"..voucher_show[selected_card][2],Color.new(31,0,0))--cost
         else
-            screen.print(SCREEN_UP,hud_width+10,60,"No Voucher Available",Color.new(31,0,0))
+            screen.print(SCREEN_UP,x_init_pos,y_init_pos + y_buffer,"No Voucher Available",Color.new(31,0,0))
         end
     elseif kind == 4 and gameplay_phase == 4.5 then--pack_interior
         local y_pack_pos = SCREEN_HEIGHT/2
-        screen.print(SCREEN_UP, hud_width+10, 50, pack_interior[selected_card]..": "..selected_card.."/"..cele_size)
+        screen.print(SCREEN_UP, x_init_pos, y_init_pos, pack_interior[selected_card]..": "..selected_card.."/"..cele_size)
         if name_pack == "standard" then
-            screen.print(SCREEN_UP, hud_width+10, 50+10, "+"..pack_interior_enhancement[selected_card][1].." Chips", colours[1])
+            screen.print(SCREEN_UP, x_init_pos, y_init_pos+y_buffer, "+"..pack_interior_enhancement[selected_card][1].." Chips", colours[1])
             for i=2,#pack_interior_enhancement[selected_card] do--work out how to format with multiple modifiers
                 local v = pack_interior_enhancement[selected_card][i]
-                screen.print(SCREEN_UP, hud_width+10, 50+10*i, v, colours[1])
+                screen.print(SCREEN_UP, x_init_pos, y_init_pos+y_buffer*i, v, colours[1])
             end
         elseif name_pack == "bufoon" then
-            local joker_info_text = text_width(joker_info[pack_interior[selected_card]][2],(SCREEN_WIDTH-(hud_width+10))/6)
+            local joker_info_text = text_width(joker_info[pack_interior[selected_card]][2],(SCREEN_WIDTH-(x_init_pos))/avg_char_width)
             for i,v in ipairs(joker_info_text) do
-                screen.print(SCREEN_UP,hud_width+10,60+10*(i-1),v)
+                screen.print(SCREEN_UP,x_init_pos,y_init_pos+y_buffer*(i),v)
             end
         else
             if name_pack ~= "celestial" then
                 y_pack_pos = SCREEN_HEIGHT-2*card_size[2]
             end
-            local consumable_info_text = text_width(consumable_deck[pack_interior[selected_card]][1],(SCREEN_WIDTH-(hud_width+10))/6)
+            local consumable_info_text = text_width(consumable_deck[pack_interior[selected_card]][1],(SCREEN_WIDTH-(x_init_pos))/avg_char_width)
             for i,v in ipairs(consumable_info_text) do
-                screen.print(SCREEN_UP,hud_width+10,60+10*(i-1),v)
+                screen.print(SCREEN_UP,x_init_pos,y_init_pos+y_buffer*(i),v)
             end
         end
         screen.setAlpha(30)
@@ -3972,34 +4001,36 @@ function card_details(kind)
         screen.setAlpha(100)
     elseif kind == 5 and gameplay_phase == 4.5 then
         if #pack_cards >0 then
-            local height = 50
-            screen.print(SCREEN_UP,hud_width+10,height,pack_cards[selected_card],colours[1])
-            screen.print(SCREEN_UP,hud_width+10,height +10,"Y: add to selection",colours[1])
-            screen.print(SCREEN_UP,hud_width+10,height+20,"B: reset selection",colours[1])
+            local height = y_init_pos
+            screen.print(SCREEN_UP,x_init_pos,height,pack_cards[selected_card],colours[1])
+            screen.print(SCREEN_UP,x_init_pos,height +y_buffer,"Y: add to selection",colours[1])
+            screen.print(SCREEN_UP,x_init_pos,height+2*y_buffer,"B: reset selection",colours[1])
             screen.setAlpha(30)
             screen.drawFillRect(SCREEN_DOWN, SCREEN_WIDTH*(selected_card)/(#pack_cards+1),SCREEN_HEIGHT/2,SCREEN_WIDTH*(selected_card)/(#pack_cards+1)+card_size[1],SCREEN_HEIGHT/2+card_size[2],Color.new(0,0,0))--black shadow
             screen.setAlpha(100)
-            screen.print(SCREEN_UP, hud_width+10, height+30, "+"..pack_cards_enhancements[selected_card][1].." Chips", colours[1])
+            screen.print(SCREEN_UP, x_init_pos, height+3*y_buffer, "+"..pack_cards_enhancements[selected_card][1].." Chips", colours[1])
             for i=2,#pack_cards_enhancements[selected_card] do
                 local v = pack_cards_enhancements[selected_card][i]
-                screen.print(SCREEN_UP, hud_width+10, height+30+10*(i-1), v, colours[1])
+                screen.print(SCREEN_UP, x_init_pos, height+3*y_buffer+y_buffer*(i-1), v, colours[1])
             end
         else
-            screen.print(SCREEN_UP,hud_width+10,50,"No card selected",colours[1])
+            screen.print(SCREEN_UP,x_init_pos,y_init_pos,"No card selected",colours[1])
         end
     end
 end
 
 function display_joker_specifics(joker,index,text_len)
     local display = jokers_enhancement[index][1]
+    local y_base = 60
+    local x_init_pos = hud_width+10
     if joker == "Castle" then
-        screen.print(SCREEN_UP,hud_width+10,60 + 10*text_len,display[1]..", Currently "..display[2],colours[3])
+        screen.print(SCREEN_UP,x_init_pos,y_base + y_buffer*text_len,display[1]..", Currently "..display[2],colours[3])
     elseif joker == "Campfire" then 
-        screen.print(SCREEN_UP,hud_width+10,60 + 10*text_len,"Currently "..display[1]..", Cards sold "..display[2],colours[3])
+        screen.print(SCREEN_UP,x_init_pos,y_base + y_buffer*text_len,"Currently "..display[1]..", Cards sold "..display[2],colours[3])
     elseif joker == "Yorick" then
-        screen.print(SCREEN_UP,hud_width+10,60 + 10*text_len,"Currently X"..display[1]..", Cards left "..display[2],colours[3])
+        screen.print(SCREEN_UP,x_init_pos,y_base + y_buffer*text_len,"Currently X"..display[1]..", Cards left "..display[2],colours[3])
     else
-        screen.print(SCREEN_UP,hud_width+10,60 + 10*text_len,display,colours[3])
+        screen.print(SCREEN_UP,x_init_pos,y_base + y_buffer*text_len,display,colours[3])
     end
 end
 
@@ -4027,14 +4058,15 @@ end
 
 function draw_shop()
     local fit = SCREEN_WIDTH/4
-    screen.print(SCREEN_DOWN, 0, 165, "Advance:")
-    screen.print(SCREEN_DOWN, 0, 175, "A")
-    screen.print(SCREEN_DOWN, fit, 165, "Selection:")
-    screen.print(SCREEN_DOWN, fit, 175, "Up/Down")
-    screen.print(SCREEN_DOWN, fit*2, 165, "Move/Use:")
-    screen.print(SCREEN_DOWN, fit*2, 175, "B")
-    screen.print(SCREEN_DOWN, fit*3, 165, "Reroll:")
-    screen.print(SCREEN_DOWN, fit*3, 175, "X: $" .. tostring(reroll_price))
+    local y_pos = 165
+    screen.print(SCREEN_DOWN, 0, y_pos, "Advance:")
+    screen.print(SCREEN_DOWN, 0, y_pos + y_buffer, "A")
+    screen.print(SCREEN_DOWN, fit, y_pos, "Selection:")
+    screen.print(SCREEN_DOWN, fit, y_pos + y_buffer, "Up/Down")
+    screen.print(SCREEN_DOWN, fit*2, y_pos, "Move/Use:")
+    screen.print(SCREEN_DOWN, fit*2, y_pos + y_buffer, "B")
+    screen.print(SCREEN_DOWN, fit*3, y_pos, "Reroll:")
+    screen.print(SCREEN_DOWN, fit*3, y_pos + y_buffer, "X: $" .. tostring(reroll_price))
     draw_shop_main()
     draw_pack_graphics()
     for i,v in ipairs(voucher_show) do
@@ -4935,7 +4967,7 @@ function use_target_spectral(active_cards,active_cards_enhancement,stand_cards,s
             end
             table.remove(spectral_select,selected_card)
         end
-    elseif spectral_select[selected_card] == "Aura" then--add 50% foil 35 holo 15 poly
+    elseif spectral_select[selected_card] == "Aura" then
         if #active_cards == 1 then
             local index = find_matching(1,active_cards,active_cards_enhancement)
             local rand = math.random()
@@ -5561,10 +5593,9 @@ while not Keys.newPress.Select do
             end
             scene = "game"
             deck_name = total_deck[deck_kind][selected_deck]
-            stake_name = stakes[selected_stake]
             get_deck(deck_name)
             get_deck_adjust(deck_name)
-            stake_begin(stake_name)
+            stake_begin()
             soft_reset()
         end
         if Keys.newPress.R then
@@ -5663,7 +5694,7 @@ while not Keys.newPress.Select do
                         if finisher_blinds[boss_num] == "Amber Acorn" then
                             local temp_jokers = {}
                             local temp_jokers_enhancement = {}
-                            for i = 1, #jokers do--need to look at this
+                            for i = 1, #jokers do
                                 local index = math.random(#jokers)
                                 table.insert(temp_jokers,jokers[index])
                                 table.insert(temp_jokers_enhancement,jokers_enhancement[index])
@@ -5701,7 +5732,7 @@ while not Keys.newPress.Select do
                 add_to_dealt()
                 if blind == 3 and boss_active == true then
                     if ante%8 == 0 then
-                        if finisher_blinds[boss_num] == "Cerulean Bell" then--move this to after dealt
+                        if finisher_blinds[boss_num] == "Cerulean Bell" then
                             local rand = math.random(#dealt)
                             table.insert(hand,dealt[rand])
                             table.insert(hand_enhancement,dealt_enhancement[rand])
@@ -5724,7 +5755,7 @@ while not Keys.newPress.Select do
                     no_blinds_skipped = no_blinds_skipped+1
                     table.insert(tag_select,blind_tags[blind])
                     blind = blind + 1
-                    for i=#tag_select-1,1,-1 do--doesnt work properly with multiple 
+                    for i=#tag_select-1,1,-1 do
                         if tag_select[i] == "Double" then
                             tag_select[i] = tag_select[#tag_select]
                         end
@@ -5778,14 +5809,17 @@ while not Keys.newPress.Select do
             end
 
         elseif gameplay_phase == 2 then--choosing hand
-            tutorial_graphics:drawFrame(SCREEN_DOWN, 16, 12, 0)--frame number is multiple of 96
+            local lhs_tutorial = 20
+            tutorial_graphics:drawFrame(SCREEN_DOWN, lhs_tutorial, 12, 0)--frame number is multiple of 96
             --tutorial_graphics:drawFrame(SCREEN_DOWN, 149, 4, 1)
             --tutorial_graphics:drawFrame(SCREEN_DOWN, 16, 4, 2)--need to change from arrow to B/X
-            tutorial_graphics:drawFrame(SCREEN_DOWN, 144, 12, 3)
-            screen.print(SCREEN_DOWN,20,2,"X: Place Card")
-            screen.print(SCREEN_DOWN,153,2,"B: Reset Hand")
+            tutorial_graphics:drawFrame(SCREEN_DOWN, 144, 12, 3)--x,y,frame number
+            screen.print(SCREEN_DOWN,lhs_tutorial,2,"X: Place Card")
+            screen.print(SCREEN_DOWN,SCREEN_WIDTH/2+lhs_tutorial,2,"B: Reset Hand")
+            -- screen.print(SCREEN_DOWN,lhs_tutorial,2+y_buffer,"A: Play Hand")
+            -- screen.print(SCREEN_DOWN,SCREEN_WIDTH/2+lhs_tutorial,2+y_buffer,"Y: Discard Hand")
             draw_card_base_graphic((SCREEN_WIDTH-card_size[1])/2,0,1,{})--card for deck
-            screen.print(SCREEN_DOWN, (SCREEN_WIDTH-card_size[1])/2+2, 7,#deck, Color.new(0,0,0))
+            screen.print(SCREEN_DOWN, (SCREEN_WIDTH-card_size[1])/2+2, card_size[2]/4,#deck, Color.new(0,0,0))
             draw_card_deck_graphic(dealt, selected_card, "dealt")--why does this show always
 
             if #hand >0 then
@@ -5799,9 +5833,9 @@ while not Keys.newPress.Select do
                             status_string= status_string..k.." "
                         end
                         local x = x_space*i
-                        local indv_status = text_width(status_string,1)
+                        local indv_status = text_width(status_string,1)--1 splits every word
                         for a,b in ipairs(indv_status) do
-                            screen.print(SCREEN_DOWN,x-card_size[1],SCREEN_HEIGHT/3-10*(a-2),b,colours[1])
+                            screen.print(SCREEN_DOWN,x-card_size[1],SCREEN_HEIGHT/3-y_buffer*(a-2),b,colours[1])
                         end
                     end
                 end
@@ -5854,8 +5888,8 @@ while not Keys.newPress.Select do
                         table.remove(hand,#hand)
                     end
                     dealt,dealt_enhancement = sort_deck(dealt,dealt_enhancement)
-                    chips = 0.0
-                    multiplier = 0.0
+                    chips = 0
+                    multiplier = 0
                     hand_type = ""
                 elseif kind == 2 and #jokers>1 then
                     move_action(jokers,jokers_enhancement)
@@ -6009,51 +6043,53 @@ while not Keys.newPress.Select do
             draw_card_deck_graphic(hand, selected_card, "hand")
             gameplay_phase = 3
         elseif gameplay_phase == 2.5 then--game menu
+            local menu_x_lhs = SCREEN_WIDTH/2 -5
+            local menu_y = SCREEN_HEIGHT/3
             local index_menu_details = {"Show Deck","Show Hand Types","Show Enhancments", "Adjust Volume", "Adjust Animations", "Retire Run"}
-            screen.print(SCREEN_UP, SCREEN_WIDTH/2 -5,SCREEN_HEIGHT/3,"Main Menu",Color.new(0,0,0))
+            screen.print(SCREEN_UP, menu_x_lhs,menu_y,"Main Menu",Color.new(0,0,0))
             for i,v in ipairs(index_menu_details) do
-                screen.print(SCREEN_UP, SCREEN_WIDTH/2 -5,SCREEN_HEIGHT/3+10*(i),v,Color.new(31,31,31))
+                screen.print(SCREEN_UP, menu_x_lhs,menu_y+y_buffer*(i),v,Color.new(31,31,31))
             end
             index_menu = bounds(index_menu_details,index_menu)
-            screen.drawFillRect(SCREEN_UP, SCREEN_WIDTH/2 - 15, SCREEN_HEIGHT/3+10*index_menu, SCREEN_WIDTH/2 - 6, SCREEN_HEIGHT/3+10*(index_menu)+7, Color.new(0, 0, 0))
+            screen.drawFillRect(SCREEN_UP, menu_x_lhs -10, menu_y+y_buffer*index_menu, menu_x_lhs-1, menu_y+y_buffer*(index_menu+1)-1, Color.new(0, 0, 0))
             if index_menu_details[index_menu] == "Show Deck" then
                 local rank_deck = {[2]=0,[3]=0,[4]=0,[5]=0,[6]=0,[7]=0,[8]=0,[9]=0,[10]=0,[11]=0,[12]=0,[13]=0,[14]=0,[15]=0}
                 local suit_deck = {["h"]=0,["d"]=0,["c"]=0,["s"]=0}
                 local wilds = 0
+                local deck_x = SCREEN_WIDTH/5
+                local initial_deck_y = SCREEN_HEIGHT/5
                 for i,v in ipairs(deck) do--cards in deck
-                    if string.sub(v,2,2) == "h" then
-                        deck_y = SCREEN_HEIGHT/5
-                    elseif string.sub(v,2,2) == "d" then
-                        deck_y = 2*SCREEN_HEIGHT/5
-                    elseif string.sub(v,2,2) == "s" then
-                        deck_y = 3*SCREEN_HEIGHT/5
-                    elseif string.sub(v,2,2) == "c" then
-                        deck_y = 4*SCREEN_HEIGHT/5
-                    else
-                        rank_deck[position(string.sub(v,1,1))] = rank_deck[position(string.sub(v,1,1))]+1
-                    end
-                    if string.sub(v,2,2) ~= "t" then
+                    if v~="st" then
+                        local deck_y = initial_deck_y
+                        if string.sub(v,2,2) == "d" then
+                            deck_y = 2*deck_y
+                        elseif string.sub(v,2,2) == "s" then
+                            deck_y = 3*deck_y
+                        elseif string.sub(v,2,2) == "c" then
+                            deck_y = 4*deck_y
+                        end
                         suit_deck[string.sub(v,2,2)]= suit_deck[string.sub(v,2,2)]+1
                         rank_deck[position(string.sub(v,1,1))] = rank_deck[position(string.sub(v,1,1))]+1
-                        screen.print(SCREEN_DOWN, 50 + 13*position(string.sub(v,1,1)), deck_y, v)
+                        screen.print(SCREEN_DOWN, deck_x + 13*position(string.sub(v,1,1)), deck_y, v)
+                    else
+                        rank_deck[position(string.sub(v,1,1))] = rank_deck[position(string.sub(v,1,1))]+1
                     end
                 end
                 for i,v in ipairs(used_cards)do--cards used or in dealt
-                    if string.sub(v,2,2) == "h" then
-                        deck_y = SCREEN_HEIGHT/5
-                    elseif string.sub(v,2,2) == "d" then
-                        deck_y = 2*SCREEN_HEIGHT/5
-                    elseif string.sub(v,2,2) == "s" then
-                        deck_y = 3*SCREEN_HEIGHT/5
-                    elseif string.sub(v,2,2) == "c" then
-                        deck_y = 4*SCREEN_HEIGHT/5
+                    if v~="st" then
+                        local deck_y = initial_deck_y
+                        if string.sub(v,2,2) == "d" then
+                            deck_y = 2*deck_y
+                        elseif string.sub(v,2,2) == "s" then
+                            deck_y = 3*deck_y
+                        elseif string.sub(v,2,2) == "c" then
+                            deck_y = 4*deck_y
+                        end
+                        suit_deck[string.sub(v,2,2)]= suit_deck[string.sub(v,2,2)]+1
+                        rank_deck[position(string.sub(v,1,1))] = rank_deck[position(string.sub(v,1,1))]+1
+                        screen.print(SCREEN_DOWN, deck_x + 13*position(string.sub(v,1,1)), deck_y, v,Color.new(31,0,0))
                     else
                         rank_deck[position(string.sub(v,1,1))] = rank_deck[position(string.sub(v,1,1))]+1
-                    end
-                    if string.sub(v,2,2) ~= "t" then
-                        suit_deck[string.sub(v,2,2)]= suit_deck[string.sub(v,2,2)]+1
-                        rank_deck[position(string.sub(v,1,1))] = rank_deck[position(string.sub(v,1,1))] +1
-                        screen.print(SCREEN_DOWN, 50 + 13*position(string.sub(v,1,1)), deck_y, v, Color.new(31,0,0))
                     end
                 end
                 for i=2,15 do
@@ -6063,24 +6099,25 @@ while not Keys.newPress.Select do
                     else
                         k = "st"
                     end
-                    screen.print(SCREEN_DOWN, 10 , 12*(i-1), k..": "..rank_deck[i], Color.new(0,0,0))
+                    screen.print(SCREEN_DOWN, 10 , (y_buffer+2)*(i-1), k..": "..rank_deck[i], Color.new(0,0,0))
                 end
                 local count = 1
                 for k,v in pairs(suit_deck) do
-                    screen.print(SCREEN_DOWN, 40+40*count , 10, k..":"..v, Color.new(0,0,0))
+                    screen.print(SCREEN_DOWN, SCREEN_WIDTH*(1+count)/6 , initial_deck_y - 2*y_buffer, k..":"..v, Color.new(0,0,0))
                     count = count+1
                 end
             elseif index_menu_details[index_menu] == "Show Hand Types" then
-                screen.print(SCREEN_DOWN, SCREEN_WIDTH/4 ,10,"Poker Hand")
-                screen.print(SCREEN_DOWN, 2*SCREEN_WIDTH/3-20 ,10,"Chips",Color.new(0,0,31))
-                screen.print(SCREEN_DOWN, 3*SCREEN_WIDTH/4 ,10,"Mult",Color.new(31,0,0))
-                screen.print(SCREEN_DOWN, SCREEN_WIDTH/5-10 ,10,"#",Color.new(0,0,0))
+                local y_top = 10
+                local hand_type_descriptors = {[1] = {"Poker Hand", SCREEN_WIDTH/4,Color.new(31,31,31)}, [2] = {"Chips", SCREEN_WIDTH/2+20, Color.new(0,0,31)}, [3] = {"Mult", 3*SCREEN_WIDTH/4,Color.new(31,0,0)}, [4]= {"#",SCREEN_WIDTH/5-10,Color.new(0,0,0)}}
+                for i=1,#hand_type_descriptors do
+                    screen.print(SCREEN_DOWN,hand_type_descriptors[i][2],y_top,hand_type_descriptors[i][1],hand_type_descriptors[i][3])
+                end
                 for i = 2, #planets_deck do
                     local v = hand_multipliers[planets_info[planets_deck[i]][3]]
-                    screen.print(SCREEN_DOWN, SCREEN_WIDTH/4, 10+ 12*(i-1), planets_info[planets_deck[i]][3])
-                    screen.print(SCREEN_DOWN, 2*SCREEN_WIDTH/3-20, 10+12*(i-1), v[1],Color.new(0,0,31))
-                    screen.print(SCREEN_DOWN, 3*SCREEN_WIDTH/4, 10+12*(i-1), v[2],Color.new(31,0,0))
-                    screen.print(SCREEN_DOWN, SCREEN_WIDTH/5-10, 10+12*(i-1), v[3],Color.new(0,0,0))
+                    screen.print(SCREEN_DOWN, hand_type_descriptors[1][2], y_top+ (y_buffer+2)*(i-1), planets_info[planets_deck[i]][3],hand_type_descriptors[1][3])--(y_buffer+2) done for looks as space is non issue
+                    screen.print(SCREEN_DOWN, hand_type_descriptors[2][2], y_top+(y_buffer+2)*(i-1), v[1],hand_type_descriptors[2][3])--cant really do as loop as v and hand_type_descriptors not related in any way so could cause bad patterns
+                    screen.print(SCREEN_DOWN, hand_type_descriptors[3][2], y_top+(y_buffer+2)*(i-1), v[2],hand_type_descriptors[3][3])
+                    screen.print(SCREEN_DOWN, hand_type_descriptors[4][2], y_top+(y_buffer+2)*(i-1), v[3],hand_type_descriptors[4][3])
                 end
             elseif index_menu_details[index_menu] == "Show Enhancments" then
                 if Keys.newPress.B then
@@ -6100,16 +6137,16 @@ while not Keys.newPress.Select do
                 local enhancement_kind = bounds(total_enhancement,enhancement_kind)
                 local spacer = 10
                 for i,v in ipairs(total_enhancement[enhancement_kind])do
-                    screen.print(SCREEN_DOWN,5,10+10*i+spacer,v..":",Color.new(31*(i%2),31*(i%2),31*(i%2)))
-                    local to_print = text_width(enhancement_info[v][1],2*SCREEN_WIDTH/(3*6))
+                    screen.print(SCREEN_DOWN,5,y_buffer*(i+1)+spacer,v..":",Color.new(31*(i%2),31*(i%2),31*(i%2)))
+                    local to_print = text_width(enhancement_info[v][1],2*SCREEN_WIDTH/(3*avg_char_width))
                     for j,k in ipairs(to_print) do
-                        screen.print(SCREEN_DOWN,SCREEN_WIDTH/3,10*(i+j)+spacer,k,Color.new(31*(i%2),31*(i%2),31*(i%2)))
+                        screen.print(SCREEN_DOWN,SCREEN_WIDTH/3,y_buffer*(i+j)+spacer,k,Color.new(31*(i%2),31*(i%2),31*(i%2)))
                     end
-                    spacer = spacer+10*(#to_print-1)
+                    spacer = spacer+y_buffer*(#to_print-1)
                 end
-                local descript = text_width(descriptor[enhancement_kind],3*SCREEN_WIDTH/(5*6))
+                local descript = text_width(descriptor[enhancement_kind],3*SCREEN_WIDTH/(5*avg_char_width))
                 for i,v in ipairs(descript) do
-                    screen.print(SCREEN_DOWN,SCREEN_WIDTH/4,SCREEN_HEIGHT-30+10*(i-1),v,Color.new(0,0,31))
+                    screen.print(SCREEN_DOWN,SCREEN_WIDTH/2 - avg_char_width*string.len(v)/2,SCREEN_HEIGHT+y_buffer*(i-1-#descript),v,Color.new(0,0,31))
                 end
             elseif index_menu_details[index_menu] == "Adjust Volume" then
                 if Keys.newPress.B then
@@ -6145,17 +6182,17 @@ while not Keys.newPress.Select do
                     end
                 end
                 if music_vol then
-                    screen.drawFillRect(SCREEN_DOWN,SCREEN_WIDTH/3,SCREEN_HEIGHT/2,SCREEN_WIDTH/3+30,SCREEN_HEIGHT/2+10,Color.new(0,0,0))
+                    screen.drawFillRect(SCREEN_DOWN,SCREEN_WIDTH/3,SCREEN_HEIGHT/2,SCREEN_WIDTH/3+avg_char_width*string.len("Music"),SCREEN_HEIGHT/2+y_buffer,Color.new(0,0,0))
                 else
-                    screen.drawFillRect(SCREEN_DOWN,2*SCREEN_WIDTH/3,SCREEN_HEIGHT/2,2*SCREEN_WIDTH/3+20,SCREEN_HEIGHT/2+10,Color.new(0,0,0))
+                    screen.drawFillRect(SCREEN_DOWN,2*SCREEN_WIDTH/3,SCREEN_HEIGHT/2,2*SCREEN_WIDTH/3+avg_char_width*string.len("SFX"),SCREEN_HEIGHT/2+y_buffer,Color.new(0,0,0))
                 end
-                screen.print(SCREEN_DOWN,SCREEN_WIDTH/3, 5, "B: Switch type", Color.new(0,0,0))
+                screen.print(SCREEN_DOWN, SCREEN_WIDTH/2 - avg_char_width*string.len("B: Switch type")/2, 5, "B: Switch type", Color.new(0,0,0))
                 screen.print(SCREEN_DOWN, SCREEN_WIDTH/3, SCREEN_HEIGHT/2, "Music")
-                screen.print(SCREEN_DOWN, SCREEN_WIDTH/3, SCREEN_HEIGHT/2+10, MOD_volume*100)
+                screen.print(SCREEN_DOWN, SCREEN_WIDTH/3, SCREEN_HEIGHT/2+y_buffer, MOD_volume*100)
                 screen.print(SCREEN_DOWN, 2*SCREEN_WIDTH/3, SCREEN_HEIGHT/2, "SFX")
-                screen.print(SCREEN_DOWN, 2*SCREEN_WIDTH/3, SCREEN_HEIGHT/2+10, SFX_volume*100)
+                screen.print(SCREEN_DOWN, 2*SCREEN_WIDTH/3, SCREEN_HEIGHT/2+y_buffer, SFX_volume*100)
             elseif index_menu_details[index_menu] == "Adjust Animations" then
-                screen.drawFillRect(SCREEN_DOWN, SCREEN_WIDTH*(speed_init+1)/5,SCREEN_HEIGHT/2, SCREEN_WIDTH*(speed_init+1)/5 + 6*string.len(speed_details[speed_init]),SCREEN_HEIGHT/2+10, Color.new(0,0,0))
+                screen.drawFillRect(SCREEN_DOWN, SCREEN_WIDTH*(speed_init+1)/5,SCREEN_HEIGHT/2, SCREEN_WIDTH*(speed_init+1)/5 + avg_char_width*string.len(speed_details[speed_init]),SCREEN_HEIGHT/2+y_buffer, Color.new(0,0,0))
                 for i=0,3 do
                     screen.print(SCREEN_DOWN, SCREEN_WIDTH*(i+1)/5,SCREEN_HEIGHT/2,speed_details[i])
                 end
@@ -6171,7 +6208,7 @@ while not Keys.newPress.Select do
                     end
                 end
             elseif index_menu_details[index_menu] == "Retire Run"  then
-                screen.print(SCREEN_DOWN, 70, SCREEN_HEIGHT/2, "Hold A to retire run")
+                screen.print(SCREEN_DOWN, SCREEN_WIDTH/2 - avg_char_width*string.len("Hold A to retire run")/2, SCREEN_HEIGHT/2, "Hold A to retire run")
                 if Keys.held.A then
                     index_menu = 1
                     scene = "menu"
@@ -6575,6 +6612,8 @@ while not Keys.newPress.Select do
                 end
             elseif name_pack == "bufoon" then
                 local joke_index = 0
+                local nearside_square = 2
+                local farside_square = 6
                 for i,v in ipairs(pack_interior) do
                     joke_index = joker_info[v][3]
                     if joke_index~= 99 then
@@ -6582,23 +6621,23 @@ while not Keys.newPress.Select do
                     else
                         screen.drawFillRect(SCREEN_DOWN,SCREEN_WIDTH*(i)/(#pack_interior+1),y_pack_pos,SCREEN_WIDTH*(i)/(#pack_interior+1)+card_size[1],y_pack_pos+card_size[2],colours[3])
                     end
-                for j = 2, #pack_interior_enhancement[i] do
-                    if type(pack_interior_enhancement[i][j]) ~= "table" then
-                        if pack_interior_enhancement[i][j] == "Foil" or pack_interior_enhancement[i][j] == "Polychrome" or pack_interior_enhancement[i][j] == "Holographic" then
-                            screen.drawFillRect(SCREEN_DOWN,SCREEN_WIDTH*(i)/(#pack_interior+1)+2, y_pack_pos+card_size[2]-6,SCREEN_WIDTH*(i)/(#pack_interior+1)+6, y_pack_pos+card_size[2]-2,edition_seal_col[jokers_enhancement[i][j]])
-                        elseif pack_interior_enhancement[i][j] == "Negative" then
-                            screen.drawFillRect(SCREEN_DOWN, SCREEN_WIDTH*(i)/(#pack_interior+1)+2, y_pack_pos+2, SCREEN_WIDTH*(i)/(#pack_interior+1)+6, y_pack_pos+6,Color.new(0,0,0))
-                        elseif pack_interior_enhancement[i][j] == "Eternal" then
-                            screen.drawFillRect(SCREEN_DOWN, SCREEN_WIDTH*(i)/(#pack_interior+1)+card_size[1]-6, y_pack_pos+2, SCREEN_WIDTH*(i)/(#pack_interior+1)+card_size[1]-2, y_pack_pos+6,edition_seal_col["Blue-Seal"])
-                        elseif pack_interior_enhancement[i][j] == "Rental" then
-                            screen.drawFillRect(SCREEN_DOWN, SCREEN_WIDTH*(i)/(#pack_interior+1)+card_size[1]-6, y_pack_pos+card_size[2]-6, SCREEN_WIDTH*(i)/(#pack_interior+1)+card_size[1]-2, y_pack_pos+card_size[2]-2,edition_seal_col["Red-Seal"])
-                        end
-                    else
-                        if pack_interior_enhancement[i][j][1] == "Perishable" then
-                            screen.drawFillRect(SCREEN_DOWN, SCREEN_WIDTH*(i)/(#pack_interior+1)+card_size[1]-6, y_pack_pos+2, SCREEN_WIDTH*(i)/(#pack_interior+1)+card_size[1]-2, y_pack_pos+6,edition_seal_col["Purple-Seal"])
+                    for j = 2, #pack_interior_enhancement[i] do
+                        if type(pack_interior_enhancement[i][j]) ~= "table" then
+                            if pack_interior_enhancement[i][j] == "Foil" or pack_interior_enhancement[i][j] == "Polychrome" or pack_interior_enhancement[i][j] == "Holographic" then
+                                screen.drawFillRect(SCREEN_DOWN,SCREEN_WIDTH*(i)/(#pack_interior+1)+nearside_square, y_pack_pos+card_size[2]-farside_square,SCREEN_WIDTH*(i)/(#pack_interior+1)+farside_square, y_pack_pos+card_size[2]-nearside_square,edition_seal_col[jokers_enhancement[i][j]])
+                            elseif pack_interior_enhancement[i][j] == "Negative" then
+                                screen.drawFillRect(SCREEN_DOWN, SCREEN_WIDTH*(i)/(#pack_interior+1)+nearside_square, y_pack_pos+nearside_square, SCREEN_WIDTH*(i)/(#pack_interior+1)+6, y_pack_pos+farside_square,Color.new(0,0,0))
+                            elseif pack_interior_enhancement[i][j] == "Eternal" then
+                                screen.drawFillRect(SCREEN_DOWN, SCREEN_WIDTH*(i)/(#pack_interior+1)+card_size[1]-farside_square, y_pack_pos+nearside_square, SCREEN_WIDTH*(i)/(#pack_interior+1)+card_size[1]-nearside_square, y_pack_pos+farside_square,edition_seal_col["Blue-Seal"])
+                            elseif pack_interior_enhancement[i][j] == "Rental" then
+                                screen.drawFillRect(SCREEN_DOWN, SCREEN_WIDTH*(i)/(#pack_interior+1)+card_size[1]-farside_square, y_pack_pos+card_size[2]-farside_square, SCREEN_WIDTH*(i)/(#pack_interior+1)+card_size[1]-nearside_square, y_pack_pos+card_size[2]-nearside_square,edition_seal_col["Red-Seal"])
+                            end
+                        else
+                            if pack_interior_enhancement[i][j][1] == "Perishable" then
+                                screen.drawFillRect(SCREEN_DOWN, SCREEN_WIDTH*(i)/(#pack_interior+1)+card_size[1]-farside_square, y_pack_pos+nearside_square, SCREEN_WIDTH*(i)/(#pack_interior+1)+card_size[1]-nearside_square, y_pack_pos+farside_square,edition_seal_col["Purple-Seal"])
+                            end
                         end
                     end
-                end
                 end
             elseif name_pack == "arcana" then
                 for i,v in ipairs(active) do
