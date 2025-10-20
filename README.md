@@ -8,8 +8,8 @@ An (almost complete) port of fire game Balatro to the nintendo DS made using Mic
 4. From there change the drop down to Flash Card Device and the folder to the folder with MicroLua 4.7.2.nds
 
 ## Contains:
-1. 15 Jokers with art
-2. Large number of jokers without art including legendary jokers
+1. All jokers
+2. Common, Joker stencil and Legendary joker artwork added thanks to Haynster and r-mae 
 3. All tarot cards
 4. Tarots, planet and spectral cards work in consumable slot
 5. All packs added
@@ -31,6 +31,6 @@ An (almost complete) port of fire game Balatro to the nintendo DS made using Mic
 ## Missing:
 1. The Pillar and Double or Nothing ommitted as not worked out best way to track cards through blinds
 2. Animations
-3. Joker artwork
+3. Joker artwork, all but 1 uncommon and all rare
 4. Improve deck/card tracker to show enhancements
 5. Challenge Decks -- Double or Nothing

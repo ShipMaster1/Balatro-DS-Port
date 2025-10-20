@@ -71,7 +71,6 @@ hud_width = 80--width of lhs bar
 y_buffer = 10 --space between text vertically
 avg_char_width = 6 
 colours = {Color.new(31,31,31),Color.new256(153,0,204), Color.new256(102,0,102),Color.new256(0,50,170) ,Color.new256(153,76,0)}--cards, shop_jokers, jokers, packs,consumable
-card_graphic = Image.load("sprites/cards/card.png", VRAM)
 
 blind_multis = {1, 1.5, 2} --used for minimumscore
 
@@ -117,67 +116,67 @@ legendary_joker ={
 
 joker_info = {
 ["Joker"]={2,"+4 Mult",1,"Common"},
-["Greedy Joker"]={5,"+3 Mult for Diamond Cards",2,"Common"},
-["Lusty Joker"]={5,"+3 Multi for Heart Cards",5,"Common"},
-["Wrathful Joker"]={5,"+3 Mult for Spade Cards",4,"Common"},
-["Gluttonous Joker"]={5,"+3 Mult for Club Cards",3,"Common"},
+["Gluttonous Joker"]={5,"+3 Mult for Club Cards",2,"Common"},
+["Greedy Joker"]={5,"+3 Mult for Diamond Cards",3,"Common"},
+["Lusty Joker"]={5,"+3 Multi for Heart Cards",4,"Common"},
+["Wrathful Joker"]={5,"+3 Mult for Spade Cards",5,"Common"},
 ["Jolly Joker"]={3,"+8 Mult if hand contains Pair",6,"Common"},
 ["Zany Joker"]={4,"+12 Mult if hand contains Three Kind",7,"Common"},
 ["Mad Joker"]={4,"+10 Mult if hand contains Two Pair",8,"Common"},
 ["Crazy Joker"]={4,"+12 Mult if hand contains Straight",9,"Common"},
 ["Droll Joker"]={4,"+10 Mult if hand contains Flush",10,"Common"},
 ["Sly Joker"]={3,"+50 Chips if hand contains Pair",11,"Common"},
-["Willy Joker"]={4,"+100 Chips if played hand contains a Three of a Kind",99,"Common"},
-["Clever Joker"]={4,"+80 Chips if hand contains Two Pair",12,"Common"},
-["Devious Joker"]={4,"+100 Chips if played hand contains a Straight",99,"Common"},
-["Crafty Joker"]={4,"+80 Chips if played hand contains a Flush",99,"Common"},
-["Half Joker"]={5,"+20 Mult if hand is 3 or less cards",13,"Common"},
-["Credit Card"]={1,"Can go up to $20 in debt",99,"Common"},
-["Banner"]={5,"+30 Chips for each discard left",15,"Common"},
-["Mystic Summit"]={5,"+15 Mult when 0 discards remaining",99,"Common"},
-["8 Ball"]={5,"1 in 4 chance for each played 8 to create a Tarot card when scored",99,"Common"},
-["Misprint"]={4,"+0-23 Mult",99,"Common"},
-["Raised Fist"]={5,"Add 2x the lowest ranked card in hand to mult",99,"Common"},
-["Chaos the Clown"]={4,"1 free reroll per shop",99,"Common"},
-["Scary Face"]={4,"Played face cards give +30 chips when scored",99,"Common"},
-["Abstract Joker"]={4,"+3 Mult for each Joker",99,"Common"},
-["Delayed Gratification"]={4,"Earn $2 per discard if no sicards used by end of the round",99,"Common"},
-["Gros Michel"]={5,"+15 Mult, 1 in 6 chance to be destroyed at the end of round",99,"Common"},
-["Even Steven"]={4,"Scored even ranked cards give +4 mult",99,"Common"},
-["Odd Todd"]={4,"Scored odd ranked cards give +31 chips",99,"Common"},
-["Scholar"]={4,"Played Aces give +20 chips and +4 mult when scored",99,"Common"},
-["Business Card"]={4,"Played face cards have a 1 in 2 chance to give $2 when scored",99,"Common"},
-["Supernova"]={5,"Adds number of times played poker hand has been played to Mult",99,"Common"},
-["Ride the Bus"]={6,"This Joker gains +1 Mult per consecutive hand played without a scoring face card",99,"Common"},
-["Egg"]={4,"Gains $3 of sell value at end of round",99,"Common"},
-["Runner"]={5,"Gains +15 chips if played hand contans a straight",99,"Common"},
-["Ice Cream"]={5,"+100 Chips, -5 Chips per hand played",99,"Common"},
-["Splash"]={3,"All played cards count in scoring",99,"Common"},
-["Blue Joker"]={5,"+2 Chips for each card remaining in Deck",99,"Common"},
-["Faceless Joker"]={4,"Earn $5 if 3 or more face cards are discarded at the same time",99,"Common"},
-["Green Joker"]={4,"+1 Mult per hand played, -1 Mult per discard",99,"Common"},
-["Superposition"]={4,"Create a Tarot card if poker hand contains an Ace and a Straight",99,"Common"},
-["To do List"]={4,"Earn $4 if poker hand is ",99,"Common"},
-["Cavendish"] = {4,"x3 Mult, 1 in 1000 chance to be destroyed at end of round",99,"Common"},
-["Red Card"]={5,"Gains +3 Mult when a booster pack is skipped",99,"Common"},
-["Square Joker"]={4,"Gains +4 Mult if played hand has exactly 4 cards",99,"Common"},
-["Riff-Raff"]={6,"When Blind selected create 2 random common jokers",99,"Common"},
-["Photograph"]={5,"First played face card gives X2 Mult when scored",99,"Common"},
-["Reserved Parking"]={6,"Each face card held in hand has a 1 in 2 chance to give $1",99,"Common"},
-["Mail in Rebate"]={4,"Earn $5 for each discarded ",99,"Common"},
-["Hallucination"]={4,"1 in 2 chance to create a tarot card when booster pack is opened",99,"Common"},
-["Fortune Teller"]={6,"+1 Mult per tarot card used this run",99,"Common"},
-["Juggler"]={4,"+1 hand size",99,"Common"},
-["Drunkard"]={4,"+1 discard",99,"Common"},
-["Golden Joker"]={6,"Earn $4 at end of round",99,"Common"},
-["Popcorn"]={5,"+20 Mult,-4 Mult per round",99,"Common"},
-["Walkie Talkie"]={4,"Each played 10 or 4 gives +10 Chips and +4 Mult when scored",99,"Common"},
-["Smiley Face"]={4,"Played face cards give +5 Mult when scored",99,"Common"},
-["Golden Ticket"]={5,"Played Gold cards give $4 when scored",99,"Common"},
-["Swashbuckler"]={4,"Adds the sell value of all other owned Jokers to Mult",99,"Common"},
-["Hanging Chad"]={4,"Retrigger first played card used in scoring 2 additional times",99,"Common"},
-["Shoot the Moon"]={5,"Each queen held in hand gives +13 Mult",99,"Common"},
-["Joker Stencil"]={8,"x1 Mult for all empty joker slots",14,"Uncommon"},
+["Willy Joker"]={4,"+100 Chips if played hand contains a Three of a Kind",12,"Common"},
+["Clever Joker"]={4,"+80 Chips if hand contains Two Pair",13,"Common"},
+["Devious Joker"]={4,"+100 Chips if played hand contains a Straight",14,"Common"},
+["Crafty Joker"]={4,"+80 Chips if played hand contains a Flush",15,"Common"},
+["Half Joker"]={5,"+20 Mult if hand is 3 or less cards",16,"Common"},
+["Credit Card"]={1,"Can go up to $20 in debt",17,"Common"},
+["Banner"]={5,"+30 Chips for each discard left",18,"Common"},
+["Mystic Summit"]={5,"+15 Mult when 0 discards remaining",19,"Common"},
+["8 Ball"]={5,"1 in 4 chance for each played 8 to create a Tarot card when scored",20,"Common"},
+["Misprint"]={4,"+0-23 Mult",21,"Common"},
+["Raised Fist"]={5,"Add 2x the lowest ranked card in hand to mult",22,"Common"},
+["Chaos the Clown"]={4,"1 free reroll per shop",23,"Common"},
+["Scary Face"]={4,"Played face cards give +30 chips when scored",24,"Common"},
+["Abstract Joker"]={4,"+3 Mult for each Joker",25,"Common"},
+["Delayed Gratification"]={4,"Earn $2 per discard if no dicards used by end of the round",26,"Common"},
+["Gros Michel"]={5,"+15 Mult, 1 in 6 chance to be destroyed at the end of round",27,"Common"},
+["Even Steven"]={4,"Scored even ranked cards give +4 mult",28,"Common"},
+["Odd Todd"]={4,"Scored odd ranked cards give +31 chips",29,"Common"},
+["Scholar"]={4,"Played Aces give +20 chips and +4 mult when scored",30,"Common"},
+["Business Card"]={4,"Played face cards have a 1 in 2 chance to give $2 when scored",31,"Common"},
+["Supernova"]={5,"Adds number of times played poker hand has been played to Mult",32,"Common"},
+["Ride the Bus"]={6,"This Joker gains +1 Mult per consecutive hand played without a scoring face card",33,"Common"},
+["Egg"]={4,"Gains $3 of sell value at end of round",34,"Common"},
+["Runner"]={5,"Gains +15 chips if played hand contans a straight",35,"Common"},
+["Ice Cream"]={5,"+100 Chips, -5 Chips per hand played",36,"Common"},
+["Splash"]={3,"All played cards count in scoring",37,"Common"},
+["Blue Joker"]={5,"+2 Chips for each card remaining in Deck",38,"Common"},
+["Faceless Joker"]={4,"Earn $5 if 3 or more face cards are discarded at the same time",39,"Common"},
+["Green Joker"]={4,"+1 Mult per hand played, -1 Mult per discard",40,"Common"},
+["Superposition"]={4,"Create a Tarot card if poker hand contains an Ace and a Straight",41,"Common"},
+["To do List"]={4,"Earn $4 if poker hand is ",42,"Common"},
+["Cavendish"] = {4,"x3 Mult, 1 in 1000 chance to be destroyed at end of round",43,"Common"},
+["Red Card"]={5,"Gains +3 Mult when a booster pack is skipped",44,"Common"},
+["Square Joker"]={4,"Gains +4 Mult if played hand has exactly 4 cards",45,"Common"},
+["Riff-Raff"]={6,"When Blind selected create 2 random common jokers",46,"Common"},
+["Photograph"]={5,"First played face card gives X2 Mult when scored",47,"Common"},
+["Reserved Parking"]={6,"Each face card held in hand has a 1 in 2 chance to give $1",48,"Common"},
+["Mail in Rebate"]={4,"Earn $5 for each discarded ",49,"Common"},
+["Hallucination"]={4,"1 in 2 chance to create a tarot card when booster pack is opened",50,"Common"},
+["Fortune Teller"]={6,"+1 Mult per tarot card used this run",51,"Common"},
+["Juggler"]={4,"+1 hand size",52,"Common"},
+["Drunkard"]={4,"+1 discard",53,"Common"},
+["Golden Joker"]={6,"Earn $4 at end of round",54,"Common"},
+["Popcorn"]={5,"+20 Mult,-4 Mult per round",55,"Common"},
+["Walkie Talkie"]={4,"Each played 10 or 4 gives +10 Chips and +4 Mult when scored",56,"Common"},
+["Smiley Face"]={4,"Played face cards give +5 Mult when scored",57,"Common"},
+["Golden Ticket"]={5,"Played Gold cards give $4 when scored",58,"Common"},
+["Swashbuckler"]={4,"Adds the sell value of all other owned Jokers to Mult",59,"Common"},
+["Hanging Chad"]={4,"Retrigger first played card used in scoring 2 additional times",60,"Common"},
+["Shoot the Moon"]={5,"Each queen held in hand gives +13 Mult",61,"Common"},
+["Joker Stencil"]={8,"x1 Mult for all empty joker slots",62,"Uncommon"},
 ["Four Fingers"]={7,"Straights and Flushes can be made with 4 cards",99,"Uncommon"},
 ["Mime"]={5,"Retrigger all card held in hand ablilities",99,"Uncommon"},
 ["Ceremonial Dagger"]={6,"When Blind is selected, destroy Joker to the right and permanently add double its sell value to this Mult",99,"Uncommon"},
@@ -261,11 +260,11 @@ joker_info = {
 ["Brainstorm"] = {10,"Copies ability of leftmost joker",99,"Rare"},
 ["Driver's License"] = {7,"X3 Mult if aleast 16 enhanced cards in full deck",99,"Rare"},
 ["Burnt Joker"] = {8,"Upgrade the level of the first discarded poker hand of the round",99,"Rare"},
-["Canio"] = {20,"Gains X1 Mult when a Face card is destroyed",99,"Legendary"},
-["Triboulet"] = {20,"Played Kings and Queens give X2 mult when scored",99,"Legendary"},
-["Yorick"] = {20,"Gains X1 Mult every 23 cards discarded",99,"Legendary"},
-["Perkeo"] = {20,"At the end of shop, add a negative copy of a random consumable",99,"Legendary"},
-["Chicot"] = {20,"Disable Boss Blind ability",99,"Legendary"}
+["Yorick"] = {20,"Gains X1 Mult every 23 cards discarded",146,"Legendary"},
+["Triboulet"] = {20,"Played Kings and Queens give X2 mult when scored",147,"Legendary"},
+["Canio"] = {20,"Gains X1 Mult when a Face card is destroyed",148,"Legendary"},
+["Chicot"] = {20,"Disable Boss Blind ability",149,"Legendary"},
+["Perkeo"] = {20,"At the end of shop, add a negative copy of a random consumable",150,"Legendary"},
 }
 smear_link = {["h"] = "d", ["d"] = "h", ["s"] = "c", ["c"] = "d"}
 
@@ -450,23 +449,21 @@ enhancement_info = {
     ["Perishable"] = {"Joker disabled in 5 rounds","Sticker"},
     ["Rental"] = {"Cost $1, lose $3 at end of round","Sticker"}
 }
-
+consumable_graphics_table = {["Tarot"] = Image.load("sprites/cards/Tarots.png", VRAM), ["Planet"] = Image.load("sprites/cards/Planets.png", VRAM), ["Spectral"] = Image.load("sprites/cards/Spectral.png", VRAM)}
 rank_graphics = {["t"] = Image.load("sprites/cards/1.png", VRAM), ["2"] = Image.load("sprites/cards/2.png", VRAM), ["3"] = Image.load("sprites/cards/3.png", VRAM), ["4"] = Image.load("sprites/cards/4.png", VRAM), ["5"] = Image.load("sprites/cards/5.png", VRAM), ["6"] = Image.load("sprites/cards/6.png", VRAM), ["7"] = Image.load("sprites/cards/7.png", VRAM), ["8"] = Image.load("sprites/cards/8.png", VRAM), ["9"] = Image.load("sprites/cards/9.png", VRAM), ["j"] = Image.load("sprites/cards/j.png", VRAM), ["k"] = Image.load("sprites/cards/k.png", VRAM), ["q"] = Image.load("sprites/cards/q.png", VRAM), ["a"] = Image.load("sprites/cards/a.png", VRAM),}
 suit_graphics = {["d"] = Image.load("sprites/cards/d.png", VRAM), ["c"] = Image.load("sprites/cards/c.png", VRAM), ["s"] = Image.load("sprites/cards/s.png", VRAM), ["h"] = Image.load("sprites/cards/h.png", VRAM),}
 edition_seal_col = {["Foil"] = Color.new256(180, 10, 180), ["Holographic"] = Color.new256(10, 180, 180), ["Polychrome"] = Color.new256(180, 180, 10), ["Red-Seal"] = Color.new256(255,0,0), ["Blue-Seal"] = Color.new256(0,0,255), ["Purple-Seal"] = Color.new256(255, 0, 255), ["Gold-Seal"] = Color.new256(218,165,32)}
 joker_graphics = Image.load("sprites/cards/jokers.png", VRAM)
---joker_graphics_table = {["Common"] = Image.load("sprites/cards/common_jokers.png", VRAM), ["Uncommon"] = Image.load("sprites/cards/uncommon_jokers.png", VRAM), ["Rare"] = Image.load("sprites/cards/rare_jokers.png", VRAM), ["Legendary"] = Image.load("sprites/cards/legendary_jokers.png", VRAM) }
-consumable_graphics_table = {["Tarot"] = Image.load("sprites/cards/Tarots.png", VRAM), ["Planet"] = Image.load("sprites/cards/Planets.png", VRAM), ["Spectral"] = Image.load("sprites/cards/Spectral.png", VRAM)}
 hudbg = Image.load("sprites/ui/hudbackground.png", VRAM)
 hud = Image.load("sprites/ui/hud.png", VRAM)
 blind_ui = Image.load("sprites/ui/blindui.png", VRAM)--can move to screen.drawFillRect
 blind_ui_box = Image.load("sprites/ui/blinduibox.png", VRAM)
-tutorial_sheet = Image.load("sprites/ui/ui.png", VRAM)
 shop_sheet = Image.load("sprites/ui/moreui.png", VRAM)
 img_packs = Image.load("sprites/cards/packs.png", VRAM)
 menubg = Image.load("sprites/ui/mainmenubg.png", VRAM)
-Image.scale(menubg, SCREEN_WIDTH, SCREEN_HEIGHT)
 logo = Image.load("sprites/ui/logo.png", VRAM)
+card_graphic = Image.load("sprites/cards/card.png", VRAM)
+Image.scale(menubg, SCREEN_WIDTH, SCREEN_HEIGHT)
 
 Sound.loadBank("soundbanks/soundbank.bin") 
 Sound.loadMod(0)
@@ -3545,7 +3542,7 @@ function draw_blind_menu()
     local x_text_indent = 2
     local y = SCREEN_HEIGHT/2 - 10
     Image.setTint(blind_ui, Color.new256(241, 184, 91))--tint box behind name
-    tutorial_graphics = Sprite.new(tutorial_sheet, 96, 16, VRAM)
+    --tutorial_graphics = Sprite.new(tutorial_sheet, 96, 16, VRAM)
     for i =1, 2 do
         screen.setAlpha(70)
         screen.drawFillRect(SCREEN_DOWN, i*(x + x_width)-x_width, y, i*(x + x_width), SCREEN_HEIGHT, normal_blind[i][2])--small blind colour big box
@@ -3553,7 +3550,8 @@ function draw_blind_menu()
         screen.blit(SCREEN_DOWN, i*(x+x_width) - x_width + x_box_indent, y + y_offset-1, blind_ui)--"box behind name"
         screen.print(SCREEN_DOWN, i*(x+x_width) - x_width + x_box_indent + x_text_indent, y + 2*y_offset, normal_blind[i][1], normal_blind[i][2])--Text "small blind"
         screen.blit(SCREEN_DOWN, i*(x+x_width)- x_width + x_box_indent , y + 2*y_buffer + y_offset, blind_ui_box)--grey box
-        tutorial_graphics:drawFrame(SCREEN_DOWN, i*(x+x_width) - x_width + x_box_indent + 1, y + 2*y_buffer + y_offset/2 + y_offset,5)--"score at least:" 
+        --tutorial_graphics:drawFrame(SCREEN_DOWN, i*(x+x_width) - x_width + x_box_indent + 1, y + 2*y_buffer + y_offset/2 + y_offset,5)--"score at least:" 
+        screen.print(SCREEN_DOWN, i*(x+x_width) - x_width + x_box_indent + 1, y + 2*y_buffer + y_offset/2 + y_offset, "Score:")
         screen.print(SCREEN_DOWN, i*(x+x_width) - x_width + x_box_indent + x_text_indent, y + 2*y_buffer + y_offset + y_buffer, minimumscore[i], Color.new(31,31,31))--score needed
         screen.print(SCREEN_DOWN, i*(x+x_width) - x_width + x_box_indent + x_text_indent, y + 2*y_buffer + 2*y_offset + 2*(2*y_buffer+y_offset), "Skip Reward:", Color.new(31,31,31))
         screen.print(SCREEN_DOWN, i*(x+x_width) - x_width + x_box_indent + x_text_indent, y + 2*y_offset + 2*(2*y_buffer+y_offset) + 3*y_buffer, blind_tags[i], Color.new(31,31,31))
@@ -3585,7 +3583,8 @@ function draw_blind_menu()
         screen.print(SCREEN_DOWN, 3*x + 2*x_width + x_box_indent + x_text_indent, y + 2*y_offset, boss_blind[boss_num], Color.new(0, 0, 0))--name
     end
     screen.blit(SCREEN_DOWN, x + 2*x_width + x_box_indent, y + 2*y_buffer + y_offset, blind_ui_box)
-    tutorial_graphics:drawFrame(SCREEN_DOWN, 3*x + 2*x_width + x_box_indent + 1, y + 2*y_buffer + y_offset + y_offset, 5)
+    --tutorial_graphics:drawFrame(SCREEN_DOWN, 3*x + 2*x_width + x_box_indent + 1, y + 2*y_buffer + y_offset + y_offset, 5)
+    screen.print(SCREEN_DOWN, 3*x + 2*x_width + x_box_indent + 1, y + 2*y_buffer + y_offset + y_offset, "Score:")
     screen.print(SCREEN_DOWN, x + 2*x_width + x_box_indent + x_text_indent, y + 2*y_buffer + y_offset + y_buffer + y_buffer/2, minimumscore[3], Color.new(31, 31, 31))--score needed
     screen.print(SCREEN_DOWN, 3*x + 2*x_width + x_box_indent + x_text_indent, y +  2*y_buffer + y_offset + y_offset + 2*(2*y_buffer + y_offset), "A Challenging", Color.new(0,0,0))
     screen.print(SCREEN_DOWN, 3*x + 2*x_width + x_box_indent + x_text_indent, y +  2*y_buffer + y_offset + y_offset + 2*(2*y_buffer + y_offset) + y_buffer, "Encounter", Color.new(0,0,0))
@@ -3754,11 +3753,11 @@ function draw_joker_card_graphic()
             end
         end
     else
-        local joke_index = 0
         for i,v in ipairs(jokers) do
-            joke_index = joker_info[v][3]
+            local joke_index = joker_info[v][3]
+            local joke_image_index = math.floor((joke_index-1)/50)
             if joke_index ~= 99 then
-                screen.blit(SCREEN_UP, hud_width + x + (i-1)*card_size[1], y_place, joker_graphics, card_size[1]*(joke_index-1),0, card_size[1], card_size[2])
+                screen.blit(SCREEN_UP, hud_width + x + (i-1)*card_size[1], y_place, joker_graphics, card_size[1]*(joke_index-1-(joke_image_index)*50),card_size[2]*joke_image_index, card_size[1], card_size[2])
             else
                 screen.drawFillRect(SCREEN_UP, hud_width + x + (i-1)*card_size[1],y_place,hud_width + x + (i)*card_size[1],y_place+card_size[2],colours[3])
             end
@@ -3791,8 +3790,9 @@ function draw_shop_main()
             local nearside_square = 2
             local farside_square = 6
             local joke_index = joker_info[v][3]
+            local joke_image_index = math.floor((joke_index-1)/50)
             if joke_index ~= 99 then
-                screen.blit(SCREEN_DOWN, x + (i-1)*card_size[1], y_place, joker_graphics, card_size[1]*(joke_index-1),0, card_size[1], card_size[2])--change to joker_display
+                screen.blit(SCREEN_DOWN, x + (i-1)*card_size[1], y_place, joker_graphics, card_size[1]*(joke_index-1-(joke_image_index)*50),card_size[2]*joke_image_index, card_size[1], card_size[2])--change to joker_display
             else
                 screen.drawFillRect(SCREEN_DOWN,x + (i-1)*card_size[1], y_place,x + (i)*card_size[1], y_place+card_size[2],colours[3])
             end
@@ -4042,8 +4042,7 @@ function draw_cashout()
     screen.drawFillRect(SCREEN_DOWN, 36, 98, 223, 192, Color.new256(39, 39, 46))
     Image.setTint(blind_ui, Color.new256(245, 136, 42))
     screen.blit(SCREEN_DOWN, 94, 72, blind_ui)
-    adv_sign = Sprite.new(shop_sheet, 76, 35, VRAM)
-    adv_sign:drawFrame(SCREEN_DOWN, 94 + 4, 72 + 4, 2)
+    screen.print(SCREEN_DOWN,  94 + y_buffer/2, 72 + y_buffer/2, "A:Bank")
     screen.print(SCREEN_DOWN, 148, 77, "$" .. tostring(cash_out), Color.new(31, 31, 31))
     local y = 0
     for i,v in ipairs({blind_payouts[blind], hands,discards, interest}) do
@@ -4067,6 +4066,8 @@ function draw_shop()
     screen.print(SCREEN_DOWN, fit*2, y_pos + y_buffer, "B")
     screen.print(SCREEN_DOWN, fit*3, y_pos, "Reroll:")
     screen.print(SCREEN_DOWN, fit*3, y_pos + y_buffer, "X: $" .. tostring(reroll_price))
+    local width = Image.width(shop_sheet)/2
+    screen.blit(SCREEN_UP, 0,0,shop_sheet,width*(os.time()%2),0,width,Image.height(shop_sheet))
     draw_shop_main()
     draw_pack_graphics()
     for i,v in ipairs(voucher_show) do
@@ -5810,14 +5811,10 @@ while not Keys.newPress.Select do
 
         elseif gameplay_phase == 2 then--choosing hand
             local lhs_tutorial = 20
-            tutorial_graphics:drawFrame(SCREEN_DOWN, lhs_tutorial, 12, 0)--frame number is multiple of 96
-            --tutorial_graphics:drawFrame(SCREEN_DOWN, 149, 4, 1)
-            --tutorial_graphics:drawFrame(SCREEN_DOWN, 16, 4, 2)--need to change from arrow to B/X
-            tutorial_graphics:drawFrame(SCREEN_DOWN, 144, 12, 3)--x,y,frame number
             screen.print(SCREEN_DOWN,lhs_tutorial,2,"X: Place Card")
             screen.print(SCREEN_DOWN,SCREEN_WIDTH/2+lhs_tutorial,2,"B: Reset Hand")
-            -- screen.print(SCREEN_DOWN,lhs_tutorial,2+y_buffer,"A: Play Hand")
-            -- screen.print(SCREEN_DOWN,SCREEN_WIDTH/2+lhs_tutorial,2+y_buffer,"Y: Discard Hand")
+            screen.print(SCREEN_DOWN,lhs_tutorial,2+y_buffer,"A: Play Hand")
+            screen.print(SCREEN_DOWN,SCREEN_WIDTH/2+lhs_tutorial,2+y_buffer,"Y: Discard Hand")
             draw_card_base_graphic((SCREEN_WIDTH-card_size[1])/2,0,1,{})--card for deck
             screen.print(SCREEN_DOWN, (SCREEN_WIDTH-card_size[1])/2+2, card_size[2]/4,#deck, Color.new(0,0,0))
             draw_card_deck_graphic(dealt, selected_card, "dealt")--why does this show always
@@ -6021,7 +6018,7 @@ while not Keys.newPress.Select do
                         end
                     end
                     table.insert(played_hand_type,hand_type)
-                    gameplay_phase = 2.1
+                    gameplay_phase = 3
                     selected_card = 1
                     hands = hands - 1
                 end
@@ -6030,18 +6027,6 @@ while not Keys.newPress.Select do
                 prev_phase = 2
                 gameplay_phase = 2.5
             end
-        elseif gameplay_phase == 2.1 then--temp solution to show cards, doesnt always works
-            tutorial_graphics:drawFrame(SCREEN_DOWN, 16, 12, 0)--frame number is multiple of 96
-            --tutorial_graphics:drawFrame(SCREEN_DOWN, 149, 4, 1)
-            --tutorial_graphics:drawFrame(SCREEN_DOWN, 16, 4, 2)--need to change from arrow to B/X
-            tutorial_graphics:drawFrame(SCREEN_DOWN, 144, 12, 3)
-            screen.print(SCREEN_DOWN,20,2,"X: Place Card")
-            screen.print(SCREEN_DOWN,153,2,"B: Reset Hand")
-            draw_card_base_graphic((SCREEN_WIDTH-card_size[1])/2,0,1,{})--card for deck
-            screen.print(SCREEN_DOWN, (SCREEN_WIDTH-card_size[1])/2+2, 7,#deck, Color.new(0,0,0))
-            draw_card_deck_graphic(dealt, -1, "dealt")
-            draw_card_deck_graphic(hand, selected_card, "hand")
-            gameplay_phase = 3
         elseif gameplay_phase == 2.5 then--game menu
             local menu_x_lhs = SCREEN_WIDTH/2 -5
             local menu_y = SCREEN_HEIGHT/3
@@ -6616,8 +6601,9 @@ while not Keys.newPress.Select do
                 local farside_square = 6
                 for i,v in ipairs(pack_interior) do
                     joke_index = joker_info[v][3]
+                    local joke_image_index = math.floor((joke_index-1)/50)
                     if joke_index~= 99 then
-                        screen.blit(SCREEN_DOWN, SCREEN_WIDTH*(i)/(#pack_interior+1),y_pack_pos, joker_graphics, card_size[1]*(joke_index-1),0, card_size[1], card_size[2])
+                        screen.blit(SCREEN_DOWN, SCREEN_WIDTH*(i)/(#pack_interior+1),y_pack_pos, joker_graphics, card_size[1]*(joke_index-1-(joke_image_index)*50),card_size[2]*joke_image_index, card_size[1], card_size[2])
                     else
                         screen.drawFillRect(SCREEN_DOWN,SCREEN_WIDTH*(i)/(#pack_interior+1),y_pack_pos,SCREEN_WIDTH*(i)/(#pack_interior+1)+card_size[1],y_pack_pos+card_size[2],colours[3])
                     end
@@ -6868,7 +6854,6 @@ Image.destroy(logo)
 Image.destroy(menubg)
 Image.destroy(img_packs)
 Image.destroy(shop_sheet)
-Image.destroy(tutorial_sheet)
 Image.destroy(blind_ui_box)
 Image.destroy(blind_ui)
 Image.destroy(hud)
@@ -6878,6 +6863,9 @@ for k,v in pairs(suit_graphics) do
     Image.destroy(v)
 end
 for k,v in pairs(rank_graphics) do
+    Image.destroy(v)
+end
+for k,v in pairs(consumable_graphics_table) do
     Image.destroy(v)
 end
 Image.destroy(card_graphic)
