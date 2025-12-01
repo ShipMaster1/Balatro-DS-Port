@@ -70,7 +70,7 @@ card_size = {19,28}--x,y of sprites
 hud_width = 80--width of lhs bar
 y_buffer = 10 --space between text vertically
 avg_char_width = 6 
-colours = {Color.new(31,31,31),Color.new256(153,0,204), Color.new256(102,0,102),Color.new256(0,50,170) ,Color.new256(153,76,0)}--cards, shop_jokers, jokers, packs,consumable
+colours = {Color.new(31,31,31), Color.new256(153,0,204), Color.new256(102,0,102),Color.new256(0,50,170) ,Color.new256(153,76,0)}--cards, shop_jokers, jokers, packs,consumable
 
 blind_multis = {1, 1.5, 2} --used for minimumscore
 
@@ -365,37 +365,38 @@ consumable_deck = {
 }
 
 vouchers_info = {
-    ["Overstock"] = "Up to 3 Card slots in shop",
-    ["Clearence Sale"] = "All cards and packs in shop are 25% off",
-    ["Reroll Surplus"] = "Rerolls cost $2 less",
-    ["Crystal Ball"] = "+1 consumable slot",
-    ["Grabber"] = "+1 hand permanently",
-    ["Wasteful"] = "+1 discard permanently",
-    ["Seed Money"] = "interest capped at $10",
-    ["Heiroglyph"] = "-1 ante, -1 hand",
-    ["Director's Cut"] = "Reroll boss blind once for $10",
-    ["Paint Brush"] = "+1 hand size",
-    ["Tarot Merchant"] = "Tarot appear 2x as often",
-    ["Planet Merchant"] = "Planets appear 2x as often",
-    ["Telescope"] = "Most common poker hand always shows up in celestial packs",
-    ["Magic Trick"] = "Playing Cards can be purchased from the shop",
-    ["Hone"] = "Foil,Holographic and Polychrome cards appear 2X as often",
-    ["Blank"] = "Does nothing?",
-    ["Antimatter"] = "+1 Joker Slot",
-    ["Overstock Plus"] = "Up to 4 Card slots in shop",
-    ["Liquidation"] = "All cards and packs in shop are an additional 25% off",
-    ["Reroll Glut"] = "Rerolls cost an additional $2 less",
-    ["Observatory"] = "Planet cards in your consumable slot give X1.5 Mult to their poker hand",
-    ["Nacho Tong"] = "+1 hand permanently",
-    ["Recyclomancy"] = "+1 discard permanently",
-    ["Tarot Tycoon"] = "Tarot cards appear and additional 2X",
-    ["Planet Tycoon"] = "Planet cards appear and additional 2X",
-    ["Money Tree"] = "interest capped at $20",
-    ["Petroglyph"] = "-1 ante, -1 hand",
-    ["Palette"] = "+1 hand size",
-    ["Retcon"] = "Reroll boss blind an unlimited number of times",
-    ["Glow Up"] = "Foil,Holographic and Polychrome cards appear an additional 2X as often",
-    ["Illusion"] = "Standard cards in the shop can have enchancements"
+    ["Overstock"] = {"Up to 3 Card slots in shop",colours[2],Color.new(31,31,31)},
+    ["Clearence Sale"] = {"All cards and packs in shop are 25% off",Color.new256(222, 208, 9),Color.new(31,31,31)},
+    ["Reroll Surplus"] = {"Rerolls cost $2 less",Color.new256(0, 170, 105),Color.new(31,31,31)},
+    ["Crystal Ball"] = {"+1 consumable slot",Color.new(31,0,31),Color.new(31,31,31)},
+    ["Grabber"] = {"+1 hand permanently",Color.new(0,0,31),Color.new(31,31,31)},
+    ["Wasteful"] = {"+1 discard permanently",Color.new(31,0,0),Color.new(31,31,31)},
+    ["Seed Money"] = {"interest capped at $10",Color.new256(48, 26, 2),Color.new(31,31,31)},
+    ["Heiroglyph"] = {"-1 ante, -1 hand",Color.new256(217, 148, 0),Color.new(31,31,31)},
+    ["Director's Cut"] = {"Reroll boss blind once for $10",Color.new(15,15,15),Color.new(31,31,31)},
+    ["Paint Brush"] = {"+1 hand size",Color.new256(202, 127, 245),Color.new(31,31,31)},
+    ["Tarot Merchant"] = {"Tarot appear 2x as often",colours[5],Color.new(31,31,31)},
+    ["Planet Merchant"] = {"Planets appear 2x as often",Color.new256(0, 79, 170),Color.new(31,31,31)},
+    ["Telescope"] = {"Most common poker hand always shows up in celestial packs",colours[4],Color.new(31,31,31)},
+    ["Magic Trick"] = {"Playing Cards can be purchased from the shop",Color.new256(250, 15, 121),Color.new(31,31,31)},
+    ["Hone"] = {"Foil,Holographic and Polychrome cards appear 2X as often",colours[3],Color.new(31,31,31)},
+    ["Blank"] = {"Does nothing?",Color.new(31,31,31),Color.new(31,31,31)},
+    ["Antimatter"] = {"+1 Joker Slot",Color.new(31,31,31),Color.new(0,0,0)},
+    ["Overstock Plus"] = {"Up to 4 Card slots in shop",colours[2],Color.new(0,0,0)},
+    ["Liquidation"] = {"All cards and packs in shop are an additional 25% off",Color.new256(222, 208, 9),Color.new(0,0,0)},
+    ["Reroll Glut"] = {"Rerolls cost an additional $2 less",Color.new256(0, 170, 105),Color.new(0,0,0)},
+    ["Observatory"] = {"Planet cards in your consumable slot give X1.5 Mult to their poker hand",colours[4],Color.new(0,0,0)},
+    ["Nacho Tong"] = {"+1 hand permanently",Color.new(0,0,31),Color.new(0,0,0)},
+    ["Recyclomancy"] = {"+1 discard permanently",Color.new(31,0,0),Color.new(0,0,0)},
+    ["Tarot Tycoon"] = {"Tarot cards appear and additional 2X",colours[5],Color.new(0,0,0)},
+    ["Planet Tycoon"] = {"Planet cards appear and additional 2X",Color.new256(0, 79, 170),Color.new(0,0,0)},
+    ["Money Tree"] = {"interest capped at $20",Color.new256(48, 26, 2),Color.new(0,0,0)},
+    ["Petroglyph"] = {"-1 ante, -1 discard",Color.new256(217, 148, 0),Color.new(0,0,0)},
+    ["Palette"] = {"+1 hand size",Color.new256(202, 127, 245),Color.new(0,0,0)},
+    ["Retcon"] = {"Reroll boss blind an unlimited number of times",Color.new(15,15,15),Color.new(0,0,0)},
+    ["Glow Up"] = {"Foil,Holographic and Polychrome cards appear an additional 2X as often",colours[3],Color.new(0,0,0)},
+    ["Illusion"] = {"Standard cards in the shop can have enchancements",Color.new256(250, 15, 121),Color.new(0,0,0)},
+    ["Omen Globe"] = {"Spectral cards may also appear in Arcana packs",Color.new(31,0,31),Color.new(0,0,0)}
 }
 
 tag_info = {
@@ -461,8 +462,9 @@ blind_ui_box = Image.load("sprites/ui/blinduibox.png", VRAM)
 shop_sheet = Image.load("sprites/ui/moreui.png", VRAM)
 img_packs = Image.load("sprites/cards/packs.png", VRAM)
 menubg = Image.load("sprites/ui/mainmenubg.png", VRAM)
-logo = Image.load("sprites/ui/logo.png", VRAM)
 card_graphic = Image.load("sprites/cards/card.png", VRAM)
+logo = Image.load("sprites/ui/logo.png", VRAM)
+arrow = Image.load("sprites/cards/arrow.png", VRAM)
 Image.scale(menubg, SCREEN_WIDTH, SCREEN_HEIGHT)
 
 Sound.loadBank("soundbanks/soundbank.bin") 
@@ -506,7 +508,6 @@ function hard_reset()--done when resetting run
     jokers = {}
     jokers_enhancement = {}--effect details, enhancements
     last_played_hand = ""
-    logo_bop = -120
     kind = 1
     boss_reroll, omen_globe = false, false
     boss_reroll_num = 0
@@ -1577,11 +1578,23 @@ function on_play_jokers(joker,joker_index,played)
         end            
     elseif joker == "Blueprint" then
         if joker_index ~= #jokers then
-            on_play_jokers(jokers[joker_index+1],joker_index+1)
+            on_play_jokers(jokers[joker_index+1],joker_index+1,played)
         end
     elseif joker == "Brainstorm" then
         if joker_index ~=1 then
-            on_play_jokers(jokers[1],1)
+            local is_blueprint = false
+            local new_index = 0
+            repeat
+                new_index = new_index+1
+                if jokers[new_index] == "Blueprint" then
+                    is_blueprint = true
+                else
+                    is_blueprint = false
+                end
+            until is_blueprint == false or new_index == joker_index-1
+            if is_blueprint == false then
+                on_play_jokers(jokers[1],1,played)
+            end
         end
     end
     if joker_info[joker][#joker_info[joker]] == "Uncommon" then
@@ -1757,7 +1770,19 @@ function per_card_joker(joker,joker_index, card, card_index)
         end
     elseif joker == "Brainstorm" then
         if joker_index ~=1 then
-            per_card_joker(jokers[1],1,card,card_index)
+            local is_blueprint = false
+            local new_index = 0
+            repeat
+                new_index = new_index+1
+                if jokers[new_index] == "Blueprint" then
+                    is_blueprint = true
+                else
+                    is_blueprint = false
+                end
+            until is_blueprint == false or new_index == joker_index-1
+            if is_blueprint == false then
+                per_card_joker(jokers[new_index],new_index,card,card_index)
+            end
         end
     end
     if joker_info[joker][#joker_info[joker]] == "Uncommon" then
@@ -2136,11 +2161,23 @@ function final_jokers(joker,joker_index,played)
         multiplier = multiplier*jokers_enhancement[joker_index][1][1]
     elseif joker == "Blueprint" then
         if joker_index ~= #jokers then
-            final_jokers(jokers[joker_index+1],joker_index+1)
+            final_jokers(jokers[joker_index+1],joker_index+1,played)
         end
     elseif joker == "Brainstorm" then
         if joker_index ~=1 then
-            final_jokers(jokers[1],1)
+            local is_blueprint = false
+            local new_index = 0
+            repeat
+                new_index = new_index+1
+                if jokers[new_index] == "Blueprint" then
+                    is_blueprint = true
+                else
+                    is_blueprint = false
+                end
+            until is_blueprint == false or new_index == joker_index-1
+            if is_blueprint == false then
+                final_jokers(jokers[new_index],new_index,played)
+            end
         end
     end
     if joker_info[joker][#joker_info[joker]] == "Uncommon" then
@@ -2170,11 +2207,23 @@ function held_jokers(joker,joker_index,card)
         end
     elseif joker == "Blueprint" then
         if joker_index ~= #jokers then
-            held_jokers(jokers[joker_index+1],joker_index+1)
+            held_jokers(jokers[joker_index+1],joker_index+1,card)
         end
     elseif joker == "Brainstorm" then
         if joker_index ~=1 then
-            held_jokers(jokers[1],1)
+            local is_blueprint = false
+            local new_index = 0
+            repeat
+                new_index = new_index+1
+                if jokers[new_index] == "Blueprint" then
+                    is_blueprint = true
+                else
+                    is_blueprint = false
+                end
+            until is_blueprint == false or new_index == joker_index-1
+            if is_blueprint == false then
+                held_jokers(jokers[new_index],new_index,card)
+            end
         end
     end
     if joker_info[joker][#joker_info[joker]] == "Uncommon" then
@@ -2218,7 +2267,17 @@ function retrigger_joker(joker,joker_index,card,card_index,card_type,max_loop)
             end
         elseif joker == "Brainstorm" then
             if joker_index >1 then
-                max_loop = retrigger_joker(jokers[1],1,card,card_index,card_type,max_loop)
+                local is_blueprint = false
+                local new_index = 0
+                repeat
+                    new_index = new_index+1
+                    if jokers[new_index] == "Blueprint" then
+                        is_blueprint = true
+                    end
+                until is_blueprint == false or new_index == joker_index-1
+                if is_blueprint == false then
+                    max_loop = retrigger_joker(jokers[new_index],new_index,card,card_index,card_type,max_loop)
+                end
             end
         end
     elseif card_type == "hand" then
@@ -2230,7 +2289,17 @@ function retrigger_joker(joker,joker_index,card,card_index,card_type,max_loop)
             end
         elseif joker == "Brainstorm" then
             if joker_index >1 then
-                max_loop = retrigger_joker(jokers[1],1,card,card_index,card_type,max_loop)
+                local is_blueprint = false
+                local new_index = 0
+                repeat
+                    new_index = new_index+1
+                    if jokers[new_index] == "Blueprint" then
+                        is_blueprint = true
+                    end
+                until is_blueprint == false or new_index == joker_index-1
+                if is_blueprint == false then
+                    max_loop = retrigger_joker(jokers[new_index],new_index,card,card_index,card_type,max_loop)
+                end
             end
         end
     end
@@ -2354,7 +2423,19 @@ function shop_end_jokers(joker, index)
         end
     elseif joker == "Brainstorm" then
         if index ~=1 then
-            shop_end_jokers(jokers[1],1)
+            local is_blueprint = false
+            local new_index = 0
+            repeat
+                new_index = new_index+1
+                if jokers[new_index] == "Blueprint" then
+                    is_blueprint = true
+                else
+                    is_blueprint = false
+                end
+            until is_blueprint == false or new_index == index-1
+            if is_blueprint == false then
+                shop_end_jokers(jokers[new_index],new_index)
+            end
         end
     end
 end
@@ -2433,7 +2514,19 @@ function discard_jokers(joker,joker_index)
         end
     elseif joker == "Brainstorm" then
         if joker_index ~=1 then
-            discard_jokers(jokers[1],1)
+            local is_blueprint = false
+            local new_index = 0
+            repeat
+                new_index = new_index + 1
+                if jokers[new_index] == "Blueprint" then
+                    is_blueprint = true
+                else
+                    is_blueprint = false
+                end
+            until is_blueprint == false or new_index == joker_index-1
+            if is_blueprint == false then
+                discard_jokers(jokers[new_index],new_index)
+            end
         end
     end
 end
@@ -2510,7 +2603,19 @@ function selected_blind_jokers(joker,index)
         end
     elseif joker == "Brainstorm" then
         if index ~=1 then
-            selected_blind_jokers(jokers[1],1)
+            local is_blueprint = false
+            local new_index = 0
+            repeat
+                new_index = new_index+1
+                if jokers[new_index] == "Blueprint" then
+                    is_blueprint = true
+                else
+                    is_blueprint = false
+                end
+            until is_blueprint == false or new_index == index-1
+            if is_blueprint == false then
+                selected_blind_jokers(jokers[new_index],new_index)
+            end
         end
     end
 end
@@ -2534,7 +2639,19 @@ function selected_blind_after_dealt_jokers(joker,index)
         end
     elseif joker == "Brainstorm" then
         if index ~=1 then
-            selected_blind_after_dealt_jokers(jokers[1],1)
+            local is_blueprint = false
+            local new_index = 0
+            repeat
+                new_index = new_index+1
+                if jokers[new_index] == "Blueprint" then
+                    is_blueprint = true
+                else
+                    is_blueprint = false
+                end
+            until is_blueprint == false or new_index == index-1
+            if is_blueprint == false then
+                selected_blind_after_dealt_jokers(jokers[new_index],new_index)
+            end
         end
     end
 end
@@ -2550,7 +2667,19 @@ function reroll_jokers(joker,joker_index)
         end
     elseif joker == "Brainstorm" then
         if joker_index >1 then
-            reroll_jokers(jokers[1],1)
+            local is_blueprint = false
+            local new_index = 0
+            repeat
+                new_index = new_index+1
+                if jokers[new_index] == "Blueprint" then
+                    is_blueprint = true
+                else
+                    is_blueprint = false
+                end
+            until is_blueprint == false or new_index == joker_index-1
+            if is_blueprint == false then
+                reroll_jokers(jokers[new_index],new_index)
+            end
         end
     end
 end
@@ -2564,7 +2693,19 @@ function pack_skip_jokers(joker,joker_index)
         end
     elseif joker == "Brainstorm" then
         if joker_index >1 then
-            pack_skip_jokers(jokers[1],1)
+            local is_blueprint = false
+            local new_index = 0
+            repeat
+                new_index = new_index+1
+                if jokers[new_index] == "Blueprint" then
+                    is_blueprint = true
+                else
+                    is_blueprint = false
+                end
+            until is_blueprint == false or new_index == joker_index-1
+            if is_blueprint == false then
+                pack_skip_jokers(jokers[new_index],new_index)
+            end
         end
     end
 end
@@ -2582,7 +2723,19 @@ function open_pack_jokers(joker,joker_index)
         end
     elseif joker == "Brainstorm" then
         if joker_index ~= #joker then
-            open_pack_jokers(jokers[1],1)
+            local is_blueprint = false
+            local new_index = 0
+            repeat
+                new_index=new_index+1
+                if jokers[new_index] == "Blueprint" then
+                    is_blueprint = true
+                else
+                    is_blueprint = false
+                end
+            until is_blueprint == false or new_index == joker_index-1
+            if is_blueprint == false then
+                open_pack_jokers(jokers[new_index],new_index)
+            end
         end
     end
 end
@@ -2596,7 +2749,19 @@ function added_to_deck_jokers(joker,joker_index)--wish i could think of a better
         end
     elseif joker == "Brainstorm" then
         if joker_index >1 then
-            added_to_deck_jokers(jokers[1],1)
+            local is_blueprint = false
+            local new_index = 0
+            repeat
+                new_index = new_index+1
+                if jokers[new_index] == "Blueprint" then
+                    is_blueprint = true
+                else
+                    is_blueprint = false
+                end
+            until is_blueprint == false or new_index == joker_index-1
+            if is_blueprint == false then
+                added_to_deck_jokers(jokers[new_index],new_index)
+            end
         end
     end
 end
@@ -2963,7 +3128,19 @@ function card_destroyed(joker,joker_index,card,card_enhancement)
         end
     elseif joker == "Brainstorm" then
         if joker_index ~=1 then
-            card_destroyed(jokers[1],1,card,card_enhancement)
+            local is_blueprint = false
+            local new_index = 0
+            repeat
+                new_index=new_index+1
+                if jokers[new_index] == "Blueprint" then
+                    is_blueprint = true
+                else
+                    is_blueprint = false
+                end
+            until is_blueprint == false or new_index == joker_index-1
+            if is_blueprint == false then
+                card_destroyed(jokers[new_index],new_index,card,card_enhancement)
+            end
         end
     end
 end
@@ -3500,7 +3677,7 @@ function draw_title_screen()
     local x_init_pos = hud_width + 10
     screen.blit(SCREEN_DOWN, 0, 0, menubg)--bottom screen background
     screen.blit(SCREEN_UP, 0, 0, menubg)
-    screen.blit(SCREEN_UP, 39, 44 - (logo_bop / 30), logo)--logo
+    screen.blit(SCREEN_UP, 39, 44 - ((os.time()%20)), logo)--logo
     screen.setAlpha(50)
     screen.drawFillRect(SCREEN_DOWN, 0, 78, SCREEN_WIDTH, SCREEN_HEIGHT, Color.new(0, 0, 0))--press a to start background 1
     screen.drawFillRect(SCREEN_UP, 0, 192, 256, 178, Color.new(0, 0, 0))--"GAME BY LOCAL THUNK, RECREATED FOR THE DS" background
@@ -3528,10 +3705,6 @@ function draw_title_screen()
     screen.print(SCREEN_DOWN, 0, 2.5*y_pos1, "Seeded run: " .. tostring(seeded_run))
     screen.print(SCREEN_DOWN, 160, 2.5*y_pos1, seeded_num)
     screen.print(SCREEN_UP, 2, SCREEN_HEIGHT - 10, "GAME BY LOCAL THUNK, RECREATED FOR THE DS")
-    logo_bop = logo_bop + 1
-    if logo_bop > 119 then
-        logo_bop = -120
-    end
 end
 
 function draw_blind_menu()
@@ -3542,7 +3715,6 @@ function draw_blind_menu()
     local x_text_indent = 2
     local y = SCREEN_HEIGHT/2 - 10
     Image.setTint(blind_ui, Color.new256(241, 184, 91))--tint box behind name
-    --tutorial_graphics = Sprite.new(tutorial_sheet, 96, 16, VRAM)
     for i =1, 2 do
         screen.setAlpha(70)
         screen.drawFillRect(SCREEN_DOWN, i*(x + x_width)-x_width, y, i*(x + x_width), SCREEN_HEIGHT, normal_blind[i][2])--small blind colour big box
@@ -3550,7 +3722,6 @@ function draw_blind_menu()
         screen.blit(SCREEN_DOWN, i*(x+x_width) - x_width + x_box_indent, y + y_offset-1, blind_ui)--"box behind name"
         screen.print(SCREEN_DOWN, i*(x+x_width) - x_width + x_box_indent + x_text_indent, y + 2*y_offset, normal_blind[i][1], normal_blind[i][2])--Text "small blind"
         screen.blit(SCREEN_DOWN, i*(x+x_width)- x_width + x_box_indent , y + 2*y_buffer + y_offset, blind_ui_box)--grey box
-        --tutorial_graphics:drawFrame(SCREEN_DOWN, i*(x+x_width) - x_width + x_box_indent + 1, y + 2*y_buffer + y_offset/2 + y_offset,5)--"score at least:" 
         screen.print(SCREEN_DOWN, i*(x+x_width) - x_width + x_box_indent + 1, y + 2*y_buffer + y_offset/2 + y_offset, "Score:")
         screen.print(SCREEN_DOWN, i*(x+x_width) - x_width + x_box_indent + x_text_indent, y + 2*y_buffer + y_offset + y_buffer, minimumscore[i], Color.new(31,31,31))--score needed
         screen.print(SCREEN_DOWN, i*(x+x_width) - x_width + x_box_indent + x_text_indent, y + 2*y_buffer + 2*y_offset + 2*(2*y_buffer+y_offset), "Skip Reward:", Color.new(31,31,31))
@@ -3583,7 +3754,6 @@ function draw_blind_menu()
         screen.print(SCREEN_DOWN, 3*x + 2*x_width + x_box_indent + x_text_indent, y + 2*y_offset, boss_blind[boss_num], Color.new(0, 0, 0))--name
     end
     screen.blit(SCREEN_DOWN, x + 2*x_width + x_box_indent, y + 2*y_buffer + y_offset, blind_ui_box)
-    --tutorial_graphics:drawFrame(SCREEN_DOWN, 3*x + 2*x_width + x_box_indent + 1, y + 2*y_buffer + y_offset + y_offset, 5)
     screen.print(SCREEN_DOWN, 3*x + 2*x_width + x_box_indent + 1, y + 2*y_buffer + y_offset + y_offset, "Score:")
     screen.print(SCREEN_DOWN, x + 2*x_width + x_box_indent + x_text_indent, y + 2*y_buffer + y_offset + y_buffer + y_buffer/2, minimumscore[3], Color.new(31, 31, 31))--score needed
     screen.print(SCREEN_DOWN, 3*x + 2*x_width + x_box_indent + x_text_indent, y +  2*y_buffer + y_offset + y_offset + 2*(2*y_buffer + y_offset), "A Challenging", Color.new(0,0,0))
@@ -3965,7 +4135,7 @@ function card_details(kind)
             screen.drawFillRect(SCREEN_DOWN,x+(selected_card-1)*card_size[1],SCREEN_HEIGHT/3-card_size[2],x+(selected_card)*card_size[1],SCREEN_HEIGHT/3,Color.new(0,0,0))
             screen.setAlpha(100)
             screen.print(SCREEN_UP,x_init_pos,y_init_pos,voucher_show[selected_card][1]..":"..selected_card.."/"..#voucher_show,Color.new(31,0,0))--name
-            local voucher_info_text = text_width(vouchers_info[voucher_show[selected_card][1]],(SCREEN_WIDTH-(x_init_pos))/avg_char_width)
+            local voucher_info_text = text_width(vouchers_info[voucher_show[selected_card][1]][1],(SCREEN_WIDTH-(x_init_pos))/avg_char_width)
             for i,v in ipairs(voucher_info_text) do
                 screen.print(SCREEN_UP,x_init_pos,y_init_pos+y_buffer*i,v,Color.new(31,0,0))--details
             end
@@ -4071,8 +4241,13 @@ function draw_shop()
     draw_shop_main()
     draw_pack_graphics()
     for i,v in ipairs(voucher_show) do
+        local bg_color = vouchers_info[v[1]][2]
+        local fg_color = vouchers_info[v[1]][3]
+        Image.setTint(card_graphic, bg_color)
+        Image.setTint(arrow, fg_color)
         local x = (SCREEN_WIDTH/2-card_size[1]*(#voucher_show-1)/2)
-        screen.drawFillRect(SCREEN_DOWN,x+(i-1)*card_size[1],SCREEN_HEIGHT/3-card_size[2],x+(i)*card_size[1],SCREEN_HEIGHT/3,Color.new(31,0,0))
+        screen.blit(SCREEN_DOWN,x+(i-1)*card_size[1],SCREEN_HEIGHT/3-card_size[2],card_graphic)
+        screen.blit(SCREEN_DOWN,x+(i-1)*card_size[1],SCREEN_HEIGHT/3-card_size[2],arrow)
     end
 end
 
@@ -5554,6 +5729,9 @@ function inflation_ability()
 end
 
 hard_reset()
+add_jokers_to_selection("Blueprint",{})
+add_jokers_to_selection("Smiley Face",{})
+add_jokers_to_selection("Brainstorm",{})
 collectgarbage("generational")--seems to work better
 while not Keys.newPress.Select do
     Controls.read()
@@ -6869,4 +7047,5 @@ for k,v in pairs(consumable_graphics_table) do
     Image.destroy(v)
 end
 Image.destroy(card_graphic)
+Image.destroy(arrow)
 collectgarbage()

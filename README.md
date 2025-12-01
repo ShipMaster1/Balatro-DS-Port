@@ -13,7 +13,7 @@ An (almost complete) port of fire game Balatro to the nintendo DS made using Mic
 3. All tarot cards
 4. Tarots, planet and spectral cards work in consumable slot
 5. All packs added
-6. All vouchers apart
+6. All vouchers with some artwork
 7. All skip tags--with some slight differences
 8. All different stakes
 9. All different base decks + All challenge decks except Double or Nothing
