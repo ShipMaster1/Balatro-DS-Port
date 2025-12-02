@@ -5729,9 +5729,6 @@ function inflation_ability()
 end
 
 hard_reset()
-add_jokers_to_selection("Blueprint",{})
-add_jokers_to_selection("Smiley Face",{})
-add_jokers_to_selection("Brainstorm",{})
 collectgarbage("generational")--seems to work better
 while not Keys.newPress.Select do
     Controls.read()
